@@ -31,6 +31,28 @@ function findById(id) {
 function updateOneById(id, updatedData) {
     const user = findById(id);
     if (user) {
-        
+        Object.assign(user, updatedData);
+        return user;
     }
+    return false;
 }
+
+function deleteOneById(id) {
+    const item = findById(id);
+    if (item) {
+        const initialLength = userArray.length;
+        userArray = userArray.filter((user) => user.id != Number(id));
+        return userArray.length < initialLength;
+    }
+    return false;
+}
+
+module.exports = {
+    getAll,
+    addOne,
+    findById,
+    updateOneById,
+    deleteOneById
+}
+
+module.exports = User;
