@@ -1,0 +1,16 @@
+.genres {
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.genres h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.genre-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    justify-content: center;
+}

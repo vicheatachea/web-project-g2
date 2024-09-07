@@ -1,0 +1,15 @@
+.new-releases {
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.new-releases h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.album-cards {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}

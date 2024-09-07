@@ -1,0 +1,58 @@
+/* Basic reset and styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .logo {
+    font-size: 24px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  
+  .search-container {
+    flex: 1;
+    display: flexbox;
+    justify-content: left;
+    margin: 0 20px; /* Adjust spacing as needed */
+  }
+  
+  .search-container input {
+    width: 100%;
+    max-width: 900px; /* Adjust width as needed */
+    padding: 8px;
+    border: none;
+    border-radius: 4px; 
+  }
+
+  .nav ul {
+    list-style: none;
+    display: flex;
+    padding-right: 5rem;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+
+.nav ul li a svg {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
