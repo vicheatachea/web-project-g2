@@ -18,6 +18,10 @@
     "react-dom": "^18.3.1",
     "rollup": "^4.21.2"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "*",
+    "@rollup/rollup-darwin-x64": "*"
+  },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
