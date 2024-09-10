@@ -2,7 +2,7 @@
 
 ## Credentials Setup
 
-In the [controllers](./controllers) directory create a file named `credentials.js` and add the following code:
+In the [controllers](./controllers) directory create a file named `credentials.json` and add the following code:
 
 ```json
 {
