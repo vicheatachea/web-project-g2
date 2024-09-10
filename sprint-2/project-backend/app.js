@@ -11,7 +11,7 @@ app.use("/users", userRouter);
 // Connects to Spotify API
 app.use("/spotify", spotifyRouter);
 
-const port = 4000;
+const port = 4000; // This should probably match the frontend port once they are together
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
