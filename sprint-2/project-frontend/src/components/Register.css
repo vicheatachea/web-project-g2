@@ -1,0 +1,65 @@
+/* register.css */
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fafafa; /* Optional background color */
+  }
+  
+  .register-box {
+    border: 1px solid #E5E5E5;
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 100%;
+    background-color: #ffffff;
+  }
+  
+  .register-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #000;
+  }
+  
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #E5E5E5;
+    background-color: #F5F5F5;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .link-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .link {
+    color: #635BFF;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+    color: #5248d0; /* Darker purple on hover */
+  }
+  
