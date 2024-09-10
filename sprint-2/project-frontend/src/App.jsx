@@ -1,24 +1,19 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-// import Tabs from './components/Tabs';
-import NewReleases from './components/NewReleases';
-import TopHits from './components/TopHits';
-import BrowseByGenre from './components/BrowseByGenre';
-import Footer from './components/Footer';
+import Home from './pages/home';
 import './App.css';
 
 function App() {
     return (
         <div className="App">
-            <Header />
-            <Hero />
-            {/* <Tabs /> */}
-            <NewReleases />
-            <TopHits/>
-            <BrowseByGenre />
-            <Footer />
+            
+            <Router>
+                <Routes>
+                    
+                    <Route path='/' element={<Home />} />
+                </Routes>
+            </Router>
         </div>
     );
 }
