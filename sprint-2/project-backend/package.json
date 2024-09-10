@@ -14,9 +14,12 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "mongoose": "^8.6.1",
+    "project-backend": "file:",
     "request": "^2.88.2"
   },
   "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.4"
   }
 }
