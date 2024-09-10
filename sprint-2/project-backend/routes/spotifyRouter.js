@@ -4,21 +4,23 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const {
     loginUser,
-    requestTokens,
+    callbackSpotify,
     refreshToken
 } = require('../controllers/spotifyController');
 
 router.use(cors())
     .use(cookieParser());
 
+// Login to Spotify with client id and secret
 router.get('/login', loginUser)
 
-router.get('/callback', requestTokens)
+// Callback from Spotify to request access and refresh tokens
+router.get('/callback', callbackSpotify)
 
-router.get('/refresh_token', refreshToken)
+// Refresh the access token
+router.get('/refresh-token', refreshToken)
 
-
-// Get Spotify search data
+// Get Spotify search data (NOT WORKING YET)
 router.get("/search")
 
 module.exports = router;
