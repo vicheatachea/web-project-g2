@@ -1,7 +1,6 @@
 const crypto = require("crypto");
 const querystring = require("querystring");
 const request = require("request");
-
 const path = require("path");
 const fs = require("fs");
 
@@ -13,6 +12,14 @@ const {clientId, clientSecret} = JSON.parse(jsonData);
 const redirectUri = "http://localhost:4000/spotify/callback";
 const stateKey = "spotify_auth_state";
 
+// Token storage since there is only one user
+let tokenStorage = {
+    accessToken: null,
+    refreshToken: null,
+    accessTokenCreatedAt: null,
+    refreshTokenCreatedAt: null
+};
+
 function generateRandomString(length) {
     return crypto.randomBytes(60).toString("hex").slice(0, length);
 }
@@ -22,6 +29,7 @@ function loginUser(req, res) {
     res.cookie(stateKey, state);
 
     // The application will request authorization
+    // The permissions in scope are probably more than what's necessary for the program
     const scope = "user-read-private user-read-email";
     res.redirect(
         "https://accounts.spotify.com/authorize?" +
@@ -71,18 +79,26 @@ function callbackSpotify(req, res) {
                 const access_token = body.access_token,
                     refresh_token = body.refresh_token;
 
+                Object.assign(tokenStorage, {
+                    accessToken: access_token,
+                    refreshToken: refresh_token,
+                    accessTokenCreatedAt: Date.now(),
+                    refreshTokenCreatedAt: Date.now(),
+                });
+
+                // Create the request options for the user data
                 const options = {
                     url: "https://api.spotify.com/v1/me",
                     headers: {Authorization: "Bearer " + access_token},
                     json: true,
                 };
 
-                // use the access token to access the Spotify Web API
+                // Use the access token to access the Spotify Web API
                 request.get(options, function (error, response, body) {
                     console.log(body);
                 });
 
-                // we can also pass the token to the browser to make requests from there
+                // Pass the token to the browser as a URL
                 res.redirect(
                     "/#" +
                     querystring.stringify({
@@ -103,7 +119,7 @@ function callbackSpotify(req, res) {
 }
 
 function refreshToken(req, res) {
-    const refresh_token = req.query.refresh_token;
+    const refresh_token = tokenStorage.refreshToken;
     const authOptions = {
         url: "https://accounts.spotify.com/api/token",
         headers: {

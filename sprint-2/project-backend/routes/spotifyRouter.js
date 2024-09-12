@@ -17,7 +17,7 @@ router.get('/login', loginUser)
 // Callback from Spotify to request access and refresh tokens
 router.get('/callback', callbackSpotify)
 
-// Refresh the access token
+// Refresh the access token (PARTIALLY WORKING)
 router.get('/refresh-token', refreshToken)
 
 // Get Spotify search data (NOT WORKING YET)
