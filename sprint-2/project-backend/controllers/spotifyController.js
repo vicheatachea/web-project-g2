@@ -86,26 +86,7 @@ function callbackSpotify(req, res) {
                     refreshTokenCreatedAt: Date.now(),
                 });
 
-                // Create the request options for the user data
-                const options = {
-                    url: "https://api.spotify.com/v1/me",
-                    headers: {Authorization: "Bearer " + access_token},
-                    json: true,
-                };
-
-                // Use the access token to access the Spotify Web API
-                request.get(options, function (error, response, body) {
-                    console.log(body);
-                });
-
-                // Pass the token to the browser as a URL
-                res.redirect(
-                    "/#" +
-                    querystring.stringify({
-                        access_token: access_token,
-                        refresh_token: refresh_token,
-                    })
-                );
+                res.redirect('/');
             } else {
                 res.redirect(
                     "/#" +
@@ -147,8 +128,22 @@ function refreshToken(req, res) {
     });
 }
 
+function searchSpotify(req, res) {
+    const searchQuery = req.params.query;
+    const options = {
+        url: `https://api.spotify.com/v1/search?q=${searchQuery}&type=track`,
+        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
+        json: true,
+    };
+
+    request.get(options, function (error, response, body) {
+        res.send(body);
+    });
+}
+
 module.exports = {
     loginUser,
     callbackSpotify,
     refreshToken,
+    searchSpotify,
 };
