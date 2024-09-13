@@ -184,11 +184,26 @@ function newReleases(req, res) {
     });
 }
 
+function topHits (req, res) {
+    const options = {
+        url: "https://api.spotify.com/v1/browse/recommendations", // This endpoint is incomplete
+        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
+        json: true,
+    }
+
+    request.get(options, function (error, response, body) {
+
+        // Additional filtering needed
+        res.send(body); // Replace with res.status().json()
+    });
+}
+
 module.exports = {
     loginUser,
     callbackSpotify,
     refreshToken,
     searchSpotify,
     recommendedGenres,
-    newReleases
+    newReleases,
+    topHits
 };
