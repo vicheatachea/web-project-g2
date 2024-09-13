@@ -7,22 +7,34 @@ const {
     loginUser,
     callbackSpotify,
     refreshToken,
-    searchSpotify
+    searchSpotify,
+    recommendedGenres,
+    newReleases,
+    topHits
 } = require('../controllers/spotifyController');
 
 router.use(cors())
     .use(cookieParser());
 
-// Login to Spotify with client id and secret
+// Make a login request to Spotify's server
 router.get('/login', loginUser)
 
-// Callback from Spotify to request access and refresh tokens
+// Callback from login to request access and refresh tokens
 router.get('/callback', callbackSpotify)
 
 // Refresh the access token (PARTIALLY WORKING)
 router.get('/refresh-token', refreshToken)
 
-// Get Spotify search data
-router.get('/search/:query', searchSpotify)
+// Get search data
+router.get('/search', searchSpotify)
+
+// Get recommended (random) genres
+router.get('/genres', recommendedGenres)
+
+// Get new album releases
+router.get('/new-releases', newReleases)
+
+// Get top hits (NOT WORKING, SEE CONTROLLER)
+router.get('/top-hits', topHits)
 
 module.exports = router;
