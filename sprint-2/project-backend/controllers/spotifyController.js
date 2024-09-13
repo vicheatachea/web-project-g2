@@ -129,15 +129,58 @@ function refreshToken(req, res) {
 }
 
 function searchSpotify(req, res) {
-    const searchQuery = req.params.query;
+    const searchQuery = req.query.q;
+    const searchType = req.query.type;
+
+    console.log("Query: " + searchQuery + " Type: " + searchType);
     const options = {
-        url: `https://api.spotify.com/v1/search?q=${searchQuery}&type=track`,
+        url: `https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`,
         headers: {Authorization: "Bearer " + tokenStorage.accessToken},
         json: true,
     };
 
     request.get(options, function (error, response, body) {
-        res.send(body);
+
+        // Additional filtering needed
+        res.send(body); // Replace with res.status().json()
+    });
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function recommendedGenres(req, res) {
+    const options = {
+        url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
+        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
+        json: true,
+    };
+
+    request.get(options, function (error, response, body) {
+        const TOTAL_GENRES = 10; // Number of genres to display
+        let genreArray = [];
+
+        for (let i = 0; i < TOTAL_GENRES; i++) {
+            const randomIndex = getRandomInt(body["genres"].length);
+            genreArray.push(body["genres"][randomIndex]);
+        }
+
+        res.send(genreArray); // Replace with res.status().json()
+    });
+}
+
+function newReleases(req, res) {
+    const options = {
+        url: "https://api.spotify.com/v1/browse/new-releases",
+        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
+        json: true,
+    };
+
+    request.get(options, function (error, response, body) {
+
+        // Additional filtering needed
+        res.send(body); // Replace with res.status().json()
     });
 }
 
@@ -146,4 +189,6 @@ module.exports = {
     callbackSpotify,
     refreshToken,
     searchSpotify,
+    recommendedGenres,
+    newReleases
 };

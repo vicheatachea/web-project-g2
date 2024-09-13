@@ -7,7 +7,9 @@ const {
     loginUser,
     callbackSpotify,
     refreshToken,
-    searchSpotify
+    searchSpotify,
+    recommendedGenres,
+    newReleases
 } = require('../controllers/spotifyController');
 
 router.use(cors())
@@ -23,6 +25,12 @@ router.get('/callback', callbackSpotify)
 router.get('/refresh-token', refreshToken)
 
 // Get Spotify search data
-router.get('/search/:query', searchSpotify)
+router.get('/search', searchSpotify)
+
+// Get Spotify genres
+router.get('/genres', recommendedGenres)
+
+// Get Spotify new releases
+router.get('/new-releases', newReleases)
 
 module.exports = router;
