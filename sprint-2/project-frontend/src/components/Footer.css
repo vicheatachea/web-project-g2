@@ -32,8 +32,8 @@
 .footer-content ul {
     list-style: none;
     display: flex;
-    gap: 150px;
-    padding-right: 10rem;
+    /*gap: 150px;*/
+    /*padding-right: 10rem;*/
 }
 
 .footer-content li a {
