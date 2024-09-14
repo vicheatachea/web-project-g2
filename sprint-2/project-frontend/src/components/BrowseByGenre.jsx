@@ -42,7 +42,8 @@ export default BrowseByGenres;
 
 
 
-/* import React, { useEffect, useState } from 'react';
+/*
+import React, { useEffect, useState } from 'react';
 import './BrowseByGenre.css';
 
 function BrowseByGenres() {
@@ -84,4 +85,4 @@ function BrowseByGenres() {
 }
 
 export default BrowseByGenres;
- */
+*/

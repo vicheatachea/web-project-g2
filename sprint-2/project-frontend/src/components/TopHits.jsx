@@ -37,7 +37,8 @@ function TopHits() {
 
 export default TopHits;
 
-/* import React, { useState, useEffect } from 'react';
+/*
+import React, { useState, useEffect } from 'react';
 import './TopHits.css';
 
 const TopHits = () => {
@@ -86,4 +87,4 @@ const TopHits = () => {
 };
 
 export default TopHits;
- */
+*/

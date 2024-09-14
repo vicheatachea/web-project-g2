@@ -1,16 +1,16 @@
 import React from 'react';
 import './Footer.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faFacebook, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons';
 
 
-function Footer({ theme }) {
+function Footer({theme}) {
     return (
         <footer className={`sickbeat-footer ${theme}`}>
             <div className="footer-content">
                 <nav>
                     <ul className="footer-nav">
-                    <div className="rights">&copy; 2024 SickBeat. All rights reserved</div>
+                        <div className="rights">&copy; 2024 SickBeat. All rights reserved</div>
                         <li className="company-section">
                             <a href="#">Company</a>
                             <div className="company-items">
@@ -29,7 +29,7 @@ function Footer({ theme }) {
                             </div>
                         </li>
                         <div className="social-section">
-                            <li><a href="#"><FontAwesomeIcon icon={faFacebook} size="lg" /></a></li>
+                            <li><a href="#"><FontAwesomeIcon icon={faFacebook} size="lg"/></a></li>
                             <li><a href="#"><FontAwesomeIcon icon={faInstagram} size='lg'/></a></li>
                             <li><a href="#"><FontAwesomeIcon icon={faTwitter} size='lg'/></a></li>
                         </div>

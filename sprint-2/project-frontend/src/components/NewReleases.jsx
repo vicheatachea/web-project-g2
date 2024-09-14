@@ -55,7 +55,8 @@ export default NewReleases;
 
 
 
-/* import React, { useState, useEffect } from 'react';
+/*
+import React, { useState, useEffect } from 'react';
 import './NewReleases.css';
 
 function NewReleases() {
@@ -112,4 +113,4 @@ function NewReleases() {
 }
 
 export default NewReleases;
- */
+*/
