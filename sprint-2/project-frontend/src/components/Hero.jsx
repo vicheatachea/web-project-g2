@@ -4,20 +4,16 @@ import './Hero.css';
 function Hero() {
     return (
         <section className="hero">
+            <div className="hero-background">
             <div className="hero-content">
-                <h2>FIND MUSIC THAT MATCHES YOUR TASTE</h2>
-                <div className="statistics">
-                    <span>200+</span>
-                    <span>2,000+</span>
-                    <span>30,000+</span>
+                <h1 className="sickbeat-phrase">FIND MUSIC THAT MATCHES YOUR TASTE</h1>
+                <div className="sickbeat-text">
+                    Browse through our diverse range of carefully selected songs, designed to bring out your individuality and cater to your sense of style.
                 </div>
-                <div className="artist-slider">
-                    <button className="prev">‹</button>
-                    <div className="artists">
-                        {/* Add artist images here */}
-                    </div>
-                    <button className="next">›</button>
+                <div className="browse-button">
+                    <button>Browse Now</button>
                 </div>
+            </div>
             </div>
         </section>
     );
