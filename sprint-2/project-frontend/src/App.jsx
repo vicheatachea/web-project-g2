@@ -9,8 +9,6 @@ import BrowseByGenre from './components/BrowseByGenre';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import Header from './components/Header';
-import Footer from './components/Footer';
 import Home from './pages/home';
 import './App.css';
 
@@ -36,11 +34,6 @@ function App() {
                     
                 </Routes>
             </Router>
-            <Hero />
-            <NewReleases />
-            <TopHits />
-            <BrowseByGenre theme={theme} />
-            
             <Footer theme={theme} />
         </div> 
     );
