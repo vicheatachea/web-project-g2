@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const querystring = require("querystring");
-const request = require("request");
+const axios = require("axios");
 const path = require("path");
 const fs = require("fs");
 
@@ -29,8 +29,8 @@ function loginUser(req, res) {
     res.cookie(stateKey, state);
 
     // The application will request authorization
-    // The permissions in scope are probably more than what's necessary for the program
-    const scope = "user-read-private user-read-email";
+    // The permissions in scope were removed since they are not needed
+    const scope = "";
     res.redirect(
         "https://accounts.spotify.com/authorize?" +
         querystring.stringify({
@@ -43,7 +43,7 @@ function loginUser(req, res) {
     );
 }
 
-function callbackSpotify(req, res) {
+async function callbackSpotify(req, res) {
     // The application requests refresh and access tokens after checking the state parameter
     const code = req.query.code || null;
     const state = req.query.state || null;
@@ -58,144 +58,126 @@ function callbackSpotify(req, res) {
         );
     } else {
         res.clearCookie(stateKey);
-        const authOptions = {
-            url: "https://accounts.spotify.com/api/token",
-            form: {
-                code: code,
-                redirect_uri: redirectUri,
-                grant_type: "authorization_code",
-            },
-            headers: {
-                "content-type": "application/x-www-form-urlencoded",
-                Authorization:
-                    "Basic " +
-                    new Buffer.from(clientId + ":" + clientSecret).toString("base64"),
-            },
-            json: true,
-        };
-
-        request.post(authOptions, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
-                const access_token = body.access_token,
-                    refresh_token = body.refresh_token;
-
-                Object.assign(tokenStorage, {
-                    accessToken: access_token,
-                    refreshToken: refresh_token,
-                    accessTokenCreatedAt: Date.now(),
-                    refreshTokenCreatedAt: Date.now(),
+        try {
+            const response = await axios.post("https://accounts.spotify.com/api/token",
+                querystring.stringify({
+                    code: code,
+                    redirect_uri: redirectUri,
+                    grant_type: "authorization_code",
+                }), {
+                    headers: {
+                        "content-type": "application/x-www-form-urlencoded",
+                        Authorization: "Basic " + Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+                    }
                 });
 
-                res.redirect('/');
-            } else {
-                res.redirect(
-                    "/#" +
-                    querystring.stringify({
-                        error: "invalid_token",
-                    })
-                );
-            }
-        });
+            const { access_token, refresh_token } = response.data;
+            Object.assign(tokenStorage, {
+                accessToken: access_token,
+                refreshToken: refresh_token,
+                accessTokenCreatedAt: Date.now(),
+                refreshTokenCreatedAt: Date.now(),
+            });
+
+            res.redirect('/');
+        } catch (error) {
+            res.redirect(
+                "/#" +
+                querystring.stringify({
+                    error: "invalid_token",
+                })
+            );
+        }
     }
 }
 
-function refreshToken(req, res) {
+async function refreshToken(req, res) {
     const refresh_token = tokenStorage.refreshToken;
-    const authOptions = {
-        url: "https://accounts.spotify.com/api/token",
-        headers: {
-            "content-type": "application/x-www-form-urlencoded",
-            Authorization:
-                "Basic " +
-                new Buffer.from(clientId + ":" + clientSecret).toString("base64"),
-        },
-        form: {
-            grant_type: "refresh_token",
-            refresh_token: refresh_token,
-        },
-        json: true,
-    };
-
-    request.post(authOptions, function (error, response, body) {
-        if (!error && response.statusCode === 200) {
-            const access_token = body.access_token,
-                refresh_token = body.refresh_token;
-            res.send({
-                access_token: access_token,
+    try {
+        const response = await axios.post("https://accounts.spotify.com/api/token",
+            querystring.stringify({
+                grant_type: "refresh_token",
                 refresh_token: refresh_token,
+            }), {
+                headers: {
+                    "content-type": "application/x-www-form-urlencoded",
+                    Authorization: "Basic " + Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+                }
             });
-        }
-    });
+
+        const { access_token, refresh_token: new_refresh_token } = response.data;
+        // Replace with res.status().json()
+        res.send({
+            access_token: access_token,
+            refresh_token: new_refresh_token,
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
 
-function searchSpotify(req, res) {
+async function searchSpotify(req, res) {
     const searchQuery = req.query.q;
     const searchType = req.query.type;
 
-    console.log("Query: " + searchQuery + " Type: " + searchType);
-    const options = {
-        url: `https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`,
-        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
-        json: true,
-    };
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`, {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
 
-    request.get(options, function (error, response, body) {
-
-        // Additional filtering needed
-        res.send(body); // Replace with res.status().json()
-    });
+        res.json(response.data); // Replace with res.status().json()
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-function recommendedGenres(req, res) {
-    const options = {
-        url: "https://api.spotify.com/v1/recommendations/available-genre-seeds",
-        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
-        json: true,
-    };
+async function recommendedGenres(req, res) {
+    try {
+        const response = await axios.get("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
 
-    request.get(options, function (error, response, body) {
-        const TOTAL_GENRES = 10; // Number of genres to display
+        const TOTAL_GENRES = 10;
         let genreArray = [];
 
         for (let i = 0; i < TOTAL_GENRES; i++) {
-            const randomIndex = getRandomInt(body["genres"].length);
-            genreArray.push(body["genres"][randomIndex]);
+            const randomIndex = getRandomInt(response.data["genres"].length);
+            genreArray.push(response.data["genres"][randomIndex]);
         }
 
-        res.send(genreArray); // Replace with res.status().json()
-    });
-}
-
-function newReleases(req, res) {
-    const options = {
-        url: "https://api.spotify.com/v1/browse/new-releases",
-        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
-        json: true,
-    };
-
-    request.get(options, function (error, response, body) {
-
-        // Additional filtering needed
-        res.send(body); // Replace with res.status().json()
-    });
-}
-
-function topHits (req, res) {
-    const options = {
-        url: "https://api.spotify.com/v1/browse/recommendations", // This endpoint is incomplete
-        headers: {Authorization: "Bearer " + tokenStorage.accessToken},
-        json: true,
+        res.json(genreArray); // Replace with res.status().json()
+    } catch (error) {
+        res.status(500).send(error);
     }
+}
 
-    request.get(options, function (error, response, body) {
+async function newReleases(req, res) {
+    try {
+        const response = await axios.get("https://api.spotify.com/v1/browse/new-releases", {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
 
-        // Additional filtering needed
-        res.send(body); // Replace with res.status().json()
-    });
+        res.json(response.data); // Replace with res.status().json()
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+async function topHits (req, res) {
+    try {
+        // This endpoint is incomplete, likely needs to be replaced
+        const response = await axios.get("https://api.spotify.com/v1/browse/recommendations", {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
+
+        res.json(response.data); // Replace with res.status().json()
+    } catch (error) {
+        res.status(500).send(error);
+    }
 }
 
 module.exports = {
