@@ -1,13 +1,11 @@
 const crypto = require("crypto");
 const querystring = require("querystring");
 const axios = require("axios");
-const path = require("path");
-const fs = require("fs");
+require("dotenv").config();
 
-// Get clientId and clientSecret from credentials.json
-const filePath = path.join(__dirname, "credentials.json");
-const jsonData = fs.readFileSync(filePath, "utf8");
-const {clientId, clientSecret} = JSON.parse(jsonData);
+// Get clientId and clientSecret
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 
 const redirectUri = "http://localhost:4000/api/spotify/callback";
 const stateKey = "spotify_auth_state";
