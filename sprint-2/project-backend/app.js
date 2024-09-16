@@ -1,23 +1,24 @@
 const connectDB = require("./config/db");
 const express = require("express");
+const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const userRouter = require("./routes/userRouter");
 const spotifyRouter = require("./routes/spotifyRouter");
 
-const app = express();
-
 connectDB();
+require ("dotenv").config();
 
-app.use(cors());
-app.use(morgan("dev"));
+app.use(cors())
+    .use(morgan("dev"));
+
 app.use(express.json());
 
-// Placeholder
-app.use("/users", userRouter);
+// Connects to MongoDB and authenticates the user
+app.use("/api/user", userRouter);
 
 // Connects to Spotify API
-app.use("/spotify", spotifyRouter);
+app.use("/api/spotify", spotifyRouter);
 
 const port = process.env.PORT || 4000;
 
