@@ -9,7 +9,7 @@ const filePath = path.join(__dirname, "credentials.json");
 const jsonData = fs.readFileSync(filePath, "utf8");
 const {clientId, clientSecret} = JSON.parse(jsonData);
 
-const redirectUri = "http://localhost:4000/spotify/callback";
+const redirectUri = "http://localhost:4000/api/spotify/callback";
 const stateKey = "spotify_auth_state";
 
 // Token storage since there is only one user
