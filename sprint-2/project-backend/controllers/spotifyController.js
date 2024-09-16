@@ -192,6 +192,7 @@ async function topHits (req, res) {
 }
 
 module.exports = {
+    tokenStorage,
     loginUser,
     callbackSpotify,
     refreshToken,
