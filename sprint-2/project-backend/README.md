@@ -5,8 +5,8 @@
 In the same path as this file ([project-backend](.)), create a `.env` file and add the following code:
 
 ```env
-PORT="your-port-number"
-MONGO_URI="your-mongodb-uri"
+PORT=your-port-number
+MONGO_URI=your-mongodb-uri
 ```
 
 Replace `your-port-number` with the port number you want the server to run on and `your-mongodb-uri` with the URI of your MongoDB database.
@@ -19,13 +19,11 @@ Head to the [Spotify Developer Dashboard](https://developer.spotify.com/dashboar
 
 After creating the application, head to **Settings** and copy the `Client ID` and `Client Secret`.
 
-In the [controllers](./controllers) directory create a file named `credentials.json` and add the following code:
+In the `.env` file, add the following code:
 
-```json
-{
-    "clientId": "your-client-id",
-    "clientSecret": "your-client-secret"
-}
+```env
+CLIENT_ID=your-client-id
+CLIENT_SECRET=your-client-secret
 ```
 
 Replace the `your-client-id` and `your-client-secret` with your own credentials.
