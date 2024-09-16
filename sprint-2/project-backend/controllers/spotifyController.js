@@ -27,7 +27,7 @@ function loginUser(req, res) {
     res.cookie(stateKey, state);
 
     // The application will request authorization
-    // The permissions in scope were removed since they are not needed
+    // The permissions in scope were removed since they are not needed but can be added it needed
     const scope = "";
     res.redirect(
         "https://accounts.spotify.com/authorize?" +
@@ -57,7 +57,8 @@ async function callbackSpotify(req, res) {
     } else {
         res.clearCookie(stateKey);
         try {
-            const response = await axios.post("https://accounts.spotify.com/api/token",
+            const response = await axios.post(
+                "https://accounts.spotify.com/api/token",
                 querystring.stringify({
                     code: code,
                     redirect_uri: redirectUri,
@@ -65,7 +66,8 @@ async function callbackSpotify(req, res) {
                 }), {
                     headers: {
                         "content-type": "application/x-www-form-urlencoded",
-                        Authorization: "Basic " + Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+                        Authorization: "Basic " + Buffer.from(
+                            clientId + ":" + clientSecret).toString("base64"),
                     }
                 });
 
@@ -92,18 +94,26 @@ async function callbackSpotify(req, res) {
 async function refreshToken(req, res) {
     const refresh_token = tokenStorage.refreshToken;
     try {
-        const response = await axios.post("https://accounts.spotify.com/api/token",
+        const response = await axios.post(
+            "https://accounts.spotify.com/api/token",
             querystring.stringify({
                 grant_type: "refresh_token",
                 refresh_token: refresh_token,
             }), {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded",
-                    Authorization: "Basic " + Buffer.from(clientId + ":" + clientSecret).toString("base64"),
+                    Authorization: "Basic " + Buffer.from(
+                        clientId + ":" + clientSecret).toString("base64"),
                 }
             });
 
         const { access_token, refresh_token: new_refresh_token } = response.data;
+
+        Object.assign(tokenStorage, {
+            accessToken: access_token,
+            accessTokenCreatedAt: Date.now(),
+        });
+
         // Replace with res.status().json()
         res.send({
             access_token: access_token,
@@ -119,7 +129,8 @@ async function searchSpotify(req, res) {
     const searchType = req.query.type;
 
     try {
-        const response = await axios.get(`https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`, {
+        const response = await axios.get(
+            `https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`, {
             headers: { Authorization: "Bearer " + tokenStorage.accessToken }
         });
 
@@ -135,7 +146,8 @@ function getRandomInt(max) {
 
 async function recommendedGenres(req, res) {
     try {
-        const response = await axios.get("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
+        const response = await axios.get(
+            "https://api.spotify.com/v1/recommendations/available-genre-seeds", {
             headers: { Authorization: "Bearer " + tokenStorage.accessToken }
         });
 
@@ -155,7 +167,8 @@ async function recommendedGenres(req, res) {
 
 async function newReleases(req, res) {
     try {
-        const response = await axios.get("https://api.spotify.com/v1/browse/new-releases", {
+        const response = await axios.get(
+            "https://api.spotify.com/v1/browse/new-releases", {
             headers: { Authorization: "Bearer " + tokenStorage.accessToken }
         });
 
@@ -167,8 +180,8 @@ async function newReleases(req, res) {
 
 async function topHits (req, res) {
     try {
-        // This endpoint is incomplete, likely needs to be replaced
-        const response = await axios.get("https://api.spotify.com/v1/browse/recommendations", {
+        const response = await axios.get(
+            "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF", {
             headers: { Authorization: "Bearer " + tokenStorage.accessToken }
         });
 
