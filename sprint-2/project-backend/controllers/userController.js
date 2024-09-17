@@ -1,15 +1,22 @@
 const User = require("../models/userModel");
 const mongoose = require("mongoose");
 
-const getUserData = async (req, res) => {
-	const userData = await User.findOne({ email: req.body.email }).exec();
-	console.log(userData);
-	return userData;
+const getUserData = async (req) => {
+	try {
+		const userData = await User.findOne({
+			email: req.body.email,
+			password: req.body.password,
+		}).exec();
+		return userData;
+	} catch (error) {
+		console.error("Error fetching user data:", error);
+		return null;
+	}
 };
 
 const createUser = async (req, res) => {
 	try {
-		const newUser = await User.create({ ...req.body })[1];
+		const newUser = await User.create({ ...req.body });
 		res.status(201).json(newUser);
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
@@ -27,8 +34,20 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-	const userData = await getUserData(req);
-	const userId = userData._id;
+    const { email, password } = req.body;
+    console.log(email, password);
+
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email or password are required!" });
+    }
+
+    const userData = await getUserData(req, res);
+
+	if (!userData) {
+		return res.status(401).json({ message: "Invalid email or password" });
+	}
+
+    const userId = userData._id;
 
 	if (!mongoose.Types.ObjectId.isValid(userId)) {
 		return res.status(400).json({ message: "Invalid ID" });
@@ -71,7 +90,7 @@ const deleteUser = async (req, res) => {
 	try {
 		const isDeleted = await User.findOneAndDelete({ _id: userId });
 		if (isDeleted) {
-			res.status(200).json({ message: "User deleted" });
+			res.status(204).json({ message: "User deleted" });
 		} else {
 			res.status(404).json({ message: "User not found" });
 		}
