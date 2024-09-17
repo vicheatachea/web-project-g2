@@ -1,79 +1,56 @@
-@media only screen and (min-width: 961px) {
-    /* Base Styles */
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arial Narrow Bold', sans-serif;
-        background-color: white;
-        color: #000;
-    }
+:root {
+    --background-color: #f0f0f0;
+    --text-color: #333;
+}
 
-    body.light {
-        background-color: #DBECF4;
-        color: #194569;
-    }
+/* Base Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial Narrow Bold', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-width: 820px;
+}
 
-    body.dark {
-        background-color: #5F84A2;
-        color: #194569;
-    }
+body.light {
+    --background-color: #f0f0f0;
+    --text-color: #333;
+}
 
-    .app.light {
-        background-color: #DBECF4;
-        color: #194569;
-    }
+body.dark {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+}
 
-    .app.dark {
-        background-color: #5F84A2;
-        color: #194569;
-    }
+.app.light {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
+.app.dark {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
-    /* Container */
-    .container {
-        width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
-    /* Header */
-    header {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+/* Hero Section */
+.hero {
+    text-align: center;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
-
-    header .logo {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-
-    header .icon-list {
-        list-style: none;
-        display: flex;
-        gap: 15px;
-    }
-
-
-    /* Hero Section */
-    .hero {
-        text-align: center;
-    }
-
-    .sickbeat-phrase {
-        font-size: 48px;
-        margin-bottom: 20px;
-    }
-
-    /* Footer */
-    footer {
-        text-align: center;
-        padding: 20px;
-        justify-content: center;
-        display: flex;
-    }
+.sickbeat-phrase {
+    font-size: 48px;
+    margin-bottom: 20px;
 }

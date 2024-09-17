@@ -1,63 +1,85 @@
 /* Light theme */
 .sickbeat-footer.light {
-    background-color: #5F84A2;
-    color: #194569;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .sickbeat-footer.light .social-section li a,
 .sickbeat-footer.light .footer-content li a {
-    color: #194569;
+    color: var(--text-color);
 }
 
 /* Dark theme */
 .sickbeat-footer.dark {
-    background-color: #194569;
-    color: #081f5c;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .sickbeat-footer.dark .social-section li a,
 .sickbeat-footer.dark .footer-content li a {
-    color: #081f5c;
+    color: var(--text-color);
 }
 
 /* General footer styles */
 .footer {
     padding: 20px;
-    background-color: #121212;
-    color: #fff;
+    background-color: var(--background-color);
+    color: var(--text-color);
     text-align: center;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .footer-content ul {
     list-style: none;
     display: flex;
-    /*gap: 150px;*/
-    /*padding-right: 10rem;*/
+    padding: 0;
+    margin: 0;
+}
+
+.footer-content li {
+    margin: 0 10px;
 }
 
 .footer-content li a {
     text-decoration: none;
-    padding-top: 4rem;
+    color: var(--text-color);
+}
+
+.footer-nav {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    align-items: center; /* Align items to the center */
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
 }
 
 .footer-nav > li {
     list-style: none;
-    margin: 0;
+    margin: 10px 20px; /* Add some margin for spacing */
     display: flex;
-    align-items: flex-start;
-    margin: 0 20px;
-    justify-content: space-around;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
     text-align: center;
 }
 
-.company-items,
-.help-items {
-    margin-top: 10px;
+.company-section, .help-section {
     display: flex;
     flex-direction: column;
-    padding-left: 4rem;
-    padding-top: 1rem;
+    align-items: center;
+}
+
+.company-items, .help-items {
+    margin-top: 5px; /* Reduce the margin to decrease space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem; /* Reduce padding to decrease space */
 }
 
 .nav-text {
@@ -68,24 +90,26 @@
 .rights {
     white-space: nowrap;
     text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 0; /* Remove top margin */
     display: flex;
-    padding-top: 3rem;
-    padding-left: 5rem;
+    justify-content: center;
+    padding-top: 0.5rem; /* Reduce padding to decrease space */
+    padding-left: 30px;
     font-size: medium;
 }
 
 .social-section {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 150px;
-    margin: 0 auto;
+}
+
+.social-section li {
+    margin: 0 5px;
 }
 
 .social-section li a {
     text-decoration: none;
     font-size: 18px;
-    margin-right: 15px;
 }

@@ -1,5 +1,5 @@
 .genres {
-    padding: 20px;
+    padding: 20px 90px 90px;
 }
 
 .genre-title {
@@ -14,13 +14,10 @@
     justify-content: center;
 }
 
-.genre-cards.dark {
-    color: #194569;
-}
-
 .genre-card {
     background-color: #fff;
     border: 1px solid #ddd;
+    color: #121212;
     border-radius: 10px;
     padding: 20px;
     text-align: center;

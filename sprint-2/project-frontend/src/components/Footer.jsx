@@ -10,22 +10,21 @@ function Footer({theme}) {
             <div className="footer-content">
                 <nav>
                     <ul className="footer-nav">
-                        <div className="rights">&copy; 2024 SickBeat. All rights reserved</div>
+                        <div className="rights">&copy; 2024 SickBeat.<br/> All rights reserved</div>
                         <li className="company-section">
-                            <a href="#">Company</a>
+                            <a href="#"><b>Company</b></a>
                             <div className="company-items">
-                                <div className="nav-text">About</div>
-                                <div className="nav-text">Features</div>
-                                <div className="nav-text">Works</div>
-                                <div className="nav-text">Career</div>
+                                <a href="" className="nav-text">About Us</a>
+                                <a href="" className="nav-text">Career Opportunities</a>
+                                <a href="" className="nav-text">Objectives</a>
                             </div>
                         </li>
                         <li className="help-section">
-                            <a href="#">Help</a>
+                            <a href="#"><b>Help</b></a>
                             <div className="help-items">
-                                <div className="nav-text">Customer Support</div>
-                                <div className="nav-text">Terms & Conditions</div>
-                                <div className="nav-text">Privacy Policy</div>
+                                <a href="" className="nav-text">Customer Support</a>
+                                <a href="" className="nav-text">Terms & Conditions</a>
+                                <a href="" className="nav-text">Privacy Policy</a>
                             </div>
                         </li>
                         <div className="social-section">

@@ -33,14 +33,14 @@
     display: flex;
     overflow: visible; /* Hide albums that are not visible */
     gap: 20px;
-    width: 80%; /* Adjust as needed to fit 6 albums */
+    width: 100%; /* Adjust as needed to fit 6 albums */
 }
 
 .album-card {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    width: calc(100% / 6 - 20px); /* Show 6 album cards at a time */
+    width: calc(100% / 6); /* Show 6 album cards at a time */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.2s ease-in-out;

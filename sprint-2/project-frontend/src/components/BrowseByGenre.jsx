@@ -9,11 +9,7 @@ function BrowseByGenres({ theme }) {
         { id: 3, name: 'Hip Hop' },
         { id: 4, name: 'Jazz' },
         { id: 5, name: 'Classical' },
-        { id: 6, name: 'Country' },
-        { id: 7, name: 'Electronic' },
-        { id: 8, name: 'Reggae' },
-        { id: 9, name: 'Blues' },
-        { id: 10, name: 'R&B' }
+        { id: 6, name: 'Country' }
     ];
 
     const handleGenreClick = (genreName) => {

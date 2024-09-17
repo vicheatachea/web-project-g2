@@ -68,7 +68,7 @@ const Register = () => {
                 <div className="link-container">
                     <p>
                         Already have an account?{" "}
-                        <a href="/sprint-2/project-frontend/src/components/Login" className="link">
+                        <a href="/login" className="link">
                             Click here to Log in
                         </a>
                     </p>
