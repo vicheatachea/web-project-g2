@@ -1,31 +1,30 @@
-/* register.css */
-
 .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #fafafa; /* Optional background color */
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .register-box {
-    border: 1px solid #E5E5E5;
+    border: 1px solid var(--text-color);
     padding: 40px;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--background-color);
 }
 
 .register-title {
     text-align: center;
     margin-bottom: 30px;
     font-size: 24px;
-    color: #000;
+    color: var(--text-color);
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .input-field {
@@ -33,19 +32,23 @@
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #E5E5E5;
-    background-color: #F5F5F5;
+    background-color: var(--text-color);
+    margin-bottom: 10px;
+    color: var(--background-color);
+    box-sizing: border-box;
+    border: 1px solid #ccc;
 }
 
 .submit-button {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: black;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .link-container {
@@ -60,6 +63,4 @@
 
 .link:hover {
     text-decoration: underline;
-    color: #5248d0; /* Darker purple on hover */
 }
-  

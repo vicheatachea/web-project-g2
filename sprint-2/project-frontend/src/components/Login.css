@@ -1,23 +1,25 @@
-/* Login.css */
-
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .login-box {
-    border: 1px solid #E5E5E5;
+    border: 1px solid var(--text-color);
     padding: 40px;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
+    background-color: var(--background-color);
 }
 
 .login-title {
     text-align: center;
     margin-bottom: 30px;
+    color: var(--text-color);
 }
 
 .input-field {
@@ -25,21 +27,23 @@
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    border: 1px solid #E5E5E5;
-    background-color: #F5F5F5;
+    background-color: var(--text-color);
     margin-bottom: 20px;
-    color: black;
+    color: var(--background-color);
+    box-sizing: border-box;
+    border: 1px solid #ccc;
 }
 
 .submit-button {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: black;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .link-container {
@@ -55,4 +59,3 @@
 .link:hover {
     text-decoration: underline;
 }
-  
