@@ -1,5 +1,5 @@
-# Sprint 1
-In this folder you can find all deliverables for the Sprint 1 of the web development project.
+# Sprint 2
+In this folder you can find all deliverables for the Sprint 2 of the web development project.
 
 ## Presentation
 [Canva Slides](project-presentation.pdf)
