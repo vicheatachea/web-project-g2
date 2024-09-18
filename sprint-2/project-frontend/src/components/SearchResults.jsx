@@ -11,6 +11,7 @@ function SearchResults() {
         { id: 6, title: 'Result Six', imgSrc: 'https://via.placeholder.com/150' },
         { id: 7, title: 'Result Seven', imgSrc: 'https://via.placeholder.com/150' },
         
+        
     ];
 
     return (
