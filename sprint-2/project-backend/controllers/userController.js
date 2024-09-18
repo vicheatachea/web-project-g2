@@ -7,7 +7,11 @@ const getUserData = async (req) => {
 			email: req.body.email,
 			password: req.body.password,
 		}).exec();
-		return userData;
+		if (!userData) {
+			return null;
+		} else {
+			return userData;
+		}
 	} catch (error) {
 		console.error("Error fetching user data:", error);
 		return null;
@@ -16,6 +20,10 @@ const getUserData = async (req) => {
 
 const createUser = async (req, res) => {
 	try {
+		const userData = await getUserData(req);
+		if (userData !== null) {
+			return res.status(400).json({ message: "User already exists" });
+		}
 		const newUser = await User.create({ ...req.body });
 		res.status(201).json(newUser);
 	} catch (error) {
@@ -34,20 +42,23 @@ const createUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { email, password } = req.body;
-    console.log(email, password);
+	const { email, password } = req.body;
+	console.log(email, password);
 
-    if (!email || !password) {
-        return res.status(400).json({ message: "Email or password are required!" });
-    }
-
-    const userData = await getUserData(req, res);
-
-	if (!userData) {
-		return res.status(401).json({ message: "Invalid email or password" });
+	if (!email || !password) {
+		return res
+			.status(400)
+			.json({ message: "Email or password are required!" });
 	}
 
-    const userId = userData._id;
+	const userData = await getUserData(req, res);
+	console.log(userData);
+
+	if (userData === null) {
+		return res.status(404).json({ message: "User not found" });
+	}
+
+	const userId = userData._id;
 
 	if (!mongoose.Types.ObjectId.isValid(userId)) {
 		return res.status(400).json({ message: "Invalid ID" });
@@ -80,12 +91,23 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-	const userData = await getUserData(req);
-	const userId = userData._id;
+	const { email, password } = req.body;
+	console.log(email, password);
 
-	if (!mongoose.Types.ObjectId.isValid(userId)) {
-		return res.status(400).json({ message: "Invalid ID" });
+	if (!email || !password) {
+		return res
+			.status(400)
+			.json({ message: "Email or password are required!" });
 	}
+
+	const userData = await getUserData(req, res);
+	console.log(userData);
+
+	if (userData === null) {
+		return res.status(404).json({ message: "User not found" });
+	}
+
+	const userId = userData._id;
 
 	try {
 		const isDeleted = await User.findOneAndDelete({ _id: userId });
