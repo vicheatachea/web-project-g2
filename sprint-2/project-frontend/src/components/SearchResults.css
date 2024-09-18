@@ -1,0 +1,91 @@
+.new-releases {
+    padding: 20px;
+}
+
+.new-releases-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+}
+
+.album-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.left-arrow, .right-arrow {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    outline: none;
+}
+
+.left-arrow:focus, .right-arrow:focus {
+    outline: none; /* Ensures no outline when button is focused */
+}
+
+.album-list {
+    display: flex;
+    overflow: visible; /* Hide albums that are not visible */
+    gap: 20px;
+    width: 100%; /* Adjust as needed to fit 6 albums */
+}
+
+.album-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: calc(100% / 6); /* Show 6 album cards at a time */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.album-card:hover {
+    transform: scale(1.05);
+}
+
+.album-image {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.album-title {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+}
+.new-releases {
+    text-align: center;
+}
+
+.album-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    justify-items: center;
+}
+
+.album-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.album-image {
+    width: 150px;
+    height: 150px;
+}
+
+.album-title {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    
+}

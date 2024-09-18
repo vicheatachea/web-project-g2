@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage.jsx';
 import './App.css';
-
+import SearchResultsPage from './pages/SearchResultsPage.jsx';
 function App() {
     const [theme, setTheme] = useState(() => {
         return localStorage.getItem('theme') || 'light';
@@ -32,6 +32,7 @@ function App() {
                     <Route path='/' element={<HomePage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/signup' element={<RegisterPage/>}/>
+                    <Route path='/search*' element={<SearchResultsPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer theme={theme}/>
