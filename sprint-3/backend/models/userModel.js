@@ -1,57 +1,32 @@
-let userArray = [];
+const mongoose = require("mongoose");
 
-let nextId = 1;
+const userSchema = new mongoose.Schema(
+	{
+		username: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: true,
+		},
+		role: {
+			type: String,
+			enum: ["admin", "user"],
+			default: "user",
+		},
+	},
+	{
+		timestamps: true,
+	}
+);
 
-function getAll() {
-  return userArray;
-}
-
-function addOne(userData) {
-  const { username, email, password } = userData;
-  if (!username || !email || !password) {
-    return false;
-  }
-
-  const newUser = {
-    id: nextId++,
-    ...userData,
-  };
-
-  userArray.push(newUser);
-  return newUser;
-}
-
-function findById(id) {
-  const userId = Number(id);
-  const user = userArray.find((user) => user.id == userId);
-  return user || false;
-}
-
-function updateOneById(id, updatedData) {
-  const user = findById(id);
-  if (user) {
-    Object.assign(user, updatedData);
-    return user;
-  }
-  return false;
-}
-
-function deleteOneById(id) {
-  const user = findById(id);
-  if (user) {
-    const initialLength = userArray.length;
-    userArray = userArray.filter((user) => user.id != Number(id));
-    return userArray.length < initialLength;
-  }
-  return false;
-}
-
-const User = {
-  getAll,
-  addOne,
-  findById,
-  updateOneById,
-  deleteOneById,
-};
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;

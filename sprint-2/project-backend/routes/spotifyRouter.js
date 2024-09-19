@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
+const checkTokenValidity = require('../middleware/checkTokenValidity');
 
 const cookieParser = require('cookie-parser');
 const {
@@ -21,6 +22,9 @@ router.get('/login', loginUser)
 
 // Callback from login to request access and refresh tokens
 router.get('/callback', callbackSpotify)
+
+// Checks if the access token exists or if it is still valid
+router.use(checkTokenValidity);
 
 // Refresh the access token (PARTIALLY WORKING)
 router.get('/refresh-token', refreshToken)

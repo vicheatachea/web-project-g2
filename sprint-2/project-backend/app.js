@@ -1,9 +1,12 @@
+const connectDB = require("./config/db");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
 const userRouter = require("./routes/userRouter");
 const spotifyRouter = require("./routes/spotifyRouter");
+
+connectDB();
 require ("dotenv").config();
 
 app.use(cors())
@@ -20,5 +23,5 @@ app.use("/api/spotify", spotifyRouter);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+	console.log(`Server is running on port ${port}`);
 });
