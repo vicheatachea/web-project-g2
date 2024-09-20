@@ -124,7 +124,7 @@ async function refreshToken(req, res) {
     }
 }
 
-async function searchSpotify(req, res) {
+async function searchSpotify(req, res, next) {
     const searchQuery = req.query.q;
     const searchType = req.query.type;
 
@@ -136,7 +136,7 @@ async function searchSpotify(req, res) {
 
         res.json(response.data); // Replace with res.status().json()
     } catch (error) {
-        res.status(500).send(error);
+        next(error);
     }
 }
 
@@ -144,7 +144,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
-async function recommendedGenres(req, res) {
+async function recommendedGenres(req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/recommendations/available-genre-seeds", {
@@ -161,11 +161,11 @@ async function recommendedGenres(req, res) {
 
         res.json(genreArray); // Replace with res.status().json()
     } catch (error) {
-        res.status(500).send(error);
+        next(error);
     }
 }
 
-async function newReleases(req, res) {
+async function newReleases(req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/browse/new-releases", {
@@ -174,11 +174,11 @@ async function newReleases(req, res) {
 
         res.json(response.data); // Replace with res.status().json()
     } catch (error) {
-        res.status(500).send(error);
+        next(error);
     }
 }
 
-async function topHits (req, res) {
+async function topHits (req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF", {
@@ -187,7 +187,7 @@ async function topHits (req, res) {
 
         res.json(response.data); // Replace with res.status().json()
     } catch (error) {
-        res.status(500).send(error);
+        next(error);
     }
 }
 

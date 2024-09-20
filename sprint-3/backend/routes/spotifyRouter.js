@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const checkTokenValidity = require('../middleware/checkTokenValidity');
-
 const cookieParser = require('cookie-parser');
+
+const {
+    checkTokenValidity,
+    errorHandler
+} = require('../middleware/spotifyMiddleware');
+
 const {
     loginUser,
     callbackSpotify,
@@ -40,5 +44,8 @@ router.get('/new-releases', newReleases)
 
 // Get top hits (NOT WORKING, SEE CONTROLLER)
 router.get('/top-hits', topHits)
+
+// Error handler based on Spotify's documentation
+router.use(errorHandler);
 
 module.exports = router;
