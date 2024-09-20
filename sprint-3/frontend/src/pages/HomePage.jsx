@@ -26,7 +26,7 @@ function HomePage() {
     const topHits = [];
 
     return (
-        <div>
+        <>
             <Hero/>
             <NewReleases/>
             <TopHits/>
@@ -34,7 +34,7 @@ function HomePage() {
             <CardList title="New Releases" items={newReleases} />
             <CardList title="Search Results" items={searchResults} />
             <CardList title="Top Hits" items={topHits} />
-        </div>
+        </>
     )
 }
 
