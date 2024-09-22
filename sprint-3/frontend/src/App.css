@@ -1,6 +1,18 @@
 :root {
-    --primary-color: #f0f0f0;
-    --secondary-color: #333;
+    --light-primary-color: #f0f0f0;
+    --light-secondary-color: #333;
+    --dark-primary-color: #121212;
+    --dark-secondary-color: #e0e0e0;
+}
+
+body.light {
+    --primary-color: var(--light-primary-color);
+    --secondary-color: var(--light-secondary-color);
+}
+
+body.dark {
+    --primary-color: var(--dark-primary-color);
+    --secondary-color: var(--dark-secondary-color);
 }
 
 /* Base Styles */
@@ -11,16 +23,6 @@ body, html {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     min-width: 820px;
-}
-
-body.light {
-    --primary-color: #f0f0f0;
-    --secondary-color: #333;
-}
-
-body.dark {
-    --primary-color: #121212;
-    --secondary-color: #e0e0e0;
 }
 
 .app.light {

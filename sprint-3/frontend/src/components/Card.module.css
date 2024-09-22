@@ -1,6 +1,7 @@
 .card {
+    background-color: var(--light-primary-color);
+    color: var(--dark-primary-color);
     border-radius: 10px;
-    background-color: var(--primary-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
@@ -14,5 +15,4 @@
     text-align: center;
     font-size: 16px;
     margin-top: 10px;
-    color: var(--secondary-color);
 }
