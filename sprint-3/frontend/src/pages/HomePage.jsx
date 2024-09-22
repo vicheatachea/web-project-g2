@@ -1,7 +1,5 @@
 import React from 'react'
 import Hero from '../components/Hero';
-import NewReleases from '../components/NewReleases';
-import TopHits from '../components/TopHits';
 import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
@@ -54,15 +52,11 @@ function HomePage() {
     return (
         <>
             <Hero/>
-            <NewReleases/>
-            <TopHits/>
-            <BrowseByGenre/>
-            <HorizontalLine/>
             <CardList title="New Releases" items={newReleases} />
             <HorizontalLine/>
-            <CardList title="Search Results" items={searchResults} />
-            <HorizontalLine/>
             <CardList title="Top Hits" items={topHits} />
+            <HorizontalLine/>
+            <BrowseByGenre/>
         </>
     )
 }
