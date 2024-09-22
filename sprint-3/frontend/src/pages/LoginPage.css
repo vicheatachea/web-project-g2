@@ -3,23 +3,23 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .login-box {
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--secondary-color);
     padding: 40px;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
 }
 
 .login-title {
     text-align: center;
     margin-bottom: 30px;
-    color: var(--text-color);
+    color: var(--secondary-color);
 }
 
 .input-field {
@@ -27,9 +27,9 @@
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    background-color: var(--text-color);
+    background-color: var(--secondary-color);
     margin-bottom: 20px;
-    color: var(--background-color);
+    color: var(--primary-color);
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
@@ -38,8 +38,8 @@
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: var(--text-color);
-    color: var(--background-color);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;
