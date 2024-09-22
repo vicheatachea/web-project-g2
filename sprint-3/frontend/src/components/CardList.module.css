@@ -1,14 +1,14 @@
-.cardSection {
+.cards {
     padding: 20px;
 }
 
-.cardTitle {
+.sectionTitle {
     text-align: center;
     font-size: 24px;
     margin: 20px 0 40px 0;
 }
 
-.cardSlider {
+.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +22,7 @@
     gap: 20px;
 }
 
-.cardArrow {
+.arrow {
     background: none;
     border: none;
     font-size: 30px;
@@ -31,11 +31,11 @@
     color: var(--secondary-color);
 }
 
-.cardArrow:hover {
+.arrow:hover {
     color: pink;
 }
 
-.cardArrow:focus {
+.arrow:focus {
     outline: none;
     box-shadow: none;
 }

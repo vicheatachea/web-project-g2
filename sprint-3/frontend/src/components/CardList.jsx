@@ -20,17 +20,17 @@ function CardList({ title, items }) {
     const canGoNext = currentIndex + visibleItems < items.length;
 
     return (
-        <section className={styles.cardSection}>
-            <h2 className={styles.cardTitle}>{title}</h2>
-            <div className={styles.cardSlider}>
-                <button className={`${styles.cardArrow} ${!canGoPrevious ? styles.hiddenArrow : ''}`}
+        <section className={styles.cards}>
+            <h2 className={styles.sectionTitle}>{title}</h2>
+            <div className={styles.container}>
+                <button className={`${styles.arrow} ${!canGoPrevious ? styles.hiddenArrow : ''}`}
                         onClick={handlePrevious}>❮</button>
                 <div className={styles.cardList}>
                     {items.slice(currentIndex, currentIndex + visibleItems).map(item => (
                         <Card key={item.id} item={item} />
                     ))}
                 </div>
-                <button className={`${styles.cardArrow} ${!canGoNext ? styles.hiddenArrow : ''}`}
+                <button className={`${styles.arrow} ${!canGoNext ? styles.hiddenArrow : ''}`}
                         onClick={handleNext}>❯</button>
             </div>
         </section>

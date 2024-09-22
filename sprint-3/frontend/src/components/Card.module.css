@@ -6,12 +6,12 @@
     width: 100%;
 }
 
-.cardImage {
+.image {
     width: 100%;
     border-radius: 10px;
 }
 
-.cardTitle {
+.title {
     text-align: center;
     font-size: 16px;
     margin-top: 10px;
