@@ -1,0 +1,49 @@
+.cardSection {
+    padding: 20px;
+}
+
+.cardTitle {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0 40px 0;
+}
+
+.cardSlider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.cardList {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cardArrow {
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 25px;
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+
+.cardArrow:hover {
+    color: pink;
+}
+
+.cardArrow:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.hiddenArrow {
+    color: var(--primary-color);
+}
+
+.hiddenArrow:hover {
+    color: var(--primary-color);
+}
