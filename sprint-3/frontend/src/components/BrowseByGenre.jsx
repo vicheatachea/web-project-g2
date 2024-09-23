@@ -1,16 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './BrowseByGenre.css';
+import {recommendedGenres} from "../utils/spotifyRequests.js";
 
 function BrowseByGenres({ theme }) {
-    // Dummy data for genres
-    const genres = [
-        { id: 1, name: 'Pop' },
-        { id: 2, name: 'Rock' },
-        { id: 3, name: 'Hip Hop' },
-        { id: 4, name: 'Jazz' },
-        { id: 5, name: 'Classical' },
-        { id: 6, name: 'Country' }
-    ];
+    const [genres, setGenres] = useState([]);
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            const genresData = await recommendedGenres();
+            console.log(genresData);
+            setGenres(genresData);
+        };
+
+        fetchGenres();
+    }, []);
 
     const handleGenreClick = (genreName) => {
         alert(`You clicked on the ${genreName} genre`);
@@ -23,10 +26,10 @@ function BrowseByGenres({ theme }) {
             <div className={`genre-cards ${theme}`}>
                 {genres.map((genre) => (
                     <div 
-                        key={genre.id} 
+                        key={genre}
                         className="genre-card" 
-                        onClick={() => handleGenreClick(genre.name)}>
-                        {genre.name}
+                        onClick={() => handleGenreClick(genre)}>
+                        {genre}
                     </div>
                 ))}
             </div>

@@ -120,6 +120,7 @@ async function refreshToken(req, res) {
             refresh_token: new_refresh_token,
         });
     } catch (error) {
+        // Replace with res.status().json()
         res.status(500).send(error);
     }
 }
@@ -152,14 +153,19 @@ async function recommendedGenres(req, res, next) {
         });
 
         const TOTAL_GENRES = 10;
+        const genres = response.data["genres"]
         let genreArray = [];
 
         for (let i = 0; i < TOTAL_GENRES; i++) {
-            const randomIndex = getRandomInt(response.data["genres"].length);
-            genreArray.push(response.data["genres"][randomIndex]);
+            const randomIndex = getRandomInt(genres.length);
+            if (!genreArray.includes(genres[randomIndex])) {
+                genreArray.push(genres[randomIndex]);
+            } else {
+                i--;
+            }
         }
 
-        res.json(genreArray); // Replace with res.status().json()
+        res.json({genreArray}); // Replace with res.status().json()
     } catch (error) {
         next(error);
     }
