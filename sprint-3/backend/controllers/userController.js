@@ -2,6 +2,7 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const axios = require("axios");
 require("dotenv").config();
 
 const jwt_secret_key = process.env.JWT_SECRET;
@@ -37,30 +38,11 @@ const getUserData = async (req) => {
 	}
 };
 
-const HashPassword = async (password) => {
-	const hashedPassword = await bcrypt.hash(password, 10);
-	return hashedPassword;
-};
-
 const registerUser = async (req, res, next) => {
+	const { username, email, password } = req.body;
+
 	try {
-		const { username, email, password, role } = req.body;
-		//console.log(req.body);
-
-		const userData = await getUserData(req, res);
-		//console.log(userData);
-
-		if (userData) {
-			return res.status(400).json({ message: "User already exists" });
-		}
-
-		const newUser = await User.create({
-			username,
-			email,
-			password: await HashPassword(password),
-			role,
-		});
-
+		const newUser = await User.signup(username, email, password);
 		loginUser(req, res, next, newUser, password);
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
@@ -108,6 +90,7 @@ const loginUser = async (
 		);
 		//console.log(passwordMatch);
 		const usernameMatch = email === userData.email;
+
 		if (!passwordMatch || !usernameMatch) {
 			return res
 				.status(401)
@@ -129,8 +112,8 @@ const loginUser = async (
 const updateUser = async (req, res) => {
 	const { username, email, password, role } = req.body;
 
-	if (!email) {
-		return res.status(400).json({ message: "Email is required!" });
+	if (!username && !email && !password && !role) {
+		return res.status(400).json({ message: "No data to update" });
 	}
 
 	const userData = await getUserData(req, res);
@@ -148,7 +131,7 @@ const updateUser = async (req, res) => {
 	try {
 		let updatedData = { username, email, password, role };
 		if (password) {
-			updatedData.password = await HashPassword(password);
+			updatedData.password = await bcrypt.hash(password, 10);
 		}
 
 		const updatedUser = await User.findOneAndUpdate(
