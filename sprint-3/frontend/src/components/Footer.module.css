@@ -1,27 +1,27 @@
 /* Light theme */
-.sickbeat-footer.light {
+.sickbeatFooter.light {
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
 
-.sickbeat-footer.light .social-section li a,
-.sickbeat-footer.light .footer-content li a {
+.sickbeatFooter.light .socialSection li a,
+.sickbeatFooter.light .footerContent li a {
     color: var(--secondary-color);
 }
 
 /* Dark theme */
-.sickbeat-footer.dark {
+.sickbeatFooter.dark {
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
 
-.sickbeat-footer.dark .social-section li a,
-.sickbeat-footer.dark .footer-content li a {
+.sickbeatFooter.dark .socialSection li a,
+.sickbeatFooter.dark .footerContent li a {
     color: var(--secondary-color);
 }
 
 /* General footer styles */
-.footer {
+.sickbeatFooter {
     padding: 20px;
     background-color: var(--primary-color);
     color: var(--secondary-color);
@@ -33,56 +33,58 @@
     overflow: hidden;
 }
 
-.footer-content ul {
+.footerContent ul {
     list-style: none;
     display: flex;
     padding: 0;
     margin: 0;
 }
 
-.footer-content li {
+.footerContent li {
     margin: 0 10px;
 }
 
-.footer-content li a {
+.footerContent li a {
     text-decoration: none;
     color: var(--secondary-color);
 }
 
-.footer-nav {
+.footerNav {
     list-style: none;
     margin: 0;
     display: flex;
-    align-items: center; /* Align items to the center */
+    align-items: center;
     justify-content: space-between;
     text-align: center;
     width: 100%;
 }
 
-.footer-nav > li {
+.footerNav > li {
     list-style: none;
-    margin: 10px 20px; /* Add some margin for spacing */
+    margin: 10px 20px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     align-items: center;
     text-align: center;
 }
 
-.company-section, .help-section {
+.companySection,
+.helpSection {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.company-items, .help-items {
-    margin-top: 5px; /* Reduce the margin to decrease space */
+.companyItems,
+.helpItems {
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.5rem; /* Reduce padding to decrease space */
+    padding: 0.5rem;
 }
 
-.nav-text {
+.navText {
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -90,26 +92,26 @@
 .rights {
     white-space: nowrap;
     text-align: center;
-    margin-top: 0; /* Remove top margin */
+    margin-top: 0;
     display: flex;
     justify-content: center;
-    padding-top: 0.5rem; /* Reduce padding to decrease space */
+    padding-top: 0.5rem;
     padding-left: 30px;
     font-size: medium;
 }
 
-.social-section {
+.socialSection {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 150px;
 }
 
-.social-section li {
+.socialSection li {
     margin: 0 5px;
 }
 
-.social-section li a {
+.socialSection li a {
     text-decoration: none;
     font-size: 18px;
 }
