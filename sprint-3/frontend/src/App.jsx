@@ -26,7 +26,7 @@ function App() {
     };
 
     return (
-        <div className={`app ${theme}`}>
+        <>
             <Header theme={theme} toggleTheme={toggleTheme}/>
             <BrowserRouter>
                 <Routes>
@@ -37,7 +37,7 @@ function App() {
                 </Routes>
             </BrowserRouter>
             <Footer theme={theme}/>
-        </div>
+        </>
     );
 }
 

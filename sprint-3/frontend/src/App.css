@@ -24,35 +24,3 @@ body, html {
     color: var(--secondary-color);
     min-width: 820px;
 }
-
-.app.light {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-}
-
-.app.dark {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-}
-
-/* Container */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-}
-
-.sickbeat-phrase {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
