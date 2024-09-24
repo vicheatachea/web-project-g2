@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const Playlist = require("./playlistModel");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -23,6 +24,10 @@ const userSchema = new mongoose.Schema(
 			enum: ["admin", "user"],
 			default: "user",
 		},
+		playlists: {
+            type: [Playlist.schema],
+            default: [],
+        }
 	},
 	{
 		timestamps: true,
