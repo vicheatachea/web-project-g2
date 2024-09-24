@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Login.css"; // Import the CSS file
 import { loginUser } from "../utils/userRequests";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -10,17 +11,19 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await loginUser({
-				email,
-				password,
-			});
-			console.log("Response:", response);
-			navigate("/");
-		} catch (err) {
-			console.error("Error:", err["response"]["data"]);
+		if (email !== "" && password !== "") {
+			try {
+				const response = await loginUser({
+					email,
+					password,
+				});
+				console.log("Response:", response);
+				navigate("/");
+				Cookies.set("jwt", response, { expires: 1 });
+			} catch (err) {
+				console.error("Error:", err["response"]["data"]);
+			}
 		}
-
 		//console.log("Email:", email);
 		//console.log("Password:", password);
 	};

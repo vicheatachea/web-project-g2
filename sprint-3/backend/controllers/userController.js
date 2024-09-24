@@ -100,8 +100,6 @@ const loginUser = async (
 		const token = jwt.sign({ userId: userData._id }, jwt_secret_key, {
 			expiresIn: "1h",
 		});
-		res.cookie("jwt", token, { httpOnly: true, secure: true });
-
 		console.log("Login Successful", token);
 		res.status(200).json({ message: "Login successful", token: token });
 	} catch (error) {
@@ -185,6 +183,44 @@ const deleteUser = async (req, res) => {
 		} else {
 			res.status(500).json({
 				message: "Failed to delete user",
+				error: error.message,
+			});
+		}
+	}
+};
+
+// WORK IN PROGRESS
+const addPlaylist = async (req, res) => {
+	const playlist = req.body;
+	const jwt = Cookies.get("jwt");
+
+	if (!jwt) {
+		return res.status(401).json({ message: "Unauthorized" });
+	}
+
+	const userId = jwt.verify(jwt, jwt_secret_key).userId;
+
+	try {
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: userId },
+			{ $push: { playlists: playlist } },
+			{ new: true }
+		);
+		if (updatedUser) {
+			res.status(200).json(updatedUser);
+		} else {
+			res.status(404).json({ message: "User not found" });
+		}
+
+	} catch (error) {
+		if (error instanceof mongoose.Error.ValidationError) {
+			res.status(400).json({
+				message: "Invalid input",
+				error: error.message,
+			});
+		} else {
+			res.status(500).json({
+				message: "Failed to update user",
 				error: error.message,
 			});
 		}
