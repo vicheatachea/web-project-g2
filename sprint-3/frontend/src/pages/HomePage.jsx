@@ -1,24 +1,24 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Hero from '../components/Hero';
 import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
+import {
+    recommendedGenres,
+    newReleases,
+} from "../utils/spotifyRequests.js";
 
 function HomePage() {
-    const newReleases = [
-        { id: 1, title: 'Album One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Album Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Album Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Album Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Album Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Album Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Album Seven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 8, title: 'Album Eight', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 9, title: 'Album Nine', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 10, title: 'Album Ten', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 11, title: 'Album Eleven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 12, title: 'Album Twelve', imgSrc: 'https://via.placeholder.com/150' },
-    ];
+    const [newAlbums, setNewAlbums] = useState([]);
+
+    useEffect(() => {
+        const fetchNewAlbums = async () => {
+            const albumData = await newReleases();
+            setNewAlbums(albumData);
+        };
+
+        fetchNewAlbums();
+    }, []);
 
     const searchResults = [
         { id: 1, title: 'Result One', imgSrc: 'https://via.placeholder.com/150' },
@@ -33,26 +33,26 @@ function HomePage() {
     ];
 
     const topHits = [
-        { id: 1, title: 'Song One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Song Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Song Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Song Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Song Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Song Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Song Seven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 8, title: 'Song Eight', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 9, title: 'Song Nine', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 10, title: 'Song Ten', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 11, title: 'Song Eleven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 12, title: 'Song Twelve', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 13, title: 'Song Thirteen', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 14, title: 'Song Fourteen', imgSrc: 'https://via.placeholder.com/150' },
+        { id: 1, name: 'Song One', image_url: 'https://via.placeholder.com/150' },
+        { id: 2, name: 'Song Two', image_url: 'https://via.placeholder.com/150' },
+        { id: 3, name: 'Song Three', image_url: 'https://via.placeholder.com/150' },
+        { id: 4, name: 'Song Four', image_url: 'https://via.placeholder.com/150' },
+        { id: 5, name: 'Song Five', image_url: 'https://via.placeholder.com/150' },
+        { id: 6, name: 'Song Six', image_url: 'https://via.placeholder.com/150' },
+        { id: 7, name: 'Song Seven', image_url: 'https://via.placeholder.com/150' },
+        { id: 8, name: 'Song Eight', image_url: 'https://via.placeholder.com/150' },
+        { id: 9, name: 'Song Nine', image_url: 'https://via.placeholder.com/150' },
+        { id: 10, name: 'Song Ten', image_url: 'https://via.placeholder.com/150' },
+        { id: 11, name: 'Song Eleven', image_url: 'https://via.placeholder.com/150' },
+        { id: 12, name: 'Song Twelve', image_url: 'https://via.placeholder.com/150' },
+        { id: 13, name: 'Song Thirteen', image_url: 'https://via.placeholder.com/150' },
+        { id: 14, name: 'Song Fourteen', image_url: 'https://via.placeholder.com/150' },
     ];
 
     return (
         <>
             <Hero/>
-            <CardList title="New Releases" items={newReleases} />
+            <CardList title="New Releases" items={newAlbums} />
             <HorizontalLine/>
             <CardList title="Top Hits" items={topHits} />
             <HorizontalLine/>

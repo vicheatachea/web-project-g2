@@ -40,7 +40,7 @@ async function recommendedGenres() {
 async function newReleases() {
     try {
         const response = await axios.get("api/spotify/new-releases");
-        return response.data.albums;
+        return response.data;
     } catch (error) {
         console.error(error.response.status, error.response.data);
         return [];
