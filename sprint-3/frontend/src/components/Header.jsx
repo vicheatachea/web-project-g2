@@ -1,10 +1,12 @@
 import React from 'react';
 import './Header.css';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faBell, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 
 function Header({ theme, toggleTheme }) {
     const [dropdownVisible, setDropdownVisible] = React.useState(false);
+    const navigate = useNavigate();
 
     const toggleDropdown = () => {
         setDropdownVisible(!dropdownVisible);
@@ -27,7 +29,8 @@ function Header({ theme, toggleTheme }) {
                         {dropdownVisible && (
                             <div className="dropdown-menu">
                                 <button className="mode-button" onClick={toggleTheme}>Light/Dark</button>
-                                <button className="my-profile-button">My profile</button>
+                                <button className="library-button" onClick={() => navigate('/library')}>My Library</button>
+                                <button className="account-button" onClick={() => navigate('/account')}>My Account</button>
                             </div>
                         )}
                     </li>

@@ -9,6 +9,9 @@ import HomePage from './pages/HomePage.jsx';
 import './App.css';
 import SearchResultsPage from './pages/SearchResultsPage.jsx';
 import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
+import AccountPage from './pages/AccountPage.jsx';
+import Library from './pages/LibraryPage.jsx';
+import LibraryPage from './pages/LibraryPage.jsx';
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -36,6 +39,8 @@ function App() {
                     <Route path='/signup' element={<RegisterPage/>}/>
                     <Route path='/search' element={<SearchResultsPage />} />
                     <Route path='/player' element={<MusicPlayerPage />} />
+                    <Route path='/account' element={<AccountPage />} />
+                    <Route path='/library' element={<LibraryPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer theme={theme}/>
