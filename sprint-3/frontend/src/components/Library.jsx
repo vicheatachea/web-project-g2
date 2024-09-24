@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Library.css';
+import styles from './Library.module.css';
 
 
 const Library = ({ theme }) => {
@@ -29,7 +29,7 @@ const Library = ({ theme }) => {
    // If library is not logged in, redirect to login
    if (!isLoggedIn) {
        return (
-           <div className="redirect-login">
+           <div className={styles.redirectLogin}>
                <p>You are not logged in. <a href='/login'>Log in here</a></p>
            </div>
        );
@@ -37,16 +37,16 @@ const Library = ({ theme }) => {
 
 
    return (
-       <div className={`library ${theme}`}>
-           <h1 className='library-title'>My Saved Songs and Playlists</h1>
+       <div className={`${styles.library} library-page ${theme}`}>
+           <h1 className={styles.libraryTitle}>My Saved Songs and Playlists</h1>
 
 
-           <div className="playlist-section">
-               <h2 className='playlist-title'>Playlists</h2>
+           <div className={styles.playlistSection}>
+               <h2 className={styles.playlistTitle}>Playlists</h2>
                {playlists.length > 0 ? (
-                                   <ul className='playlist-display'>
+                                   <ul className={styles.playlistDisplay}>
                                    {playlists.map((playlist) => (
-                                       <li className='playlist-id' key={playlist.id}>
+                                       <li className={styles.playlistId} key={playlist.id}>
                                            <strong>{playlist.name}</strong> - {playlist.description} ({playlist.totalSongs} songs)
                                        </li>
                                    ))}
@@ -57,12 +57,12 @@ const Library = ({ theme }) => {
                        </div>
             
             
-                       <div className="songs-section">
-                           <h2 className='songs-title'>Songs</h2>
+                       <div className={styles.songsSection}>
+                           <h2 className={styles.songsTitle}>Songs</h2>
                            {songs.length > 0 ? (
-                               <ul className='songs-display'>
+                               <ul className={styles.songsDisplay}>
                                    {songs.map((song) => (
-                                       <li className="songs-id"key={song.id}>
+                                       <li className={styles.songsId} key={song.id}>
                                            <strong>{song.name}</strong> by {song.artist}
                                        </li>
                                    ))}

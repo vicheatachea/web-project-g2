@@ -1,16 +1,15 @@
 import {useState, useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import './App.css';
 import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage.jsx';
-import './App.css';
 import SearchResultsPage from './pages/SearchResultsPage.jsx';
 import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
 import AccountPage from './pages/AccountPage.jsx';
-import Library from './pages/LibraryPage.jsx';
 import LibraryPage from './pages/LibraryPage.jsx';
 
 function App() {
@@ -31,8 +30,8 @@ function App() {
 
     return (
         <>
-            <Header theme={theme} toggleTheme={toggleTheme}/>
             <BrowserRouter>
+            <Header theme={theme} toggleTheme={toggleTheme}/>
                 <Routes>
                     <Route path='/' element={<HomePage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
@@ -42,8 +41,8 @@ function App() {
                     <Route path='/account' element={<AccountPage />} />
                     <Route path='/library' element={<LibraryPage />} />
                 </Routes>
-            </BrowserRouter>
             <Footer theme={theme}/>
+            </BrowserRouter>
         </>
     );
 }

@@ -8,7 +8,7 @@
  }
  
  
- .library-title {
+ .libraryTitle {
     margin-bottom: 30px;
     font-size: 32px;
     color: #333;
@@ -16,7 +16,7 @@
  
  
  /* Main sections for profile, playlists, and songs */
- .playlist-section, .songs-section {
+ .playlistSection, .songsSection {
     width: 100%;
     max-width: 800px;
     background-color: #fff;
@@ -28,7 +28,7 @@
  }
  
  
- .playlist-title, .songs-title {
+ .playlistTitle, .songsTitle {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
@@ -36,39 +36,39 @@
  
  
  /* Styling the list of playlists and songs */
- .playlist-display, .songs-display {
+ .playlistDisplay, .songsDisplay {
     list-style: none;
     padding: 0;
  }
  
  
- .playlist-id, .songs-id {
+ .playlistId, .songsId {
     padding: 10px;
     border-bottom: 1px solid #ddd;
  }
  
  
  /* Redirect Login */
- .redirect-login {
+ .redirectLogin {
     text-align: center;
     font-size: 18px;
  }
  
  
- .redirect-login p {
+ .redirectLogin p {
     font-size: 16px;
     color: #333;
  }
  
  
- .redirect-login a {
+ .redirectLogin a {
     color: #333;
     text-decoration: none;
     font-weight: bold;
  }
  
  
- .redirect-login a:hover {
+ .redirectLogin a:hover {
     text-decoration: underline;
  }
  
@@ -78,7 +78,7 @@
  /* Responsive adjustments */
  @media (max-width: 768px) {
     .section,
-    .profile-section {
+    .profileSection {
         max-width: 100%;
         margin: 0 10px;
     }
