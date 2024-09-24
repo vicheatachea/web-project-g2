@@ -14,7 +14,7 @@ function spotifyLogin() {
 //     }
 // }
 
-async function searchSpotify (query) {
+async function searchSpotify(query) {
     try {
         const response = await axios.get("api/spotify/search", {
             params: {
@@ -30,22 +30,24 @@ async function searchSpotify (query) {
 async function recommendedGenres() {
     try {
         const response = await axios.get("/api/spotify/genres");
-        return response.data.genreArray;
+        return response.data.genres;
     } catch (error) {
-        console.error(error);
+        console.error(error.response.status, error.response.data);
+        return [];
     }
 }
 
-async function newReleases () {
+async function newReleases() {
     try {
         const response = await axios.get("api/spotify/new-releases");
-        return response.data;
+        return response.data.albums;
     } catch (error) {
-        console.error(error);
+        console.error(error.response.status, error.response.data);
+        return [];
     }
 }
 
-async function topHits () {
+async function topHits() {
     try {
         const response = await axios.get("api/spotify/new-releases");
         return response.data;
