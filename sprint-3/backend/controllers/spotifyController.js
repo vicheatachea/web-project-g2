@@ -71,7 +71,7 @@ async function callbackSpotify(req, res) {
                     }
                 });
 
-            const { access_token, refresh_token } = response.data;
+            const {access_token, refresh_token} = response.data;
             Object.assign(tokenStorage, {
                 accessToken: access_token,
                 refreshToken: refresh_token,
@@ -107,7 +107,7 @@ async function refreshToken(req, res) {
                 }
             });
 
-        const { access_token, refresh_token: new_refresh_token } = response.data;
+        const {access_token, refresh_token: new_refresh_token} = response.data;
 
         Object.assign(tokenStorage, {
             accessToken: access_token,
@@ -132,8 +132,8 @@ async function searchSpotify(req, res, next) {
     try {
         const response = await axios.get(
             `https://api.spotify.com/v1/search?q=${searchQuery}&type=${searchType}`, {
-            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
-        });
+                headers: {Authorization: "Bearer " + tokenStorage.accessToken}
+            });
 
         res.json(response.data); // Replace with res.status().json()
     } catch (error) {
@@ -149,23 +149,23 @@ async function recommendedGenres(req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/recommendations/available-genre-seeds", {
-            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
-        });
+                headers: {Authorization: "Bearer " + tokenStorage.accessToken}
+            });
 
         const TOTAL_GENRES = 10;
-        const genres = response.data["genres"]
-        let genreArray = [];
+        const dataGenres = response.data.genres
+        let genres = [];
 
         for (let i = 0; i < TOTAL_GENRES; i++) {
-            const randomIndex = getRandomInt(genres.length);
-            if (!genreArray.includes(genres[randomIndex])) {
-                genreArray.push(genres[randomIndex]);
+            const randomIndex = getRandomInt(dataGenres.length);
+            if (!genres.includes(dataGenres[randomIndex])) {
+                genres.push(dataGenres[randomIndex]);
             } else {
                 i--;
             }
         }
 
-        res.json({genreArray}); // Replace with res.status().json()
+        res.status(200).json({genres});
     } catch (error) {
         next(error);
     }
@@ -175,21 +175,40 @@ async function newReleases(req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/browse/new-releases", {
-            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+                headers: {Authorization: "Bearer " + tokenStorage.accessToken}
+            });
+
+        const dataAlbums = response.data.albums.items;
+
+        const albums = dataAlbums.map(album => {
+            const artists = album.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }));
+
+            const image300x300 = album.images.find(image => image.height === 300 && image.width === 300);
+
+            return {
+                id: album.id,
+                name: album.name,
+                type: album.type,
+                image_url: image300x300 ? image300x300.url : null,
+                artists: artists
+            };
         });
 
-        res.json(response.data); // Replace with res.status().json()
+        res.status(200).json(albums);
     } catch (error) {
         next(error);
     }
 }
 
-async function topHits (req, res, next) {
+async function topHits(req, res, next) {
     try {
         const response = await axios.get(
             "https://api.spotify.com/v1/playlists/37i9dQZEVXbMDoHDwVN2tF", {
-            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
-        });
+                headers: {Authorization: "Bearer " + tokenStorage.accessToken}
+            });
 
         res.json(response.data); // Replace with res.status().json()
     } catch (error) {
