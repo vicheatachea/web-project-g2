@@ -1,5 +1,5 @@
 import React from 'react';
-import './BrowseByGenre.css';
+import styles from './BrowseByGenre.module.css';
 
 function BrowseByGenres({ theme }) {
     // Dummy data for genres
@@ -18,13 +18,13 @@ function BrowseByGenres({ theme }) {
     };
 
     return (
-        <section className="genres">
-            <h2 className="genre-title">Browse by Genres</h2>
-            <div className={`genre-cards ${theme}`}>
+        <section className={styles.genres}>
+            <h2 className={styles.genreTitle}>Browse by Genres</h2>
+            <div className={`${styles.genreCards} ${theme}`}>
                 {genres.map((genre) => (
                     <div 
                         key={genre.id} 
-                        className="genre-card" 
+                        className={styles.genreCard} 
                         onClick={() => handleGenreClick(genre.name)}>
                         {genre.name}
                     </div>
