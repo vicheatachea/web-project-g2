@@ -1,10 +1,13 @@
 import React from 'react'
-import Register from '../components/Register'
+import Register from '../components/Register';
 
-function RegisterPage() {
-    return (
-        <Register/>
-    )
+function LoginPage() {
+	return (
+		<div>
+			<Register />
+		</div>
+	);
 }
 
-export default RegisterPage
+export default LoginPage;
+

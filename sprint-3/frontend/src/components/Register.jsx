@@ -1,31 +1,40 @@
-import React, { useState } from "react";
-import "./register.css";
+import React from "react";
+import "./Register.css";
+import { useRegister } from "../hooks/useRegister";
+import { useField } from "../hooks/useField";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../utils/userRequests";
 
 const Register = () => {
-	const [email, setEmail] = useState("");
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
-	const navigate = useNavigate();
+	const emailField = useField("email");
+	const usernameField = useField("text");
+	const passwordField = useField("password");
+	const confirmPasswordField = useField("password");
+	const { register } = useRegister();
+	const Navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		if (password !== confirmPassword) {
-			alert("Passwords do not match");
-		}
+	const handleRegister = async () => {
 		try {
-			const response = await registerUser({
-				username,
-				email,
-				password,
-			});
-			console.log("Response:", response);
-			navigate("/");
+			if (
+				emailField.value !== "" ||
+				usernameField.value !== "" ||
+				passwordField.value !== "" ||
+				confirmPasswordField.value !== ""
+			) {
+				if (passwordField.value !== confirmPasswordField.value) {
+					alert("Passwords do not match");
+				}
+
+				register(
+					usernameField.value,
+					emailField.value,
+					passwordField.value
+				);
+				Navigate("/");
+			} else {
+				alert("Please fill in all fields");
+			}
 		} catch (err) {
-			console.error("Error:", err["response"]["data"]);
+			console.error("Error:", err);
 		}
 
 		//console.log("Email:", email);
@@ -38,45 +47,49 @@ const Register = () => {
 		<div className='register-container'>
 			<div className='register-box'>
 				<h2 className='register-title'>Register</h2>
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleRegister}>
 					<div className='input-group'>
 						<input
-							type='email'
+							type={emailField.type}
 							placeholder='EMAIL'
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
+							value={emailField.value}
+							onChange={emailField.onChange}
 							className='input-field'
-							required
+							autoComplete='current-email'
+							required={true}
 						/>
 					</div>
 					<div className='input-group'>
 						<input
-							type='text'
+							type={usernameField.type}
 							placeholder='USERNAME'
-							value={username}
-							onChange={(e) => setUsername(e.target.value)}
+							value={usernameField.value}
+							onChange={usernameField.onChange}
 							className='input-field'
-							required
+							autoComplete='current-username'
+							required={true}
 						/>
 					</div>
 					<div className='input-group'>
 						<input
-							type='password'
+							type={passwordField.type}
 							placeholder='PASSWORD'
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
+							value={passwordField.value}
+							onChange={passwordField.onChange}
 							className='input-field'
-							required
+							autoComplete='current-password'
+							required={true}
 						/>
 					</div>
 					<div className='input-group'>
 						<input
-							type='password'
+							type={confirmPasswordField.type}
 							placeholder='CONFIRM PASSWORD'
-							value={confirmPassword}
-							onChange={(e) => setConfirmPassword(e.target.value)}
+							value={confirmPasswordField.value}
+							onChange={confirmPasswordField.onChange}
 							className='input-field'
-							required
+							autoComplete='current-password'
+							required={true}
 						/>
 					</div>
 					<button type='submit' className='submit-button'>
