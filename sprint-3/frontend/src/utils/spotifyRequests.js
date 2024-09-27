@@ -14,16 +14,18 @@ function spotifyLogin() {
 //     }
 // }
 
-async function searchSpotify(query) {
+async function searchSpotify(query, type) {
     try {
         const response = await axios.get("api/spotify/search", {
             params: {
                 q: query,
+                type: type
             }
         });
-        return response.data;
+        return response.data.searches;
     } catch (error) {
-        console.error(error);
+        console.error(error.response.status, error.response.data);
+        return [];
     }
 }
 

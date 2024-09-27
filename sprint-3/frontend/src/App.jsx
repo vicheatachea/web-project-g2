@@ -27,19 +27,17 @@ function App() {
     };
 
     return (
-        <>
+        <BrowserRouter>
             <Header theme={theme} toggleTheme={toggleTheme}/>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/' element={<HomePage/>}/>
-                    <Route path='/login' element={<LoginPage/>}/>
-                    <Route path='/signup' element={<RegisterPage/>}/>
-                    <Route path='/search' element={<SearchResultsPage />} />
-                    <Route path='/player' element={<MusicPlayerPage />} />
-                </Routes>
-            </BrowserRouter>
+            <Routes>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/signup' element={<RegisterPage/>}/>
+                <Route path='/search' element={<SearchResultsPage/>}/>
+                <Route path='/player' element={<MusicPlayerPage/>}/>
+            </Routes>
             <Footer theme={theme}/>
-        </>
+        </BrowserRouter>
     );
 }
 

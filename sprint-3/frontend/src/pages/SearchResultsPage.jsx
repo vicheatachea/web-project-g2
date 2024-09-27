@@ -1,20 +1,51 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import CardList from "../components/CardList.jsx";
+import {useSearchParams} from "react-router-dom";
+import HorizontalLine from "../components/HorizontalLine.jsx";
+import {searchSpotify} from "../utils/spotifyRequests.js";
 
 function SearchResultsPage() {
-    const searches = [
-        { id: 1, title: 'Result One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Result Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Result Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Result Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Result Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Result Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Result Seven', imgSrc: 'https://via.placeholder.com/150' },
-    ];
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [trackResults, setTrackResults] = useState([]);
+    const [artistResults, setArtistResults] = useState([]);
+    const [albumResults, setAlbumResults] = useState([]);
+    const [playlistResults, setPlaylistResults] = useState([]);
+
+    useEffect(() => {
+        const fetchSearchResults = async () => {
+            for (const type of ["track", "artist", "album", "playlist"]) {
+                const searchResultsData = await searchSpotify(searchParams.get("q"), type);
+                switch (type) {
+                    case "track":
+                        setTrackResults(searchResultsData);
+                        break;
+                    case "artist":
+                        setArtistResults(searchResultsData);
+                        break;
+                    case "album":
+                        setAlbumResults(searchResultsData);
+                        break;
+                    case "playlist":
+                        setPlaylistResults(searchResultsData);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+        fetchSearchResults();
+    }, []);
 
     return (
         <>
-            <CardList title="Search Results" items={searches}/>
+            <CardList title={"Tracks"} items={trackResults}/>
+            <HorizontalLine/>
+            <CardList title={"Artists"} items={artistResults}/>
+            <HorizontalLine/>
+            <CardList title={"Albums"} items={albumResults}/>
+            <HorizontalLine/>
+            <CardList title={"Playlists"} items={playlistResults}/>
         </>
     )
 }
