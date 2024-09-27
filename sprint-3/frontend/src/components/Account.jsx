@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+// import axios from 'axios';
 import styles from './Account.module.css';
+import accountPicture from '../images/the-rock.jpg';
+
 
 const Account = ( {theme} ) => {
    const [fullName, setFullName] = useState('John Doe');
@@ -8,6 +11,36 @@ const Account = ( {theme} ) => {
    const [currentPassword, setCurrentPassword] = useState('');
    const [newPassword, setNewPassword] = useState('');
    const [confirmPassword, setConfirmPassword] = useState('');
+
+  /*  the code for handling change and upload
+  const [image, setImage] = useState(null);
+   const [preview, setPreview] = useState(null);
+
+    // Handle image selection
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+        setPreview(URL.createObjectURL(file)); // Show image preview
+    };
+
+    // Handle image upload
+    const handleImageUpload = async () => {
+        const formData = new FormData();
+        formData.append('profileImage', image);
+
+        try {
+            const response = await axios.post('/api/upload-profile-image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            // Handle success response, for example, update the profile picture
+            console.log('Image uploaded:', response.data.imageUrl);
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }; */
+
 
 
    const handleSaveChanges = () => {
@@ -27,6 +60,8 @@ const Account = ( {theme} ) => {
        console.log('Account deleted');
    };
 
+   const accountProfile = accountPicture
+
 
    return (
        <div className={`${styles.accountPage} account-page ${theme}`}>
@@ -36,15 +71,22 @@ const Account = ( {theme} ) => {
            {/* Account Picture Section */}
            <div className={styles.pictureSection}>
                <h2>Account Picture</h2>
-               <img className={styles.accountPicture} src="path_to_account_picture.jpg" alt="Account" />
-               <button className={styles.pictureButton}>Change Picture</button>
+               <img className={styles.accountPicture} src={accountProfile} alt="Account" />
+
            </div>
+          {/*  the real return call for changing account profile
+          <div className={styles.pictureSection}>
+            <h2>Account Picture</h2>
+            <img className={styles.accountPicture} src={preview || '/images/default.jpg'} alt="Account" />
+            <input type="file" accept="image/*" onChange={handleImageChange} />
+            <button className={styles.pictureButton} onClick={handleImageUpload}>Change Picture</button>
+            </div> */}
 
 
            {/* Basic Information Section */}
            <div className={styles.infoSection}>
                <h2>Basic Information</h2>
-               <label>Full Name:</label>
+               <label>Name:</label>
                <input className={styles.text} value={fullName} onChange={(e) => setFullName(e.target.value)} />
               
                <label>Email:</label>
