@@ -4,12 +4,13 @@ import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
 import {
-    recommendedGenres,
     newReleases,
+    topHits
 } from "../utils/spotifyRequests.js";
 
 function HomePage() {
     const [newAlbums, setNewAlbums] = useState([]);
+    const [hitTracks, setHitTracks] = useState([]);
 
     useEffect(() => {
         const fetchNewAlbums = async () => {
@@ -18,6 +19,15 @@ function HomePage() {
         };
 
         fetchNewAlbums();
+    }, []);
+
+    useEffect(() => {
+        const fetchTopHits = async () => {
+            const topHitsData = await topHits();
+            setHitTracks(topHitsData);
+        };
+
+        fetchTopHits();
     }, []);
 
     const searchResults = [
@@ -32,29 +42,12 @@ function HomePage() {
 
     ];
 
-    const topHits = [
-        { id: 1, name: 'Song One', image_url: 'https://via.placeholder.com/150' },
-        { id: 2, name: 'Song Two', image_url: 'https://via.placeholder.com/150' },
-        { id: 3, name: 'Song Three', image_url: 'https://via.placeholder.com/150' },
-        { id: 4, name: 'Song Four', image_url: 'https://via.placeholder.com/150' },
-        { id: 5, name: 'Song Five', image_url: 'https://via.placeholder.com/150' },
-        { id: 6, name: 'Song Six', image_url: 'https://via.placeholder.com/150' },
-        { id: 7, name: 'Song Seven', image_url: 'https://via.placeholder.com/150' },
-        { id: 8, name: 'Song Eight', image_url: 'https://via.placeholder.com/150' },
-        { id: 9, name: 'Song Nine', image_url: 'https://via.placeholder.com/150' },
-        { id: 10, name: 'Song Ten', image_url: 'https://via.placeholder.com/150' },
-        { id: 11, name: 'Song Eleven', image_url: 'https://via.placeholder.com/150' },
-        { id: 12, name: 'Song Twelve', image_url: 'https://via.placeholder.com/150' },
-        { id: 13, name: 'Song Thirteen', image_url: 'https://via.placeholder.com/150' },
-        { id: 14, name: 'Song Fourteen', image_url: 'https://via.placeholder.com/150' },
-    ];
-
     return (
         <>
             <Hero/>
             <CardList title="New Releases" items={newAlbums} />
             <HorizontalLine/>
-            <CardList title="Top Hits" items={topHits} />
+            <CardList title="Top Hits" items={hitTracks} />
             <HorizontalLine/>
             <BrowseByGenre/>
         </>

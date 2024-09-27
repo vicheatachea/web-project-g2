@@ -210,7 +210,27 @@ async function topHits(req, res, next) {
                 headers: {Authorization: "Bearer " + tokenStorage.accessToken}
             });
 
-        res.json(response.data); // Replace with res.status().json()
+        const dataTracks = response.data.tracks.items;
+
+        const tracks = dataTracks.map(item => {
+            const track = item.track;
+            const artists = track.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }));
+
+            const image300x300 = track.album.images.find(image => image.height === 300 && image.width === 300);
+
+            return {
+                id: track.id,
+                name: track.name,
+                type: track.type,
+                image_url: image300x300 ? image300x300.url : null,
+                artists: artists
+            };
+        });
+
+        res.status(200).json(tracks);
     } catch (error) {
         next(error);
     }

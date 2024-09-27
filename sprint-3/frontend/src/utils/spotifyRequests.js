@@ -49,10 +49,11 @@ async function newReleases() {
 
 async function topHits() {
     try {
-        const response = await axios.get("api/spotify/new-releases");
+        const response = await axios.get("api/spotify/top-hits");
         return response.data;
     } catch (error) {
-        console.error(error);
+        console.error(error.response.status, error.response.data);
+        return [];
     }
 }
 
