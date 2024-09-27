@@ -1,30 +1,31 @@
+/*Footer.module.css*/
 /* Light theme */
 .sickbeatFooter.light {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--light-footer-background);
+    color: var(--footer-text);
 }
 
 .sickbeatFooter.light .socialSection li a,
 .sickbeatFooter.light .footerContent li a {
-    color: var(--secondary-color);
+    color: var(--footer-text);
 }
 
 /* Dark theme */
 .sickbeatFooter.dark {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--footer-background);
+    color: var(--footer-text);
 }
 
 .sickbeatFooter.dark .socialSection li a,
 .sickbeatFooter.dark .footerContent li a {
-    color: var(--secondary-color);
+    color: var(--footer-text);
 }
 
 /* General footer styles */
 .sickbeatFooter {
     padding: 20px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--tertiary-color);
+    color: var(--footer-text);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -32,6 +33,8 @@
     justify-content: center;
     overflow: hidden;
 }
+
+
 
 .footerContent ul {
     list-style: none;
