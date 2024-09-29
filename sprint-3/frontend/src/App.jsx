@@ -11,6 +11,7 @@ import SearchResultsPage from './pages/SearchResultsPage.jsx';
 import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
 import AccountPage from './pages/AccountPage.jsx';
 import LibraryPage from './pages/LibraryPage.jsx';
+import ArtistPage from './pages/ArtistPage.jsx';
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/signup' element={<RegisterPage/>}/>
                     <Route path='/search' element={<SearchResultsPage />} />
+                    <Route path='/artist' element={<ArtistPage />} />
                     <Route path='/player' element={<MusicPlayerPage />} />
                     <Route path='/account' element={<AccountPage />} />
                     <Route path='/library' element={<LibraryPage />} />
