@@ -135,7 +135,11 @@ function filterData(data, type, content) {
 
         // Get the middle image if it exists or the first image if it doesn't. Otherwise, set it to null
         const images = item.images || item.album?.images || [];
-        const middleImage = images.length > 1 ? images[1] : (images.length === 1 ? images[0] : null);
+        let selectedImage = images.find(image => (image.height === 300 || image.height === 320));
+
+        if (!selectedImage) {
+            selectedImage = images.length > 1 ? images[1] : (images.length === 1 ? images[0] : null);
+        }
 
         const artists = item.artists || item.album?.artists || [];
         const formattedArtists = artists.map(artist => ({
@@ -152,7 +156,7 @@ function filterData(data, type, content) {
             id: item.id,
             name: item.name,
             type: item.type || type,
-            image_url: middleImage ? middleImage.url : null,
+            image_url: selectedImage ? selectedImage.url : null,
             artists: formattedArtists.length > 0 ? formattedArtists : undefined,
             owner: owner ? owner : undefined,
             genres: item.genres,

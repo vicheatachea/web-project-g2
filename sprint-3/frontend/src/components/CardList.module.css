@@ -33,6 +33,7 @@
 
 .arrow:hover {
     color: pink;
+    background: none;
 }
 
 .arrow:focus {

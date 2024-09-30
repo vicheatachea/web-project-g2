@@ -25,10 +25,10 @@ function BrowseByGenres({ theme }) {
             <div className={`${styles.genreCards} ${theme}`}>
                 {genres.map((genre) => (
                     <div 
-                        key={genre.id} 
+                        key={genre}
                         className={styles.genreCard} 
-                        onClick={() => handleGenreClick(genre.name)}>
-                        {genre.name}
+                        onClick={() => handleGenreClick(genre)}>
+                        {genre}
                     </div>
                 ))}
             </div>
