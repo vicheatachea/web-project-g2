@@ -1,60 +1,41 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Hero from '../components/Hero';
 import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
+import {
+    newReleases,
+    topHits
+} from "../utils/spotifyRequests.js";
 
 function HomePage() {
-    const newReleases = [
-        { id: 1, title: 'Album One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Album Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Album Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Album Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Album Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Album Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Album Seven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 8, title: 'Album Eight', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 9, title: 'Album Nine', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 10, title: 'Album Ten', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 11, title: 'Album Eleven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 12, title: 'Album Twelve', imgSrc: 'https://via.placeholder.com/150' },
-    ];
+    const [newAlbums, setNewAlbums] = useState([]);
+    const [hitTracks, setHitTracks] = useState([]);
 
-    const searchResults = [
-        { id: 1, title: 'Result One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Result Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Result Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Result Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Result Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Result Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Result Seven', imgSrc: 'https://via.placeholder.com/150' },
+    useEffect(() => {
+        const fetchNewAlbums = async () => {
+            const albumData = await newReleases();
+            setNewAlbums(albumData);
+        };
 
+        fetchNewAlbums();
+    }, []);
 
-    ];
+    useEffect(() => {
+        const fetchTopHits = async () => {
+            const topHitsData = await topHits();
+            setHitTracks(topHitsData);
+        };
 
-    const topHits = [
-        { id: 1, title: 'Song One', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 2, title: 'Song Two', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 3, title: 'Song Three', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 4, title: 'Song Four', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 5, title: 'Song Five', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 6, title: 'Song Six', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 7, title: 'Song Seven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 8, title: 'Song Eight', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 9, title: 'Song Nine', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 10, title: 'Song Ten', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 11, title: 'Song Eleven', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 12, title: 'Song Twelve', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 13, title: 'Song Thirteen', imgSrc: 'https://via.placeholder.com/150' },
-        { id: 14, title: 'Song Fourteen', imgSrc: 'https://via.placeholder.com/150' },
-    ];
+        fetchTopHits();
+    }, []);
 
     return (
         <>
             <Hero/>
-            <CardList title="New Releases" items={newReleases} />
+            <CardList title="New Releases" items={newAlbums} />
             <HorizontalLine/>
-            <CardList title="Top Hits" items={topHits} />
+            <CardList title="Top Hits" items={hitTracks} />
             <HorizontalLine/>
             <BrowseByGenre/>
         </>

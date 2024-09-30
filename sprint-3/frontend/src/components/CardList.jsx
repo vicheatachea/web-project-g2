@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Card from './Card';
 import styles from './CardList.module.css';
 
-function CardList({ title, items }) {
+function CardList({title, items}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleItems = 5; // Number of items to show at a time
 
@@ -24,14 +24,16 @@ function CardList({ title, items }) {
             <h2 className={styles.sectionTitle}>{title}</h2>
             <div className={styles.container}>
                 <button className={`${styles.arrow} ${!canGoPrevious ? styles.hiddenArrow : ''}`}
-                        onClick={handlePrevious}>❮</button>
+                        onClick={handlePrevious}>❮
+                </button>
                 <div className={styles.cardList}>
                     {items.slice(currentIndex, currentIndex + visibleItems).map(item => (
-                        <Card key={item.id} item={item} />
+                        <Card key={item.id} item={item} artists={item.artists}/>
                     ))}
                 </div>
                 <button className={`${styles.arrow} ${!canGoNext ? styles.hiddenArrow : ''}`}
-                        onClick={handleNext}>❯</button>
+                        onClick={handleNext}>❯
+                </button>
             </div>
         </section>
     );
