@@ -44,62 +44,62 @@ const Register = () => {
 	};
 
 	return (
-		<div className='register-container'>
-			<div className='register-box'>
-				<h2 className='register-title'>Register</h2>
+		<div className={`${styles.registerContainer}`}>
+			<div className={styles.registerBox}>
+				<h2 className={styles.registerTitle}>Register</h2>
 				<form onSubmit={handleRegister}>
-					<div className='input-group'>
+					<div className={styles.inputGroup}>
 						<input
 							type={emailField.type}
 							placeholder='EMAIL'
 							value={emailField.value}
 							onChange={emailField.onChange}
-							className='input-field'
+							className={styles.inputField}
 							autoComplete='current-email'
 							required={true}
 						/>
 					</div>
-					<div className='input-group'>
+					<div className={styles.inputGroup}>
 						<input
 							type={usernameField.type}
 							placeholder='USERNAME'
 							value={usernameField.value}
 							onChange={usernameField.onChange}
-							className='input-field'
+							className={styles.inputField}
 							autoComplete='current-username'
 							required={true}
 						/>
 					</div>
-					<div className='input-group'>
+					<div className={styles.inputGroup}>
 						<input
 							type={passwordField.type}
 							placeholder='PASSWORD'
 							value={passwordField.value}
 							onChange={passwordField.onChange}
-							className='input-field'
+							className={styles.inputField}
 							autoComplete='current-password'
 							required={true}
 						/>
 					</div>
-					<div className='input-group'>
+					<div className={styles.inputGroup}>
 						<input
 							type={confirmPasswordField.type}
 							placeholder='CONFIRM PASSWORD'
 							value={confirmPasswordField.value}
 							onChange={confirmPasswordField.onChange}
-							className='input-field'
+							className={styles.inputField}
 							autoComplete='current-password'
 							required={true}
 						/>
 					</div>
-					<button type='submit' className='submit-button'>
+					<button type='submit' className={styles.submitButton}>
 						REGISTER →
 					</button>
 				</form>
-				<div className='link-container'>
+				<div className={styles.linkContainer}>
 					<p>
 						Already have an account?{" "}
-						<a href='/login' className='link'>
+						<a href='/login' className={styles.link}>
 							Click here to Log in
 						</a>
 					</p>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css"; // Import the CSS file
+import styles from "./Login.module.css"; // Import the CSS file
 import { useLogin } from "../hooks/useLogin";
 import { useField } from "../hooks/useField";
 import { useNavigate } from "react-router-dom";
@@ -30,16 +30,16 @@ const Login = () => {
 	};
 
 	return (
-		<div className='login-container'>
-			<div className='login-box'>
-				<h2 className='login-title'>Login</h2>
+		<div className={`${styles.loginContainer}`}>
+			<div className={styles.loginBox}>
+				<h2 className={styles.loginTitle}>Login</h2>
 				<form onSubmit={handleLogin}>
 					<input
 						type={emailField.type}
 						placeholder='EMAIL'
 						value={emailField.value}
 						onChange={emailField.onChange}
-						className='input-field'
+						className={styles.inputField}
 						autoComplete='current-email'
 						required={true}
 					/>
@@ -48,23 +48,23 @@ const Login = () => {
 						placeholder='PASSWORD'
 						value={passwordField.value}
 						onChange={passwordField.onChange}
-						className='input-field'
+						className={styles.inputField}
 						autoComplete='current-password'
 						required={true}
 					/>
-					<button type='submit' className='submit-button'>
+					<button type='submit' className={styles.submitButton}>
 						LOG IN →
 					</button>
 				</form>
-				<div className='link-container'>
+				<div className={styles.linkContainer}>
 					<p>
 						Don't have an account already?{" "}
-						<a href='/register' className='link'>
+						<a href='/register' className={styles.link}>
 							Click here to sign up
 						</a>
 					</p>
 					<p>
-						<a href='/forgot-password' className='link'>
+						<a href='/forgot-password' className={styles.link}>
 							Forgot your password?
 						</a>
 					</p>
