@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import './BrowseByGenre.css';
+import styles from './BrowseByGenre.module.css';
 import {recommendedGenres} from "../utils/spotifyRequests.js";
 
 function BrowseByGenres({ theme }) {
@@ -20,15 +20,15 @@ function BrowseByGenres({ theme }) {
     };
 
     return (
-        <section className="genres">
-            <h2 className="genre-title">Browse by Genres</h2>
-            <div className={`genre-cards ${theme}`}>
+        <section className={styles.genres}>
+            <h2 className={styles.genreTitle}>Browse by Genres</h2>
+            <div className={`${styles.genreCards} ${theme}`}>
                 {genres.map((genre) => (
                     <div 
-                        key={genre}
-                        className="genre-card" 
-                        onClick={() => handleGenreClick(genre)}>
-                        {genre}
+                        key={genre.id} 
+                        className={styles.genreCard} 
+                        onClick={() => handleGenreClick(genre.name)}>
+                        {genre.name}
                     </div>
                 ))}
             </div>
