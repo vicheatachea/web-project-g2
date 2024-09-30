@@ -125,6 +125,42 @@ async function refreshToken(req, res) {
     }
 }
 
+// Filter data to get only the necessary information
+function filterData(data, type, content) {
+    return data.map(item => {
+        // If you want to get the content of an album or playlist
+        if (content) {
+            item = item.track
+        }
+
+        // Get the middle image if it exists or the first image if it doesn't. Otherwise, set it to null
+        const images = item.images || item.album?.images || [];
+        const middleImage = images.length > 1 ? images[1] : (images.length === 1 ? images[0] : null);
+
+        const artists = item.artists || item.album?.artists || [];
+        const formattedArtists = artists.map(artist => ({
+            id: artist.id,
+            name: artist.name
+        }));
+
+        const owner = item.owner ? {
+            id: item.owner.id,
+            name: item.owner["display_name"]
+        } : null;
+
+        return {
+            id: item.id,
+            name: item.name,
+            type: item.type || type,
+            image_url: middleImage ? middleImage.url : null,
+            artists: formattedArtists.length > 0 ? formattedArtists : undefined,
+            owner: owner ? owner : undefined,
+            genres: item.genres,
+            followers: item.followers?.total
+        };
+    });
+}
+
 async function searchSpotify(req, res, next) {
     const searchQuery = req.query.q;
     const searchType = req.query.type;
@@ -135,7 +171,10 @@ async function searchSpotify(req, res, next) {
                 headers: {Authorization: "Bearer " + tokenStorage.accessToken}
             });
 
-        res.json(response.data); // Replace with res.status().json()
+        const searchData = response.data[searchType + "s"];
+        const searches = filterData(searchData.items, searchType);
+
+        res.status(200).json(searches);
     } catch (error) {
         next(error);
     }
@@ -179,23 +218,7 @@ async function newReleases(req, res, next) {
             });
 
         const dataAlbums = response.data.albums.items;
-
-        const albums = dataAlbums.map(album => {
-            const artists = album.artists.map(artist => ({
-                id: artist.id,
-                name: artist.name
-            }));
-
-            const image300x300 = album.images.find(image => image.height === 300 && image.width === 300);
-
-            return {
-                id: album.id,
-                name: album.name,
-                type: album.type,
-                image_url: image300x300 ? image300x300.url : null,
-                artists: artists
-            };
-        });
+        const albums = filterData(dataAlbums, "album");
 
         res.status(200).json(albums);
     } catch (error) {
@@ -211,24 +234,7 @@ async function topHits(req, res, next) {
             });
 
         const dataTracks = response.data.tracks.items;
-
-        const tracks = dataTracks.map(item => {
-            const track = item.track;
-            const artists = track.artists.map(artist => ({
-                id: artist.id,
-                name: artist.name
-            }));
-
-            const image300x300 = track.album.images.find(image => image.height === 300 && image.width === 300);
-
-            return {
-                id: track.id,
-                name: track.name,
-                type: track.type,
-                image_url: image300x300 ? image300x300.url : null,
-                artists: artists
-            };
-        });
+        const tracks = filterData(dataTracks, "track", true);
 
         res.status(200).json(tracks);
     } catch (error) {
