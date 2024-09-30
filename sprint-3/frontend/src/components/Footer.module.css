@@ -1,30 +1,30 @@
 /* Light theme */
-.sickbeat-footer.light {
-    background-color: var(--background-color);
-    color: var(--text-color);
+.sickbeatFooter.light {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
-.sickbeat-footer.light .social-section li a,
-.sickbeat-footer.light .footer-content li a {
-    color: var(--text-color);
+.sickbeatFooter.light .socialSection li a,
+.sickbeatFooter.light .footerContent li a {
+    color: var(--secondary-color);
 }
 
 /* Dark theme */
-.sickbeat-footer.dark {
-    background-color: var(--background-color);
-    color: var(--text-color);
+.sickbeatFooter.dark {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
-.sickbeat-footer.dark .social-section li a,
-.sickbeat-footer.dark .footer-content li a {
-    color: var(--text-color);
+.sickbeatFooter.dark .socialSection li a,
+.sickbeatFooter.dark .footerContent li a {
+    color: var(--secondary-color);
 }
 
 /* General footer styles */
 .footer {
     padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -33,23 +33,23 @@
     overflow: hidden;
 }
 
-.footer-content ul {
+.footerContent ul {
     list-style: none;
     display: flex;
     padding: 0;
     margin: 0;
 }
 
-.footer-content li {
+.footerContent li {
     margin: 0 10px;
 }
 
-.footer-content li a {
+.footerContent li a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--secondary-color);
 }
 
-.footer-nav {
+.footerNav {
     list-style: none;
     margin: 0;
     display: flex;
@@ -59,7 +59,7 @@
     width: 100%;
 }
 
-.footer-nav > li {
+.footerNav > li {
     list-style: none;
     margin: 10px 20px; /* Add some margin for spacing */
     display: flex;
@@ -68,13 +68,13 @@
     text-align: center;
 }
 
-.company-section, .help-section {
+.companySection, .helpSection {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.company-items, .help-items {
+.companyItems, .helpItems {
     margin-top: 5px; /* Reduce the margin to decrease space */
     display: flex;
     flex-direction: column;
@@ -98,18 +98,18 @@
     font-size: medium;
 }
 
-.social-section {
+.socialSection {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 150px;
 }
 
-.social-section li {
+.socialSection li {
     margin: 0 5px;
 }
 
-.social-section li a {
+.socialSection li a {
     text-decoration: none;
     font-size: 18px;
 }

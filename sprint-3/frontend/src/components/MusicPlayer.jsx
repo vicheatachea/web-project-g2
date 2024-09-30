@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MusicPlayer.css'; // Importing the CSS file
+import styles from './MusicPlayer.module.css'; 
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -30,35 +30,35 @@ const MusicPlayer = () => {
   }, [isPlaying]);
 
   return (
-    <div className="music-player">
-      <div className="now-playing">Now Playing</div>
-      <div className="image-container">
-        <img src="https://via.placeholder.com/400" alt="Artist" className="artist-image" />
+    <div className={styles.musicPlayer}>
+      <div className={styles.nowPlaying}>Now Playing</div>
+      <div className={styles.imageContainer}>
+        <img src="https://via.placeholder.com/400" alt="Artist" className={styles.artistImage} />
       </div>
-      <div className="song-title">
+      <div className={styles.songTitle}>
         Whatever It Takes Song
         <span role="img" aria-label="motivation">🔥</span>
       </div>
-      <div className="progress-bar-container">
+      <div className={styles.progressBarContainer}>
         <input
           type="range"
           value={progress}
           step="0.1"
           max="100"
           onChange={e => setProgress(e.target.value)}
-          className="progress-bar"
+          className={styles.progressBar}
         />
       </div>
-      <div className="controls">
-        <button onClick={() => setProgress(0)} className="control-button">
+      <div className={styles.controls}>
+        <button onClick={() => setProgress(0)} className={styles.controlButton}>
           ⏪
         </button>
         
-        <button onClick={togglePlay} className="control-button">
+        <button onClick={togglePlay} className={styles.controlButton}>
           {isPlaying ? '⏸️' : '▶️'}
         </button>
 
-        <button onClick={() => setProgress(100)} className="control-button">
+        <button onClick={() => setProgress(100)} className={styles.controlButton}>
           ⏩
         </button>
       </div>

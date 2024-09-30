@@ -1,57 +1,52 @@
-.register-container {
+.loginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
-.register-box {
-    border: 1px solid var(--text-color);
+.loginBox {
+    border: 1px solid var(--secondary-color);
     padding: 40px;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
 }
 
-.register-title {
+.loginTitle {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 24px;
-    color: var(--text-color);
+    color: var(--secondary-color);
 }
 
-.input-group {
-    margin-bottom: 10px;
-}
-
-.input-field {
+.inputField {
     width: 100%;
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    background-color: var(--text-color);
-    margin-bottom: 10px;
-    color: var(--background-color);
+    background-color: var(--secondary-color);
+    margin-bottom: 20px;
+    color: var(--primary-color);
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
 
-.submit-button {
+.submitButton {
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: var(--text-color);
-    color: var(--background-color);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;
     box-sizing: border-box;
 }
 
-.link-container {
+.linkContainer {
     text-align: center;
     margin-top: 20px;
 }

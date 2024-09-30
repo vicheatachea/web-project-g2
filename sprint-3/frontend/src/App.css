@@ -1,6 +1,18 @@
 :root {
-    --background-color: #f0f0f0;
-    --text-color: #333;
+    --light-primary-color: #f0f0f0;
+    --light-secondary-color: #333;
+    --dark-primary-color: #121212;
+    --dark-secondary-color: #e0e0e0;
+}
+
+body.light {
+    --primary-color: var(--light-primary-color);
+    --secondary-color: var(--light-secondary-color);
+}
+
+body.dark {
+    --primary-color: var(--dark-primary-color);
+    --secondary-color: var(--dark-secondary-color);
 }
 
 /* Base Styles */
@@ -8,49 +20,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Arial Narrow Bold', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     min-width: 820px;
-}
-
-body.light {
-    --background-color: #f0f0f0;
-    --text-color: #333;
-}
-
-body.dark {
-    --background-color: #121212;
-    --text-color: #e0e0e0;
-}
-
-.app.light {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-.app.dark {
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-/* Container */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-/* Hero Section */
-.hero {
-    text-align: center;
-    background-color: var(--background-color);
-    color: var(--text-color);
-}
-
-.sickbeat-phrase {
-    font-size: 48px;
-    margin-bottom: 20px;
 }

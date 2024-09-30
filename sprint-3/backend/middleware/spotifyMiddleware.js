@@ -20,4 +20,21 @@ function checkTokenValidity(req, res, next) {
     next();
 }
 
-module.exports = checkTokenValidity;
+function errorHandler(error, req, res) {
+    // Probably replace with res.status().json()
+    switch (error.status) {
+        case 401:
+            return res.status(401).send("Bad or expired token");
+        case 403:
+            return res.status(403).send('Bad OAuth request');
+        case 429:
+            return res.status(429).send('Rate limit exceeded');
+        default:
+            return res.status(500).send('Internal server error');
+    }
+}
+
+module.exports = {
+    checkTokenValidity,
+    errorHandler
+};
