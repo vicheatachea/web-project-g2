@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const axios = require("axios");
 require("dotenv").config();
 
 const jwt_secret_key = process.env.JWT_SECRET;
@@ -17,16 +16,18 @@ const getUserData = async (req) => {
 			const userData = await User.findOne({
 				email: email,
 			}).exec();
-			if (!userData) {
-				return null;
-			} else {
+			if (userData) {
+				//console.log(userData);
 				return userData;
+			} else {
+				return null;
 			}
 		} else {
 			const userData = await User.findOne({
 				_id: userId,
 			}).exec();
 			if (userData) {
+				//console.log(userData);
 				return userData;
 			} else {
 				return null;
@@ -35,6 +36,15 @@ const getUserData = async (req) => {
 	} catch (error) {
 		console.error("Error fetching user data:", error);
 		return null;
+	}
+};
+
+const fetchUserData = async (req, res) => {
+	const userData = await getUserData(req);
+	if (userData) {
+		res.status(200).json(userData);
+	} else {
+		res.status(404).json({ message: "User not found" });
 	}
 };
 
@@ -62,24 +72,23 @@ const registerUser = async (req, res, next) => {
 const loginUser = async (
 	req,
 	res,
-	next /* idk why but it doesn't work without */,
+	next /* idk why this is here but doesn't work without */,
 	user = null,
 	unHashedPassword = null
 ) => {
 	try {
-		//console.log('user:', user);
-		//console.log('req.body:', req.body);
-
 		const { email, password } = user ? user : req.body;
+		console.log(email, password);
 
 		if (!email || (!password && !unHashedPassword)) {
 			return res
 				.status(400)
 				.json({ message: "Email and password are required!" });
 		}
-		const userData = user ? user : await getUserData(req, res);
 
-		//console.log(userData);
+		const userData = user ? user : await getUserData(req);
+		console.log(userData);
+
 		if (!userData) {
 			return res.status(404).json({ message: "User not found" });
 		}
@@ -88,7 +97,6 @@ const loginUser = async (
 			unHashedPassword ? unHashedPassword : password,
 			userData.password
 		);
-		//console.log(passwordMatch);
 		const usernameMatch = email === userData.email;
 
 		if (!passwordMatch || !usernameMatch) {
@@ -101,9 +109,9 @@ const loginUser = async (
 			expiresIn: "1h",
 		});
 		console.log("Login Successful", token);
-		res.status(200).json({ message: "Login successful", token: token });
+		return res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
-		res.status(500).json({ Error: error.message });
+		return res.status(500).json({ Error: error.message });
 	}
 };
 
@@ -211,7 +219,6 @@ const addPlaylist = async (req, res) => {
 		} else {
 			res.status(404).json({ message: "User not found" });
 		}
-
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
 			res.status(400).json({
@@ -228,6 +235,7 @@ const addPlaylist = async (req, res) => {
 };
 
 module.exports = {
+	fetchUserData,
 	registerUser,
 	loginUser,
 	updateUser,
