@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
@@ -11,19 +12,19 @@ function Footer({ theme }) {
                     <ul className={styles.footerNav}>
                         <div className={styles.rights}>&copy; 2024 SickBeat.<br/> All rights reserved</div>
                         <li className={styles.companySection}>
-                            <a href="#"><b>Company</b></a>
+                            <Link to="#"><b>Company</b></Link>
                             <div className={styles.companyItems}>
-                                <a href="#" className={styles.navText}>About Us</a>
-                                <a href="#" className={styles.navText}>Career Opportunities</a>
-                                <a href="#" className={styles.navText}>Objectives</a>
+                                <Link to="#" className={styles.navText}>About Us</Link>
+                                <Link to="#" className={styles.navText}>Career Opportunities</Link>
+                                <Link to="#" className={styles.navText}>Objectives</Link>
                             </div>
                         </li>
                         <li className={styles.helpSection}>
-                            <a href="#"><b>Help</b></a>
+                            <Link to="#"><b>Help</b></Link>
                             <div className={styles.helpItems}>
-                                <a href="#" className={styles.navText}>Customer Support</a>
-                                <a href="#" className={styles.navText}>Terms & Conditions</a>
-                                <a href="#" className={styles.navText}>Privacy Policy</a>
+                                <Link to="#" className={styles.navText}>Customer Support</Link>
+                                <Link to="#" className={styles.navText}>Terms & Conditions</Link>
+                                <Link to="#" className={styles.navText}>Privacy Policy</Link>
                             </div>
                         </li>
                         <div className={styles.socialSection}>
