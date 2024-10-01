@@ -12,6 +12,7 @@ import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
 import AccountPage from './pages/AccountPage.jsx';
 import LibraryPage from './pages/LibraryPage.jsx';
 import ArtistPage from './pages/ArtistPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -42,6 +43,7 @@ function App() {
                     <Route path='/player' element={<MusicPlayerPage />} />
                     <Route path='/account' element={<AccountPage />} />
                     <Route path='/library' element={<LibraryPage />} />
+                    <Route path='/notfound' element={<NotFoundPage />} />
                 </Routes>
             <Footer theme={theme}/>
             </BrowserRouter>

@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Header.module.css';
-import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faBell, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
