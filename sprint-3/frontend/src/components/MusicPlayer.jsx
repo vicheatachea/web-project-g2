@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styles from './MusicPlayer.module.css'; 
+import React, { useState, useEffect, useRef } from 'react';
+import styles from './MusicPlayer.module.css';
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -40,27 +40,36 @@ const MusicPlayer = () => {
   };
 
   return (
-    <div className={styles.musicPlayer}>
+    <div className={styles.MusicPlayer}>
       <div className={styles.nowPlaying}>Now Playing</div>
       <div className={styles.imageContainer}>
-        <img src="https://via.placeholder.com/400" alt="Artist" className={styles.artistImage} />
+        <img src={song.imageUrl} alt="Artist" className={styles.artistImage} />
       </div>
       <div className={styles.songTitle}>
-        Whatever It Takes Song
-        <span role="img" aria-label="motivation">🔥</span>
+        {song.name}
+        <span role="img" aria-label="motivation"></span>
       </div>
+
+      <audio 
+        ref={audioRef} 
+        src={song.audioUrl} 
+        onTimeUpdate={handleTimeUpdate} 
+        onEnded={handleAudioEnd}
+      />
+
       <div className={styles.progressBarContainer}>
         <input
           type="range"
           value={progress}
           step="0.1"
           max="100"
-          onChange={e => setProgress(e.target.value)}
+          onChange={handleSeek}
           className={styles.progressBar}
         />
       </div>
+
       <div className={styles.controls}>
-        <button onClick={() => setProgress(0)} className={styles.controlButton}>
+        <button onClick={() => audioRef.current.currentTime = 0} className={styles.controlButton}>
           ⏪
         </button>
         
@@ -68,7 +77,7 @@ const MusicPlayer = () => {
           {isPlaying ? '⏸️' : '▶️'}
         </button>
 
-        <button onClick={() => setProgress(100)} className={styles.controlButton}>
+        <button onClick={() => audioRef.current.currentTime = audioRef.current.duration} className={styles.controlButton}>
           ⏩
         </button>
       </div>
