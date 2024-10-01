@@ -1,0 +1,103 @@
+.container {
+    padding: 20px;
+    background-color: var(--primary-color); /* Uses the theme's background color */
+    color: var(--secondary-color); /* Uses the theme's text color */
+    font-family: Arial, sans-serif;
+    height: 100vh;
+  }
+  
+  /* Playlist Header */
+  .header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .imageWrapper {
+    margin-right: 20px;
+  }
+  
+  .playlistImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+  }
+  
+  .headerText {
+    max-width: 500px;
+  }
+  
+  .smallText {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  .title {
+    font-size: 48px;
+    margin: 0;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  .description {
+    font-size: 14px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  .details {
+    font-size: 14px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  /* Playlist Controls */
+  .controls {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .playButton {
+    background-color: #686a6a;
+    color: var(--primary-color); /* Light or dark text color based on mode */
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  
+  
+  /* Playlist Table */
+  .table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+  }
+  
+  .tableHeader {
+    text-align: left;
+    padding: 10px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  .tableCell {
+    padding: 10px;
+    border-bottom: 1px solid var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  .trackTitle {
+    font-size: 16px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
+  .trackArtist {
+    font-size: 12px;
+    color: var(--secondary-color); /* Updated to use the theme color */
+  }
+  
