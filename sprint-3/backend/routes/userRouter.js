@@ -1,18 +1,24 @@
 const express = require("express");
 const router = express.Router();
+const authenticate = require("../middleware/authenticate");
+
 const {
-	createUser,
+	registerUser,
 	updateUser,
+	loginUser,
 	deleteUser,
 } = require("../controllers/userController");
 
-// Post new /users
-router.post("/", createUser);
+// Post register /user/register
+router.post("/register", registerUser);
 
-// Put update by ID /users/:userId
-router.patch("/", updateUser);
+// POST login /user/login
+router.post("/login", loginUser);
 
-// Delete by Id /users/:userId
-router.delete("/", deleteUser);
+// PATCH update by ID /user/update/
+router.patch("/update", authenticate, updateUser);
+
+// DELETE by Id /user/delete
+router.delete("/delete", authenticate, deleteUser);
 
 module.exports = router;
