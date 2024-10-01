@@ -8,14 +8,15 @@
 
 .heroBackground {
     position: relative;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     height: 80vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; 
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background color */
 }
 
 .heroBackground::before {
@@ -26,8 +27,9 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.3); /* Lighter overlay */
 }
+
 
 body.light .heroBackground::before {
     background-color: rgba(255, 255, 255, 0.3); 
