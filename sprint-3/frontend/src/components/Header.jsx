@@ -21,18 +21,8 @@ function Header({theme, toggleTheme}) {
     const handleKeyDown = async (e) => {
         if (e.key === 'Enter' && searchQuery) {
             e.preventDefault();
-            console.log('Search query:', searchQuery);
+            navigate(`/search?q=${searchQuery}`);
         }
-
-        /*
-        try {
-            const response = await searchSpotify(searchQuery);
-            console.log("Response:", response);
-            Navigate(`/search/"${searchQuery}`);
-        } catch (err) {
-            console.error("Error:", err["response"]["data"]);
-        }
-        */
     };
 
     return (
@@ -45,7 +35,6 @@ function Header({theme, toggleTheme}) {
                     value={searchQuery}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
-
                 />
             </div>
             <nav className={styles.navbar}>
