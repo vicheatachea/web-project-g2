@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage.jsx';
 import './App.css';
 import SearchResultsPage from './pages/SearchResultsPage.jsx';
 import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
+import PlayListPage from './pages/PlayListPage.jsx';
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -36,6 +37,7 @@ function App() {
                     <Route path='/signup' element={<RegisterPage/>}/>
                     <Route path='/search' element={<SearchResultsPage />} />
                     <Route path='/player' element={<MusicPlayerPage />} />
+                    <Route path='/playlist' element={<PlayListPage />} />
                 </Routes>
             </BrowserRouter>
             <Footer theme={theme}/>
