@@ -8,17 +8,22 @@
 
 .heroBackground {
     position: relative;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     height: 80vh;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-.heroBackground::before {
+body.light .heroBackground {
+    background-blend-mode: lighten;
+    filter: brightness(1.1);
+}
+
+body.light .heroBackground::before {
     content: '';
     position: absolute;
     top: 0;
@@ -26,38 +31,78 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
-body.light .heroBackground::before {
-    background-color: rgba(255, 255, 255, 0.3); 
+body.dark .heroBackground::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .heroContent {
     position: relative;
-    z-index: 2; 
-    color: var(--secondary-color);
+    z-index: 2;
     text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+body.light .heroContent,
+body.light .sickbeatPhrase,
+body.light .sickbeatText {
+    color: black;
+}
+
+body.dark .heroContent,
+body.dark .sickbeatPhrase,
+body.dark .sickbeatText {
+    color: white;
 }
 
 .sickbeatPhrase {
-    font-size: 36px;
+    font-size: 48px;
     margin-bottom: 20px;
-    color: var(--secondary-color);
+    font-weight: bold;
 }
 
 .sickbeatText {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    font-size: 18px;
     margin-bottom: 20px;
-    font-size: 20px;
-    color: var(--secondary-color);
+    line-height: 1.5;
+    opacity: 0.9;
 }
 
 .browseButton {
-    text-decoration: none;
+    display: inline-block;
+}
+
+.browseButton button {
+    padding: 10px 20px;
     font-size: 18px;
-    align-items: center;
-    color: var(--secondary-color);
+    font-weight: bold;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+body.light .browseButton button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+body.dark .browseButton button {
+    background-color: var(--dark-button-bg-color);
+    color: white;
+}
+
+body.dark .browseButton button:hover {
+    background-color: var(--dark-button-hover-bg-color);
 }
