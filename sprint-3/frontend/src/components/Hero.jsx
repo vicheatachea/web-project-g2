@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
 import heroBackgroundLight from '../images/hero-background-light.jpg';
 import heroBackgroundDark from '../images/hero-background-dark.jpg';
 
+
 function Hero() {
-    const isDarkMode = document.body.classList.contains('dark');
+    const [isDarkMode, setIsDarkMode] = useState(() => document.body.classList.contains('dark'));
+
+    useEffect(() => {
+        const handleThemeChange = () => {
+            setIsDarkMode(document.body.classList.contains('dark'));
+        };
+
+        // Initial check
+        handleThemeChange();
+
+        // Add event listener for theme changes
+        document.body.addEventListener('classChange', handleThemeChange);
+
+        // Cleanup event listener on component unmount
+        return () => {
+            document.body.removeEventListener('classChange', handleThemeChange);
+        };
+    }, []);
+
     const backgroundImage = isDarkMode ? heroBackgroundDark : heroBackgroundLight;
 
     return (
