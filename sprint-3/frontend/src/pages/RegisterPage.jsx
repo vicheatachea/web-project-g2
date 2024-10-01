@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './Register.css'
+import styles from './Register.module.css'
 
 function RegisterPage() {
     const [email, setEmail] = useState("");
@@ -17,58 +17,58 @@ function RegisterPage() {
     };
 
     return (
-        <div className="register-container">
-            <div className="register-box">
-                <h2 className="register-title">Register</h2>
+        <div className={`${styles.registerContainer}`}>
+            <div className={styles.registerBox}>
+                <h2 className={styles.registerTitle}>Register</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="input-group">
+                    <div className={styles.inputGroup}>
                         <input
                             type="email"
                             placeholder="EMAIL"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="input-field"
+                            className={styles.inputField}
                             required
                         />
                     </div>
-                    <div className="input-group">
+                    <div className={styles.inputGroup}>
                         <input
                             type="text"
                             placeholder="USERNAME"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            className="input-field"
+                            className={styles.inputField}
                             required
                         />
                     </div>
-                    <div className="input-group">
+                    <div className={styles.inputGroup}>
                         <input
                             type="password"
                             placeholder="PASSWORD"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="input-field"
+                            className={styles.inputField}
                             required
                         />
                     </div>
-                    <div className="input-group">
+                    <div className={styles.inputGroup}>
                         <input
                             type="password"
                             placeholder="CONFIRM PASSWORD"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="input-field"
+                            className={styles.inputField}
                             required
                         />
                     </div>
-                    <button type="submit" className="submit-button">
+                    <button type="submit" className={styles.submitButton}>
                         REGISTER →
                     </button>
                 </form>
-                <div className="link-container">
+                <div className={styles.linkContainer}>
                     <p>
                         Already have an account?{" "}
-                        <a href="/login" className="link">
+                        <a href="/login" className={styles.link}>
                             Click here to Log in
                         </a>
                     </p>

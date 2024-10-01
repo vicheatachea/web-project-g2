@@ -1,23 +1,40 @@
+<<<<<<< HEAD
 /*Footer.module.css*/
 /* Light theme */
 .sickbeatFooter.light {
     background-color: var(--light-footer-background);
     color: var(--footer-text);
+=======
+/* Light theme */
+.sickbeatFooter.light {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+>>>>>>> frontend-functionality
 }
 
 .sickbeatFooter.light .socialSection li a,
 .sickbeatFooter.light .footerContent li a {
+<<<<<<< HEAD
     color: var(--footer-text);
+=======
+    color: var(--secondary-color);
+>>>>>>> frontend-functionality
 }
 
 /* Dark theme */
 .sickbeatFooter.dark {
+<<<<<<< HEAD
     background-color: var(--footer-background);
     color: var(--footer-text);
+=======
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+>>>>>>> frontend-functionality
 }
 
 .sickbeatFooter.dark .socialSection li a,
 .sickbeatFooter.dark .footerContent li a {
+<<<<<<< HEAD
     color: var(--footer-text);
 }
 
@@ -26,6 +43,16 @@
     padding: 20px;
     background-color: var(--tertiary-color);
     color: var(--footer-text);
+=======
+    color: var(--secondary-color);
+}
+
+/* General footer styles */
+.footer {
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+>>>>>>> frontend-functionality
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -34,8 +61,11 @@
     overflow: hidden;
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> frontend-functionality
 .footerContent ul {
     list-style: none;
     display: flex;
@@ -56,7 +86,11 @@
     list-style: none;
     margin: 0;
     display: flex;
+<<<<<<< HEAD
     align-items: center;
+=======
+    align-items: center; /* Align items to the center */
+>>>>>>> frontend-functionality
     justify-content: space-between;
     text-align: center;
     width: 100%;
@@ -64,20 +98,31 @@
 
 .footerNav > li {
     list-style: none;
+<<<<<<< HEAD
     margin: 10px 20px;
     display: flex;
     flex-direction: column;
+=======
+    margin: 10px 20px; /* Add some margin for spacing */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+>>>>>>> frontend-functionality
     align-items: center;
     text-align: center;
 }
 
+<<<<<<< HEAD
 .companySection,
 .helpSection {
+=======
+.companySection, .helpSection {
+>>>>>>> frontend-functionality
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+<<<<<<< HEAD
 .companyItems,
 .helpItems {
     margin-top: 5px;
@@ -88,6 +133,17 @@
 }
 
 .navText {
+=======
+.companyItems, .helpItems {
+    margin-top: 5px; /* Reduce the margin to decrease space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem; /* Reduce padding to decrease space */
+}
+
+.nav-text {
+>>>>>>> frontend-functionality
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -95,10 +151,17 @@
 .rights {
     white-space: nowrap;
     text-align: center;
+<<<<<<< HEAD
     margin-top: 0;
     display: flex;
     justify-content: center;
     padding-top: 0.5rem;
+=======
+    margin-top: 0; /* Remove top margin */
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem; /* Reduce padding to decrease space */
+>>>>>>> frontend-functionality
     padding-left: 30px;
     font-size: medium;
 }
@@ -117,4 +180,8 @@
 .socialSection li a {
     text-decoration: none;
     font-size: 18px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> frontend-functionality

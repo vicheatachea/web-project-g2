@@ -1,4 +1,4 @@
-.register-container {
+.loginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,7 @@
     color: var(--secondary-color);
 }
 
-.register-box {
+.loginBox {
     border: 1px solid var(--secondary-color);
     padding: 40px;
     border-radius: 10px;
@@ -16,30 +16,25 @@
     background-color: var(--primary-color);
 }
 
-.register-title {
+.loginTitle {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 24px;
     color: var(--secondary-color);
 }
 
-.input-group {
-    margin-bottom: 10px;
-}
-
-.input-field {
+.inputField {
     width: 100%;
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
     background-color: var(--secondary-color);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     color: var(--primary-color);
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
 
-.submit-button {
+.submitButton {
     width: 100%;
     padding: 15px;
     font-size: 16px;
@@ -51,7 +46,7 @@
     box-sizing: border-box;
 }
 
-.link-container {
+.linkContainer {
     text-align: center;
     margin-top: 20px;
 }

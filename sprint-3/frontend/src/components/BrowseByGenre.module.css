@@ -2,19 +2,19 @@
     padding: 20px 90px 90px;
 }
 
-.genre-title {
+.genreTitle {
     text-align: center;
     margin-bottom: 24px;
 }
 
-.genre-cards {
+.genreCards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 10px;
     justify-content: center;
 }
 
-.genre-card {
+.genreCard {
     background-color: #fff;
     border: 1px solid #ddd;
     color: #121212;
@@ -27,7 +27,7 @@
     transition: background-color 0.3s ease;
 }
 
-.genre-card:hover {
+.genreCard:hover {
     background-color: #e0e0e0;
 }
 
