@@ -1,18 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styles from './BrowseByGenre.module.css';
-import {recommendedGenres} from "../utils/spotifyRequests.js";
+import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function BrowseByGenres({ theme }) {
-    const [genres, setGenres] = useState([]);
-
-    useEffect(() => {
-        const fetchGenres = async () => {
-            const genresData = await recommendedGenres();
-            setGenres(genresData);
-        };
-
-        fetchGenres();
-    }, []);
+    const genres = useSpotifyGet("/api/spotify/genres");
 
     const handleGenreClick = (genreName) => {
         alert(`You clicked on the ${genreName} genre`);

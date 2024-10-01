@@ -1,52 +1,27 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import CardList from "../components/CardList.jsx";
 import {useSearchParams} from "react-router-dom";
 import HorizontalLine from "../components/HorizontalLine.jsx";
-import {searchSpotify} from "../utils/spotifyRequests.js";
+import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function SearchResultsPage() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [trackResults, setTrackResults] = useState([]);
-    const [artistResults, setArtistResults] = useState([]);
-    const [albumResults, setAlbumResults] = useState([]);
-    const [playlistResults, setPlaylistResults] = useState([]);
+    const [searchParams, setSearchParams]= useSearchParams()
+    const query = searchParams.get("q");
 
-    useEffect(() => {
-        const fetchSearchResults = async () => {
-            for (const type of ["track", "artist", "album", "playlist"]) {
-                const searchResultsData = await searchSpotify(searchParams.get("q"), type);
-
-                switch (type) {
-                    case "track":
-                        setTrackResults(searchResultsData);
-                        break;
-                    case "artist":
-                        setArtistResults(searchResultsData);
-                        break;
-                    case "album":
-                        setAlbumResults(searchResultsData);
-                        break;
-                    case "playlist":
-                        setPlaylistResults(searchResultsData);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-
-        fetchSearchResults();
-    }, []);
+    const searchTrack = useSpotifyGet(`/api/spotify/search?q=${query}&type=track`);
+    const searchArtist = useSpotifyGet(`/api/spotify/search?q=${query}&type=artist`);
+    const searchAlbum = useSpotifyGet(`/api/spotify/search?q=${query}&type=album`);
+    const searchPlaylist = useSpotifyGet(`/api/spotify/search?q=${query}&type=playlist`);
 
     return (
         <>
-            <CardList title={"Tracks"} items={trackResults}/>
+            <CardList title={"Tracks"} items={searchTrack}/>
             <HorizontalLine/>
-            <CardList title={"Artists"} items={artistResults}/>
+            <CardList title={"Artists"} items={searchArtist}/>
             <HorizontalLine/>
-            <CardList title={"Albums"} items={albumResults}/>
+            <CardList title={"Albums"} items={searchAlbum}/>
             <HorizontalLine/>
-            <CardList title={"Playlists"} items={playlistResults}/>
+            <CardList title={"Playlists"} items={searchPlaylist}/>
         </>
     )
 }

@@ -3,39 +3,18 @@ import Hero from '../components/Hero';
 import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
-import {
-    newReleases,
-    topHits
-} from "../utils/spotifyRequests.js";
+import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function HomePage() {
-    const [newAlbums, setNewAlbums] = useState([]);
-    const [hitTracks, setHitTracks] = useState([]);
-
-    useEffect(() => {
-        const fetchNewAlbums = async () => {
-            const albumData = await newReleases();
-            setNewAlbums(albumData);
-        };
-
-        fetchNewAlbums();
-    }, []);
-
-    useEffect(() => {
-        const fetchTopHits = async () => {
-            const topHitsData = await topHits();
-            setHitTracks(topHitsData);
-        };
-
-        fetchTopHits();
-    }, []);
+    const newReleases = useSpotifyGet("/api/spotify/new-releases");
+    const topHits = useSpotifyGet("/api/spotify/top-hits");
 
     return (
         <>
             <Hero/>
-            <CardList title="New Releases" items={newAlbums} />
+            <CardList title="New Releases" items={newReleases} />
             <HorizontalLine/>
-            <CardList title="Top Hits" items={hitTracks} />
+            <CardList title="Top Hits" items={topHits} />
             <HorizontalLine/>
             <BrowseByGenre/>
         </>
