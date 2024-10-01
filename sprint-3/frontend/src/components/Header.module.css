@@ -24,6 +24,7 @@
     padding-left: 3rem;
     padding-right: 3rem;
     color: var(--secondary-color);
+    text-decoration: none;
 }
 
 .logo:hover, .logo:focus, .logo:active {
@@ -68,12 +69,21 @@
     align-items: center;
 }
 
-.iconList li a {
-    text-decoration: none;
+.iconList li {
+    text-decoration: inherit;
     color: var(--secondary-color);
     font-size: 18px;
     display: flex;
     align-items: center;
+}
+
+.iconList li:hover {
+    cursor: pointer;
+}
+
+.iconList .a {
+    text-decoration: none;
+    color: var(--secondary-color);
 }
 
 .dropdownMenu {

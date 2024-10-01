@@ -2,7 +2,12 @@ import React from "react";
 import styles from "./Header.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import {
+	faBell,
+	faUser,
+	faSun,
+	faMoon,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
@@ -37,9 +42,9 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 
 	return (
 		<header className={`${styles.sickbeatHeader} ${theme}`}>
-			<a href='/' className={styles.logo}>
+			<Link to='/' className={styles.logo}>
 				SickBeat
-			</a>
+			</Link>
 			<div className={styles.searchContainer}>
 				<input
 					type='text'
@@ -52,24 +57,29 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 			<nav className={styles.navbar}>
 				<ul className={styles.iconList}>
 					<li>
-						<Link to=''>
+						<Link to='' className="a">
 							<FontAwesomeIcon icon={faBell} size='lg' />
 						</Link>
 					</li>
+
 					<li>
-						<Link to='/login'>
-							<FontAwesomeIcon icon={faUser} size='lg' />
-						</Link>
+						{isAuthenticated ? (
+							<Link to='/account' className="a">
+								<FontAwesomeIcon icon={faUser} size='lg'/>
+							</Link>
+						) : (
+							<Link to='/login' className="a">
+								<FontAwesomeIcon icon={faUser} size='lg' />
+							</Link>
+						)}
 					</li>
-					<li>
-                        <button className="mode-button" onClick={toggleTheme}>
-                            {theme === 'light' ? (
-                                <FontAwesomeIcon icon={faMoon} size="lg" />
-                            ) : (
-                                <FontAwesomeIcon icon={faSun} size="lg" />
-                            )}
-                        </button>
-                    </li>
+					<li onClick={toggleTheme}>
+							{theme === "light" ? (
+								<FontAwesomeIcon icon={faMoon} size='lg' />
+							) : (
+								<FontAwesomeIcon icon={faSun} size='lg' />
+							)}
+					</li>
 				</ul>
 			</nav>
 		</header>
