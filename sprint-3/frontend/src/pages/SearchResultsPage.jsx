@@ -2,7 +2,7 @@ import React from 'react'
 import CardList from "../components/CardList.jsx";
 import {useSearchParams} from "react-router-dom";
 import HorizontalLine from "../components/HorizontalLine.jsx";
-import LoginPrompt from "../components/LoginPrompt.jsx";
+import ConnectPrompt from "../components/ConnectPrompt.jsx";
 import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function SearchResultsPage() {
@@ -26,7 +26,7 @@ function SearchResultsPage() {
     return (
         <>
             {searchTrackError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : searchTrackError ? (
                 <p>Add another error</p>
             ) : (
@@ -34,7 +34,7 @@ function SearchResultsPage() {
             )}
             <HorizontalLine/>
             {searchArtistError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : searchArtistError ? (
                 <p>Add another error</p>
             ) : (
@@ -42,7 +42,7 @@ function SearchResultsPage() {
             )}
             <HorizontalLine/>
             {searchAlbumError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : searchAlbumError ? (
                 <p>Add another error</p>
             ) : (
@@ -50,7 +50,7 @@ function SearchResultsPage() {
             )}
             <HorizontalLine/>
             {searchPlaylistError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : searchPlaylistError ? (
                 <p>Add another error</p>
             ) : (

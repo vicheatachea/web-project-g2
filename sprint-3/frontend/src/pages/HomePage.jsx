@@ -3,7 +3,7 @@ import Hero from '../components/Hero';
 import BrowseByGenre from '../components/BrowseByGenre';
 import CardList from '../components/CardList';
 import HorizontalLine from "../components/HorizontalLine.jsx";
-import LoginPrompt from "../components/LoginPrompt.jsx";
+import ConnectPrompt from "../components/ConnectPrompt.jsx";
 import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function HomePage() {
@@ -15,7 +15,7 @@ function HomePage() {
         <>
             <Hero/>
             {newReleasesError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : newReleasesError ? (
                 <p>Add another error</p>
             ) : (
@@ -23,7 +23,7 @@ function HomePage() {
             )}
             <HorizontalLine/>
             {topHitsError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : topHitsError ? (
                 <p>Add another error</p>
             ) : (
@@ -31,7 +31,7 @@ function HomePage() {
             )}
             <HorizontalLine/>
             {genresError === 401 ? (
-                <LoginPrompt/>
+                <ConnectPrompt/>
             ) : genresError ? (
                 <p>Add another error</p>
             ) : (

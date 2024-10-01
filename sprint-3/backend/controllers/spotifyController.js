@@ -79,7 +79,7 @@ async function callbackSpotify(req, res) {
                 refreshTokenCreatedAt: Date.now(),
             });
 
-            res.redirect('/');
+            res.redirect('http://localhost:5173/');
         } catch (error) {
             res.redirect(
                 "/#" +
