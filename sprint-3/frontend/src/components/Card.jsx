@@ -10,7 +10,11 @@ function Card({item}) {
         <article className={styles.card}>
             <img className={styles.image} src={item.image_url} alt={item.name}/>
             <p className={styles.title}>{item.name}</p>
-            <p>{validArtists.map(artist => artist.name).join(', ')}</p>
+            {item.type === "track" || item.type === "album" ? (
+                <p>{validArtists.map(artist => artist.name).join(', ')}</p>
+            ) : item.type === "playlist" ? (
+                <p>{item.owner?.name}</p>
+            ) : null}
         </article>
     );
 }

@@ -208,7 +208,7 @@ async function recommendedGenres(req, res, next) {
             }
         }
 
-        res.status(200).json({genres});
+        res.status(200).json(genres);
     } catch (error) {
         next(error);
     }

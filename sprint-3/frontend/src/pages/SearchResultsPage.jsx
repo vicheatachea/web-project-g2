@@ -15,6 +15,7 @@ function SearchResultsPage() {
         const fetchSearchResults = async () => {
             for (const type of ["track", "artist", "album", "playlist"]) {
                 const searchResultsData = await searchSpotify(searchParams.get("q"), type);
+
                 switch (type) {
                     case "track":
                         setTrackResults(searchResultsData);

@@ -22,7 +22,7 @@ async function searchSpotify(query, type) {
                 type: type
             }
         });
-        return response.data.searches;
+        return response.data;
     } catch (error) {
         console.error(error.response.status, error.response.data);
         return [];
@@ -32,7 +32,7 @@ async function searchSpotify(query, type) {
 async function recommendedGenres() {
     try {
         const response = await axios.get("/api/spotify/genres");
-        return response.data.genres;
+        return response.data;
     } catch (error) {
         console.error(error.response.status, error.response.data);
         return [];
