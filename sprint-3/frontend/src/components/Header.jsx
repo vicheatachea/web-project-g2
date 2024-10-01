@@ -1,15 +1,9 @@
 import React from 'react';
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faBell, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 
 function Header({ theme, toggleTheme }) {
-    const [dropdownVisible, setDropdownVisible] = React.useState(false);
-
-    const toggleDropdown = () => {
-        setDropdownVisible(!dropdownVisible);
-    };
-
     return (
         <header className={`sickbeat-header ${theme}`}>
             <a href='/' className="logo">SickBeat</a>
@@ -21,15 +15,13 @@ function Header({ theme, toggleTheme }) {
                     <li><a href=""><FontAwesomeIcon icon={faBell} size="lg" /></a></li>
                     <li><a href="/login"><FontAwesomeIcon icon={faUser} size='lg'/></a></li>
                     <li>
-                        <a href="#" onClick={toggleDropdown}>
-                            <FontAwesomeIcon icon={faBars} size='lg'/>
-                        </a>
-                        {dropdownVisible && (
-                            <div className="dropdown-menu">
-                                <button className="mode-button" onClick={toggleTheme}>Light/Dark</button>
-                                <button className="my-profile-button">My profile</button>
-                            </div>
-                        )}
+                        <button className="mode-button" onClick={toggleTheme}>
+                            {theme === 'light' ? (
+                                <FontAwesomeIcon icon={faMoon} size="lg" />
+                            ) : (
+                                <FontAwesomeIcon icon={faSun} size="lg" />
+                            )}
+                        </button>
                     </li>
                 </ul>
             </nav>
