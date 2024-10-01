@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const useSpotifyGet = (url) => {
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -11,12 +12,12 @@ export const useSpotifyGet = (url) => {
                 setData(response.data);
             } catch (error) {
                 console.error(error.response.status, error.response.data);
-                return [];
+                setError(error.response.status);
             }
         };
 
         fetchData();
     }, [url]);
 
-    return data;
+    return {data, error};
 }

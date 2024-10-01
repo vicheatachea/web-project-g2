@@ -1,10 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from './BrowseByGenre.module.css';
-import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
-function BrowseByGenres({ theme }) {
-    const genres = useSpotifyGet("/api/spotify/genres");
-
+function BrowseByGenres({genres}) {
     const handleGenreClick = (genreName) => {
         alert(`You clicked on the ${genreName} genre`);
         // Later, this will display the albums and songs from the genre.
@@ -13,7 +10,7 @@ function BrowseByGenres({ theme }) {
     return (
         <section className={styles.genres}>
             <h2 className={styles.genreTitle}>Browse by Genres</h2>
-            <div className={`${styles.genreCards} ${theme}`}>
+            <div className={`${styles.genreCards}`}>
                 {genres.map((genre) => (
                     <div 
                         key={genre}
