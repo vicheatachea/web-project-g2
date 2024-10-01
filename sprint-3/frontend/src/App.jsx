@@ -15,7 +15,7 @@ import ArtistPage from "./pages/ArtistPage.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
-import NotFoundPage from './pages/NotFoundPage.jsx';
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 function App() {
 	const [theme, setTheme] = useState(() => {
@@ -47,6 +47,9 @@ function App() {
 		const newTheme = theme === "light" ? "dark" : "light";
 		setTheme(newTheme);
 		document.body.className = newTheme; // Apply the theme to the body
+
+		const event = new Event("classChange");
+		document.body.dispatchEvent(event);
 	};
 
 	return (
@@ -54,10 +57,13 @@ function App() {
 			<BrowserRouter>
 				<ToastContainer
 					position='bottom-right'
-					transition:Slide
+					hideProgressBar={false}
 					autoClose={3000}
+					newestOnTop
 					closeOnClick
+					draggable
 					theme='colored'
+					transition:Slide
 				/>
 				<Header
 					theme={theme}
@@ -114,7 +120,7 @@ function App() {
 							)
 						}
 					/>
-                    <Route path='/notfound' element={<NotFoundPage />} />
+					<Route path='/notfound' element={<NotFoundPage />} />
 				</Routes>
 				<Footer theme={theme} />
 			</BrowserRouter>
