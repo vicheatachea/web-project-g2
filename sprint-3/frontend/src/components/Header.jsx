@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faUser, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
 function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
@@ -62,32 +62,14 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 						</Link>
 					</li>
 					<li>
-						<a href='#' onClick={toggleDropdown}>
-							<FontAwesomeIcon icon={faBars} size='lg' />
-						</a>
-						{dropdownVisible && (
-							<div className={styles.dropdownMenu}>
-								<button
-									className='mode-button'
-									onClick={toggleTheme}
-								>
-									Light/Dark
-								</button>
-								<button
-									className='library-button'
-									onClick={() => navigate("/library")}
-								>
-									My Library
-								</button>
-								<button
-									className='account-button'
-									onClick={() => navigate("/account")}
-								>
-									My Account
-								</button>
-							</div>
-						)}
-					</li>
+                        <button className="mode-button" onClick={toggleTheme}>
+                            {theme === 'light' ? (
+                                <FontAwesomeIcon icon={faMoon} size="lg" />
+                            ) : (
+                                <FontAwesomeIcon icon={faSun} size="lg" />
+                            )}
+                        </button>
+                    </li>
 				</ul>
 			</nav>
 		</header>

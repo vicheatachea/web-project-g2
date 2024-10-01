@@ -15,6 +15,7 @@ import ArtistPage from "./pages/ArtistPage.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
 	const [theme, setTheme] = useState(() => {
@@ -113,6 +114,7 @@ function App() {
 							)
 						}
 					/>
+                    <Route path='/notfound' element={<NotFoundPage />} />
 				</Routes>
 				<Footer theme={theme} />
 			</BrowserRouter>
