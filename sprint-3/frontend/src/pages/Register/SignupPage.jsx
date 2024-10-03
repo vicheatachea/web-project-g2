@@ -1,15 +1,15 @@
 import React from 'react'
 import {useField} from "../../hooks/useField.jsx";
-import {useRegister} from "../../hooks/useRegister.jsx";
+import {useSignup} from "../../hooks/useSignup.jsx";
 import {useNavigate} from "react-router-dom";
-import styles from "./Register.module.css";
+import styles from "./SignupPage.module.css";
 
-function LoginPage() {
+function SignupPage() {
     const emailField = useField("email");
     const usernameField = useField("text");
     const passwordField = useField("password");
     const confirmPasswordField = useField("password");
-    const {register} = useRegister();
+    const {signup} = useSignup();
     const Navigate = useNavigate();
 
     const handleRegister = async () => {
@@ -24,7 +24,7 @@ function LoginPage() {
                     alert("Passwords do not match");
                 }
 
-                register(
+                signup(
                     usernameField.value,
                     emailField.value,
                     passwordField.value
@@ -46,7 +46,7 @@ function LoginPage() {
     return (
         <div className={`${styles.registerContainer}`}>
             <div className={styles.registerBox}>
-                <h2 className={styles.registerTitle}>Register</h2>
+                <h2 className={styles.registerTitle}>Sign Up</h2>
                 <form onSubmit={handleRegister}>
                     <div className={styles.inputGroup}>
                         <input
@@ -93,7 +93,7 @@ function LoginPage() {
                         />
                     </div>
                     <button type='submit' className={styles.submitButton}>
-                        REGISTER →
+                        SIGN UP →
                     </button>
                 </form>
                 <div className={styles.linkContainer}>
@@ -109,4 +109,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default SignupPage;

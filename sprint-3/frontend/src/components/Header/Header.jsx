@@ -22,7 +22,7 @@ function Header({theme, toggleTheme}) {
 
     return (
         <header className={`${styles.sickbeatHeader} ${theme}`}>
-            <a href='/sprint-3/frontend/public' className={styles.logo}>SickBeat</a>
+            <a href='/' className={styles.logo}>SickBeat</a>
             <div className={styles.searchContainer}>
                 <input
                     type='text'

@@ -59,7 +59,7 @@ function LoginPage() {
                 <div className={styles.linkContainer}>
                     <p>
                         Don't have an account already?{" "}
-                        <a href='/register' className={styles.link}>
+                        <a href='/signup' className={styles.link}>
                             Click here to sign up
                         </a>
                     </p>

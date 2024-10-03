@@ -1,9 +1,8 @@
-import React from "react";
 import {registerUser} from "../utils/userRequests";
 import Cookies from "js-cookie";
 
-export const useRegister = () => {
-    const register = async (username, email, password) => {
+export const useSignup = () => {
+    const signup = async (username, email, password) => {
         try {
             const response = await registerUser({
                 username,
@@ -22,5 +21,5 @@ export const useRegister = () => {
         }
     };
 
-    return {register};
+    return {signup};
 };

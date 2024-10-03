@@ -5,7 +5,7 @@ import React from 'react';
 import Header from './components/Header/Header.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import LoginPage from './pages/Login/LoginPage.jsx';
-import RegisterPage from './pages/Register/RegisterPage.jsx';
+import SignupPage from './pages/Register/SignupPage.jsx';
 import HomePage from './pages/Home/HomePage.jsx';
 import SearchResultsPage from './pages/SearchResults/SearchResultsPage.jsx';
 import MusicPlayerPage from './pages/MusicPlayer/MusicPlayerPage.jsx';
@@ -13,6 +13,7 @@ import AccountPage from './pages/Account/AccountPage.jsx';
 import LibraryPage from './pages/Library/LibraryPage.jsx';
 import ArtistPage from './pages/Artist/ArtistPage.jsx';
 import NotFoundPage from './pages/NotFound/NotFoundPage.jsx';
+import PlaylistPage from "./pages/Playlist/PlaylistPage.jsx";
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -37,10 +38,11 @@ function App() {
                 <Routes>
                     <Route path='/' element={<HomePage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
-                    <Route path='/signup' element={<RegisterPage/>}/>
+                    <Route path='/signup' element={<SignupPage/>}/>
                     <Route path='/search' element={<SearchResultsPage/>}/>
-                    <Route path='/artist' element={<ArtistPage/>}/>
                     <Route path='/player' element={<MusicPlayerPage/>}/>
+                    <Route path='/playlist' element={<PlaylistPage/>}/>
+                    <Route path='/artist' element={<ArtistPage/>}/>
                     <Route path='/account' element={<AccountPage/>}/>
                     <Route path='/library' element={<LibraryPage/>}/>
                     <Route path='/*' element={<NotFoundPage/>}/>
