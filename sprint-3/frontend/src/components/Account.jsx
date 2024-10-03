@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 // import axios from 'axios';
-import styles from './Account.module.css';
+import styles from '../pages/Account/AccountPage.module.css';
 import accountPicture from '../images/the-rock.jpg';
 
 

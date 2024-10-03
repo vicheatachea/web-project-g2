@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import styles from './MusicPlayer.module.css';
+import styles from '../pages/MusicPlayer/MusicPlayerPage.module.css';
 
 const MusicPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);

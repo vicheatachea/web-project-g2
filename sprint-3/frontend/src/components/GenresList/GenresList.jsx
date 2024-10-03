@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './GenresList.css';
+import styles from './GenresList.module.css';
 
 function GenresList({genres}) {
     const handleGenreClick = (genreName) => {

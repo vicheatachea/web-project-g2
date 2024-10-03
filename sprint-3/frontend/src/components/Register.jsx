@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Register.module.css";
+import styles from "../pages/Register/Register.module.css";
 import {useRegister} from "../hooks/useRegister";
 import {useField} from "../hooks/useField";
 import {useNavigate} from "react-router-dom";

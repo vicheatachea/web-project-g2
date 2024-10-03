@@ -43,7 +43,7 @@ function App() {
                     <Route path='/player' element={<MusicPlayerPage/>}/>
                     <Route path='/account' element={<AccountPage/>}/>
                     <Route path='/library' element={<LibraryPage/>}/>
-                    <Route path='/notfound' element={<NotFoundPage/>}/>
+                    <Route path='/*' element={<NotFoundPage/>}/>
                 </Routes>
                 <Footer theme={theme}/>
             </BrowserRouter>

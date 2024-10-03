@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import styles from "./Login.module.css"; // Import the CSS file
+import styles from "../pages/Login/LoginPage.module.css"; // Import the CSS file
 import {useLogin} from "../hooks/useLogin";
 import {useField} from "../hooks/useField";
 import {useNavigate} from "react-router-dom";
