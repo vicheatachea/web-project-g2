@@ -7,14 +7,14 @@ function ConnectPrompt() {
     };
 
     return (
-        <div className={styles.prompt}>
+        <section className={styles.prompt}>
             <p className={styles.text}>
                 Connect to your Spotify account to see results
             </p>
             <button className={styles.button} onClick={handleConnect}>
                 Connect to Spotify
             </button>
-        </div>
+        </section>
     );
 }
 

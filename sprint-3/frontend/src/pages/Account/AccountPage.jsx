@@ -61,7 +61,7 @@ function AccountPage({theme}) {
 
 
     return (
-        <div className={`${styles.accountPage} account-page ${theme}`}>
+        <section className={`${styles.accountPage} account-page ${theme}`}>
             <h1>My Account</h1>
 
 
@@ -122,7 +122,7 @@ function AccountPage({theme}) {
             <div className={styles.deleteSection}>
                 <button className={styles.deleteAccount} onClick={handleDeleteAccount}>Delete Account</button>
             </div>
-        </div>
+        </section>
     );
 }
 

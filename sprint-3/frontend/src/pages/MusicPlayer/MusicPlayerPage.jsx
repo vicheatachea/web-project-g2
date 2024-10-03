@@ -40,7 +40,7 @@ function MusicPlayerPage() {
     };
 
     return (
-        <div className={styles.MusicPlayer}>
+        <section className={styles.MusicPlayer}>
             <div className={styles.nowPlaying}>Now Playing</div>
             <div className={styles.imageContainer}>
                 <img src={song.imageUrl} alt="Artist" className={styles.artistImage}/>
@@ -82,7 +82,7 @@ function MusicPlayerPage() {
                     ⏩
                 </button>
             </div>
-        </div>
+        </section>
     );
 }
 

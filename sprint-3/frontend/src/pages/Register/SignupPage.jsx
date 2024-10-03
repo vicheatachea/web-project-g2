@@ -44,7 +44,7 @@ function SignupPage() {
     };
 
     return (
-        <div className={`${styles.registerContainer}`}>
+        <section className={`${styles.registerContainer}`}>
             <div className={styles.registerBox}>
                 <h2 className={styles.registerTitle}>Sign Up</h2>
                 <form onSubmit={handleRegister}>
@@ -105,7 +105,7 @@ function SignupPage() {
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

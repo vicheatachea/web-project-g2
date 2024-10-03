@@ -30,7 +30,7 @@ function LoginPage() {
     };
 
     return (
-        <div className={`${styles.loginContainer}`}>
+        <section className={`${styles.loginContainer}`}>
             <div className={styles.loginBox}>
                 <h2 className={styles.loginTitle}>Login</h2>
                 <form onSubmit={handleLogin}>
@@ -70,7 +70,7 @@ function LoginPage() {
                     </p>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

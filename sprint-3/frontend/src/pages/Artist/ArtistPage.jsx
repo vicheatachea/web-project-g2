@@ -46,7 +46,7 @@ const ArtistPage = () => {
     }
 
     return (
-        <div className={`${styles.artistPage}`}>
+        <section className={`${styles.artistPage}`}>
             <h1>{artist.name}</h1>
             <img
                 src={artist.images[0].url}
@@ -57,7 +57,7 @@ const ArtistPage = () => {
             <p>Genres: {artist.genres.join(', ')}</p>
             <p>Followers: {artist.followers.total.toLocaleString()}</p>
             <p>Popularity: {artist.popularity}</p>
-        </div>
+        </section>
     );
 };
 

@@ -6,7 +6,6 @@ function LibraryPage({theme}) {
     const [playlists, setPlaylists] = useState([]); // Saved playlists
     const [songs, setSongs] = useState([]); // Saved songs
 
-
     // Mock data for saved songs and playlists
     useEffect(() => {
         const savedPlaylists = [
@@ -34,9 +33,8 @@ function LibraryPage({theme}) {
         );
     }
 
-
     return (
-        <div className={`${styles.library} library-page ${theme}`}>
+        <section className={`${styles.library} library-page ${theme}`}>
             <h1 className={styles.libraryTitle}>My Saved Songs and Playlists</h1>
 
 
@@ -70,7 +68,7 @@ function LibraryPage({theme}) {
                     <p>No saved songs</p>
                 )}
             </div>
-        </div>
+        </section>
     );
 }
 

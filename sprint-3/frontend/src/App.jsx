@@ -32,24 +32,22 @@ function App() {
     };
 
     return (
-        <>
-            <BrowserRouter>
-                <Header theme={theme} toggleTheme={toggleTheme}/>
-                <Routes>
-                    <Route path='/' element={<HomePage/>}/>
-                    <Route path='/login' element={<LoginPage/>}/>
-                    <Route path='/signup' element={<SignupPage/>}/>
-                    <Route path='/search' element={<SearchResultsPage/>}/>
-                    <Route path='/player' element={<MusicPlayerPage/>}/>
-                    <Route path='/playlist' element={<PlaylistPage/>}/>
-                    <Route path='/artist' element={<ArtistPage/>}/>
-                    <Route path='/account' element={<AccountPage/>}/>
-                    <Route path='/library' element={<LibraryPage/>}/>
-                    <Route path='/*' element={<NotFoundPage/>}/>
-                </Routes>
-                <Footer theme={theme}/>
-            </BrowserRouter>
-        </>
+        <BrowserRouter>
+            <Header theme={theme} toggleTheme={toggleTheme}/>
+            <Routes>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/signup' element={<SignupPage/>}/>
+                <Route path='/search' element={<SearchResultsPage/>}/>
+                <Route path='/player' element={<MusicPlayerPage/>}/>
+                <Route path='/playlist' element={<PlaylistPage/>}/>
+                <Route path='/artist' element={<ArtistPage/>}/>
+                <Route path='/account' element={<AccountPage/>}/>
+                <Route path='/library' element={<LibraryPage/>}/>
+                <Route path='/*' element={<NotFoundPage/>}/>
+            </Routes>
+            <Footer theme={theme}/>
+        </BrowserRouter>
     );
 }
 

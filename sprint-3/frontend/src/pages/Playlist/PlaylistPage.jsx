@@ -3,7 +3,7 @@ import styles from "./PlaylistPage.module.css"; // Import the CSS module
 
 const PlaylistPage = () => {
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             {/* Playlist Header */}
             <div className={styles.header}>
                 <div className={styles.imageWrapper}>
@@ -52,7 +52,7 @@ const PlaylistPage = () => {
                 ))}
                 </tbody>
             </table>
-        </div>
+        </section>
     );
 };
 
