@@ -1,4 +1,4 @@
-.sickbeat-header {
+.sickbeatHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,12 +7,12 @@
     color: var(--secondary-color);
 }
 
-.sickbeat-header.light {
+.sickbeatHeader.light {
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
 
-.sickbeat-header.dark {
+.sickbeatHeader.dark {
     background-color: var(--primary-color);
     color: var(--secondary-color);
 }
@@ -31,14 +31,14 @@
     text-decoration: none;
 }
 
-.search-container {
+.searchContainer {
     flex: 1;
     display: flex;
     justify-content: left;
     margin: 0 20px;
 }
 
-.search-container input {
+.searchContainer input {
     width: 100%;
     min-width: 300px;
     max-width: 900px;
@@ -49,18 +49,18 @@
 }
 
 /* Light theme */
-.sickbeat-header.light .search-container input {
+.sickbeatHeader.light .searchContainer input {
     background-color: #ccc;
     color: #333;
 }
 
 /* Dark theme */
-.sickbeat-header.dark .search-container input {
+.sickbeatHeader.dark .searchContainer input {
     background-color: #333;
     color: #f0f0f0;
 }
 
-.icon-list {
+.iconList {
     list-style: none;
     display: flex;
     padding-right: 5rem;
@@ -68,7 +68,7 @@
     align-items: center;
 }
 
-.icon-list li a {
+.iconList li a {
     text-decoration: none;
     color: var(--secondary-color);
     font-size: 18px;
@@ -76,7 +76,7 @@
     align-items: center;
 }
 
-.dropdown-menu {
+.dropdownMenu {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -87,11 +87,4 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 10;
     border-radius: 10px;
-}
-
-.my-profile-button {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }

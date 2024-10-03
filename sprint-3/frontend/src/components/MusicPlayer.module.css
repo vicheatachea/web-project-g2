@@ -9,7 +9,7 @@
     --secondary-hover-color: grey; /* Lighter hover background */
   }
   
-  .music-player {
+  .musicPlayer {
     text-align: center;
     background-color: var(--background-color);
     color: var(--text-color);
@@ -25,7 +25,7 @@
     margin-top: 40px;
   }
   
-  .music-player::before {
+  .musicPlayer::before {
     content: '';
     position: absolute;
     top: 0;
@@ -36,7 +36,7 @@
     z-index: 1;
   }
   
-  .now-playing {
+  .nowPlaying {
     color: var(--text-color);
     font-weight: bold;
     font-size: 1.5rem;
@@ -44,7 +44,7 @@
     position: relative;
   }
   
-  .image-container {
+  .imageContainer {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -52,7 +52,7 @@
     position: relative;
   }
   
-  .artist-image {
+  .artistImage {
     width: 100%;
     max-width: 400px;
     height: auto;
@@ -62,7 +62,7 @@
     position: relative;
   }
   
-  .song-title {
+  .songTitle {
     font-size: 1.3rem;
     color: var(--text-color);
     margin-bottom: 15px;
@@ -70,13 +70,13 @@
     position: relative;
   }
   
-  .progress-bar-container {
+  .progressBarContainer {
     margin-top: 20px;
     z-index: 2;
     position: relative;
   }
   
-  .progress-bar {
+  .progressBar {
     width: 100%;
     z-index: 2;
     position: relative;
@@ -87,7 +87,7 @@
     background: linear-gradient(90deg, #333333, #000000);
   }
   
-  .progress-bar::-webkit-slider-thumb {
+  .progressBar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -106,7 +106,7 @@
     position: relative;
   }
   
-  .control-button {
+  .controlButton {
     background-color: rgba(255, 255, 255, 0.5);
     border: none;
     color: var(--button-color);
@@ -123,7 +123,7 @@
     box-shadow: 0px 4px 6px var(--button-shadow);
   }
   
-  .control-button:hover {
+  .controlButton:hover {
     background-color: var(--secondary-hover-color);
     transform: scale(1.1); /* Slightly increase size on hover */
     box-shadow: 0px 6px 12px var(--button-hover-shadow);

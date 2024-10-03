@@ -1,0 +1,120 @@
+/*Footer.module.css*/
+/* Light theme */
+.sickbeatFooter.light {
+    background-color: var(--light-footer-background);
+    color: var(--footer-text);
+}
+
+.sickbeatFooter.light .socialSection li a,
+.sickbeatFooter.light .footerContent li a {
+    color: var(--footer-text);
+}
+
+/* Dark theme */
+.sickbeatFooter.dark {
+    background-color: var(--footer-background);
+    color: var(--footer-text);
+}
+
+.sickbeatFooter.dark .socialSection li a,
+.sickbeatFooter.dark .footerContent li a {
+    color: var(--footer-text);
+}
+
+/* General footer styles */
+.sickbeatFooter {
+    padding: 20px;
+    background-color: var(--tertiary-color);
+    color: var(--footer-text);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+
+.footerContent ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.footerContent li {
+    margin: 0 10px;
+}
+
+.footerContent li a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.footerNav {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+}
+
+.footerNav > li {
+    list-style: none;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.companySection,
+.helpSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.companyItems,
+.helpItems {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+.navText {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.rights {
+    white-space: nowrap;
+    text-align: center;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+    padding-left: 30px;
+    font-size: medium;
+}
+
+.socialSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+}
+
+.socialSection li {
+    margin: 0 5px;
+}
+
+.socialSection li a {
+    text-decoration: none;
+    font-size: 18px;
+}

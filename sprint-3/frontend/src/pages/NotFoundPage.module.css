@@ -1,0 +1,39 @@
+.notFoundContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the container take full screen height */
+    background-color: #f8f9fa; /* Light background */
+    text-align: center;
+  }
+  
+  .triangle {
+    font-size: 5rem; /* Larger icon */
+    color: #ff6b6b; /* Red color to emphasize the error */
+    margin-bottom: 20px;
+  }
+  
+  .notFound {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .notFoundPage {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .backHome {
+    text-decoration: none;
+    color: white;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  

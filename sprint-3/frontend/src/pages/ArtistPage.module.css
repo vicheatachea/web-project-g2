@@ -1,0 +1,21 @@
+.artistPage {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .artistPage img {
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .artistPage h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .artistPage p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+  }
+  
