@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Header.module.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faBell, faUser, faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import {faBell, faUser, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
@@ -39,9 +39,9 @@ function Header({theme, toggleTheme}) {
                     <li>
                         <button className="mode-button" onClick={toggleTheme}>
                             {theme === 'light' ? (
-                                <FontAwesomeIcon icon={faMoon} size="lg" />
+                                <FontAwesomeIcon icon={faMoon} size="lg"/>
                             ) : (
-                                <FontAwesomeIcon icon={faSun} size="lg" />
+                                <FontAwesomeIcon icon={faSun} size="lg"/>
                             )}
                         </button>
                     </li>

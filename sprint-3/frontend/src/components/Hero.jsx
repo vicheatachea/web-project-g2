@@ -11,12 +11,13 @@ function Hero() {
         <section className={styles.hero}>
             <div
                 className={styles.heroBackground}
-                style={{ backgroundImage: `url(${backgroundImage})` }}
+                style={{backgroundImage: `url(${backgroundImage})`}}
             >
                 <div className={styles.heroContent}>
                     <h1 className={styles.sickbeatPhrase}>FIND MUSIC THAT MATCHES YOUR TASTE</h1>
                     <div className={styles.sickbeatText}>
-                        Browse through our diverse range of carefully selected songs, designed to bring out your individuality and cater to your sense of style.
+                        Browse through our diverse range of carefully selected songs, designed to bring out your
+                        individuality and cater to your sense of style.
                     </div>
                     <div className={styles.browseButton}>
                         <button>Browse Now</button>

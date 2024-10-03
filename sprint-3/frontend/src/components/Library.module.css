@@ -5,18 +5,18 @@
     padding: 40px;
     background-color: #f4f4f4;
     min-height: 100vh;
- }
- 
- 
- .libraryTitle {
+}
+
+
+.libraryTitle {
     margin-bottom: 30px;
     font-size: 32px;
     color: #333;
- }
- 
- 
- /* Main sections for profile, playlists, and songs */
- .playlistSection, .songsSection {
+}
+
+
+/* Main sections for profile, playlists, and songs */
+.playlistSection, .songsSection {
     width: 100%;
     max-width: 800px;
     background-color: #fff;
@@ -25,62 +25,60 @@
     margin-bottom: 20px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
- }
- 
- 
- .playlistTitle, .songsTitle {
+}
+
+
+.playlistTitle, .songsTitle {
     font-size: 24px;
     color: #333;
     margin-bottom: 15px;
- }
- 
- 
- /* Styling the list of playlists and songs */
- .playlistDisplay, .songsDisplay {
+}
+
+
+/* Styling the list of playlists and songs */
+.playlistDisplay, .songsDisplay {
     list-style: none;
     padding: 0;
- }
- 
- 
- .playlistId, .songsId {
+}
+
+
+.playlistId, .songsId {
     padding: 10px;
     border-bottom: 1px solid #ddd;
- }
- 
- 
- /* Redirect Login */
- .redirectLogin {
+}
+
+
+/* Redirect Login */
+.redirectLogin {
     text-align: center;
     font-size: 18px;
- }
- 
- 
- .redirectLogin p {
+}
+
+
+.redirectLogin p {
     font-size: 16px;
     color: #333;
- }
- 
- 
- .redirectLogin a {
+}
+
+
+.redirectLogin a {
     color: #333;
     text-decoration: none;
     font-weight: bold;
- }
- 
- 
- .redirectLogin a:hover {
+}
+
+
+.redirectLogin a:hover {
     text-decoration: underline;
- }
- 
- 
- 
- 
- /* Responsive adjustments */
- @media (max-width: 768px) {
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .section,
     .profileSection {
         max-width: 100%;
         margin: 0 10px;
     }
- }
+}
  

@@ -9,13 +9,16 @@ function SearchResultsPage() {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = searchParams.get("q");
 
-    const {data: searchTrack,
+    const {
+        data: searchTrack,
         error: searchTrackError
     } = useSpotifyGet(`/api/spotify/search?q=${query}&type=track`);
-    const {data: searchArtist,
+    const {
+        data: searchArtist,
         error: searchArtistError
     } = useSpotifyGet(`/api/spotify/search?q=${query}&type=artist`);
-    const {data: searchAlbum,
+    const {
+        data: searchAlbum,
         error: searchAlbumError
     } = useSpotifyGet(`/api/spotify/search?q=${query}&type=album`);
     const {

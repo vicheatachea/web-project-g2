@@ -12,9 +12,9 @@ function BrowseByGenres({genres}) {
             <h2 className={styles.genreTitle}>Browse by Genres</h2>
             <div className={`${styles.genreCards}`}>
                 {genres.map((genre) => (
-                    <div 
+                    <div
                         key={genre}
-                        className={styles.genreCard} 
+                        className={styles.genreCard}
                         onClick={() => handleGenreClick(genre)}>
                         {genre}
                     </div>

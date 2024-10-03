@@ -1,64 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import styles from './ArtistPage.module.css'; 
+import React, {useEffect, useState} from 'react';
+import styles from './ArtistPage.module.css';
 import accountPicture from '../images/the-rock.jpg';
 
 // version for using mock data mimicking the JSON response from Spotify API
 const mockArtistData = {
-  external_urls: {
-    spotify: "https://open.spotify.com/artist/12345"
-  },
-  followers: {
-    href: null,
-    total: 50000
-  },
-  genres: ["Prog rock", "Grunge"],
-  href: "https://api.spotify.com/v1/artists/12345",
-  id: "12345",
-  images: [
-    {
-      url: accountPicture,
-      height: 300,
-      width: 300
-    }
-  ],
-  name: "Mock Artist",
-  popularity: 85,
-  type: "artist",
-  uri: "spotify:artist:12345"
+    external_urls: {
+        spotify: "https://open.spotify.com/artist/12345"
+    },
+    followers: {
+        href: null,
+        total: 50000
+    },
+    genres: ["Prog rock", "Grunge"],
+    href: "https://api.spotify.com/v1/artists/12345",
+    id: "12345",
+    images: [
+        {
+            url: accountPicture,
+            height: 300,
+            width: 300
+        }
+    ],
+    name: "Mock Artist",
+    popularity: 85,
+    type: "artist",
+    uri: "spotify:artist:12345"
 };
 
 const ArtistPage = () => {
-  const [artist, setArtist] = useState(null);
+    const [artist, setArtist] = useState(null);
 
-  // Simulate fetching artist data using mock data
-  useEffect(() => {
-    const fetchArtist = () => {
-      // Simulating an API call by setting mock data
-      setTimeout(() => {
-        setArtist(mockArtistData);
-      }, 1000); // Adding a delay to simulate async behavior
-    };
-    fetchArtist();
-  }, []);
+    // Simulate fetching artist data using mock data
+    useEffect(() => {
+        const fetchArtist = () => {
+            // Simulating an API call by setting mock data
+            setTimeout(() => {
+                setArtist(mockArtistData);
+            }, 1000); // Adding a delay to simulate async behavior
+        };
+        fetchArtist();
+    }, []);
 
-  if (!artist) {
-    return <div>Loading...</div>;
-  }
+    if (!artist) {
+        return <div>Loading...</div>;
+    }
 
-  return (
-    <div className={`${styles.artistPage}`}>
-      <h1>{artist.name}</h1>
-      <img
-        src={artist.images[0].url}
-        alt={artist.name}
-        height={artist.images[0].height}
-        width={artist.images[0].width}
-      />
-      <p>Genres: {artist.genres.join(', ')}</p>
-      <p>Followers: {artist.followers.total.toLocaleString()}</p>
-      <p>Popularity: {artist.popularity}</p>
-    </div>
-  );
+    return (
+        <div className={`${styles.artistPage}`}>
+            <h1>{artist.name}</h1>
+            <img
+                src={artist.images[0].url}
+                alt={artist.name}
+                height={artist.images[0].height}
+                width={artist.images[0].width}
+            />
+            <p>Genres: {artist.genres.join(', ')}</p>
+            <p>Followers: {artist.followers.total.toLocaleString()}</p>
+            <p>Popularity: {artist.popularity}</p>
+        </div>
+    );
 };
 
 export default ArtistPage;

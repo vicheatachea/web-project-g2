@@ -15,37 +15,37 @@ import ArtistPage from './pages/ArtistPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
-	const [theme, setTheme] = useState(() => {
-		return localStorage.getItem("theme") || "light";
-	});
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem("theme") || "light";
+    });
 
-	useEffect(() => {
-		document.body.className = theme;
-		localStorage.setItem("theme", theme);
-	}, [theme]);
+    useEffect(() => {
+        document.body.className = theme;
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
-	const toggleTheme = () => {
-		const newTheme = theme === "light" ? "dark" : "light";
-		setTheme(newTheme);
-		document.body.className = newTheme; // Apply the theme to the body
-	};
+    const toggleTheme = () => {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        document.body.className = newTheme; // Apply the theme to the body
+    };
 
     return (
         <>
             <BrowserRouter>
-            <Header theme={theme} toggleTheme={toggleTheme}/>
+                <Header theme={theme} toggleTheme={toggleTheme}/>
                 <Routes>
                     <Route path='/' element={<HomePage/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/signup' element={<RegisterPage/>}/>
-                    <Route path='/search' element={<SearchResultsPage />} />
-                    <Route path='/artist' element={<ArtistPage />} />
-                    <Route path='/player' element={<MusicPlayerPage />} />
-                    <Route path='/account' element={<AccountPage />} />
-                    <Route path='/library' element={<LibraryPage />} />
-                    <Route path='/notfound' element={<NotFoundPage />} />
+                    <Route path='/search' element={<SearchResultsPage/>}/>
+                    <Route path='/artist' element={<ArtistPage/>}/>
+                    <Route path='/player' element={<MusicPlayerPage/>}/>
+                    <Route path='/account' element={<AccountPage/>}/>
+                    <Route path='/library' element={<LibraryPage/>}/>
+                    <Route path='/notfound' element={<NotFoundPage/>}/>
                 </Routes>
-            <Footer theme={theme}/>
+                <Footer theme={theme}/>
             </BrowserRouter>
         </>
     );

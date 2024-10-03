@@ -5,9 +5,9 @@
     --dark-primary-color: #121212;
     --dark-secondary-color: #e0e0e0;
     --light-footer-background: #d9dcde; /* Light theme footer background: soft blue */
-    --light-footer-text: #2e4b5f;       /* Light theme footer text: dark teal */
-    --dark-footer-background: #1e1d1d;  /* Dark theme footer background: navy blue */
-    --dark-footer-text: #a0b3c5;      
+    --light-footer-text: #2e4b5f; /* Light theme footer text: dark teal */
+    --dark-footer-background: #1e1d1d; /* Dark theme footer background: navy blue */
+    --dark-footer-text: #a0b3c5;
 }
 
 body.light {

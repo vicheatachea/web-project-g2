@@ -7,9 +7,9 @@
     --button-hover-shadow: rgba(0, 0, 0, 0.2);
     --secondary-button-color: grey; /* Lighter button background */
     --secondary-hover-color: grey; /* Lighter hover background */
-  }
-  
-  .musicPlayer {
+}
+
+.musicPlayer {
     text-align: center;
     background-color: var(--background-color);
     color: var(--text-color);
@@ -23,9 +23,9 @@
     position: relative;
     overflow: hidden;
     margin-top: 40px;
-  }
-  
-  .musicPlayer::before {
+}
+
+.musicPlayer::before {
     content: '';
     position: absolute;
     top: 0;
@@ -34,25 +34,25 @@
     height: 100%;
     background-color: rgba(255, 255, 255, 0.5); /* Light overlay */
     z-index: 1;
-  }
-  
-  .nowPlaying {
+}
+
+.nowPlaying {
     color: var(--text-color);
     font-weight: bold;
     font-size: 1.5rem;
     z-index: 2;
     position: relative;
-  }
-  
-  .imageContainer {
+}
+
+.imageContainer {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
     z-index: 2;
     position: relative;
-  }
-  
-  .artistImage {
+}
+
+.artistImage {
     width: 100%;
     max-width: 400px;
     height: auto;
@@ -60,23 +60,23 @@
     object-fit: cover;
     z-index: 2;
     position: relative;
-  }
-  
-  .songTitle {
+}
+
+.songTitle {
     font-size: 1.3rem;
     color: var(--text-color);
     margin-bottom: 15px;
     z-index: 2;
     position: relative;
-  }
-  
-  .progressBarContainer {
+}
+
+.progressBarContainer {
     margin-top: 20px;
     z-index: 2;
     position: relative;
-  }
-  
-  .progressBar {
+}
+
+.progressBar {
     width: 100%;
     z-index: 2;
     position: relative;
@@ -85,9 +85,9 @@
     outline: none;
     appearance: none;
     background: linear-gradient(90deg, #333333, #000000);
-  }
-  
-  .progressBar::-webkit-slider-thumb {
+}
+
+.progressBar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 20px;
@@ -95,18 +95,18 @@
     border-radius: 50%;
     background: grey;
     cursor: pointer;
-  }
-  
-  .controls {
+}
+
+.controls {
     display: flex;
     justify-content: center;
     gap: 30px;
     margin-top: 20px;
     z-index: 20;
     position: relative;
-  }
-  
-  .controlButton {
+}
+
+.controlButton {
     background-color: rgba(255, 255, 255, 0.5);
     border: none;
     color: var(--button-color);
@@ -121,11 +121,11 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0px 4px 6px var(--button-shadow);
-  }
-  
-  .controlButton:hover {
+}
+
+.controlButton:hover {
     background-color: var(--secondary-hover-color);
     transform: scale(1.1); /* Slightly increase size on hover */
     box-shadow: 0px 6px 12px var(--button-hover-shadow);
-  }
+}
   

@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faFacebook, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons';
 
-function Footer({ theme }) {
+function Footer({theme}) {
     return (
         <footer className={`${styles.sickbeatFooter} ${theme}`}>
             <div className={styles.footerContent}>
