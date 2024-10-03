@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Card from './Card';
+import Card from '../Card/Card.jsx';
 import styles from './CardList.module.css';
 
 function CardList({title, items}) {

@@ -1,10 +1,10 @@
 import React from 'react'
-import Hero from '../components/Hero';
-import BrowseByGenre from '../components/BrowseByGenre';
-import CardList from '../components/CardList';
-import HorizontalLine from "../components/HorizontalLine.jsx";
-import ConnectPrompt from "../components/ConnectPrompt.jsx";
-import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
+import Hero from '../../components/Hero/Hero.jsx';
+import BrowseByGenre from '../../components/GenresList/GenresList.jsx';
+import CardList from '../../components/CardList/CardList.jsx';
+import HorizontalLine from "../../components/HorizontalLine/HorizontalLine.jsx";
+import ConnectPrompt from "../../components/ConnectPrompt/ConnectPrompt.jsx";
+import {useSpotifyGet} from "../../hooks/useSpotifyGet.jsx";
 
 function HomePage() {
     const {data: newReleases, error: newReleasesError} = useSpotifyGet("/api/spotify/new-releases");

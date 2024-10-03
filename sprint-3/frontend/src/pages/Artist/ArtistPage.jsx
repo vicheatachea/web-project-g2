@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './ArtistPage.module.css';
-import accountPicture from '../images/the-rock.jpg';
+import accountPicture from '../../images/the-rock.jpg';
 
 // version for using mock data mimicking the JSON response from Spotify API
 const mockArtistData = {

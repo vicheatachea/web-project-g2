@@ -1,5 +1,5 @@
 import React from 'react'
-import Library from '../components/Library'
+import Library from '../../components/Library.jsx'
 
 function LibraryPage() {
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Hero.module.css';
-import heroBackgroundLight from '../images/hero-background-light.jpg';
-import heroBackgroundDark from '../images/hero-background-dark.jpg';
+import heroBackgroundLight from '../../images/hero-background-light.jpg';
+import heroBackgroundDark from '../../images/hero-background-dark.jpg';
 
 function Hero() {
     const isDarkMode = document.body.classList.contains('dark');

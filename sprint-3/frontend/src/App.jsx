@@ -2,17 +2,17 @@ import {useState, useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage.jsx';
-import SearchResultsPage from './pages/SearchResultsPage.jsx';
-import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
-import AccountPage from './pages/AccountPage.jsx';
-import LibraryPage from './pages/LibraryPage.jsx';
-import ArtistPage from './pages/ArtistPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
+import Header from './components/Header/Header.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import LoginPage from './pages/Login/LoginPage.jsx';
+import RegisterPage from './pages/Register/RegisterPage.jsx';
+import HomePage from './pages/Home/HomePage.jsx';
+import SearchResultsPage from './pages/SearchResults/SearchResultsPage.jsx';
+import MusicPlayerPage from './pages/MusicPlayer/MusicPlayerPage.jsx';
+import AccountPage from './pages/Account/AccountPage.jsx';
+import LibraryPage from './pages/Library/LibraryPage.jsx';
+import ArtistPage from './pages/Artist/ArtistPage.jsx';
+import NotFoundPage from './pages/NotFound/NotFoundPage.jsx';
 
 function App() {
     const [theme, setTheme] = useState(() => {

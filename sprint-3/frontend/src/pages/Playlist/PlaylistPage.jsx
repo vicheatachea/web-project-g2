@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./PlayListPage.module.css"; // Import the CSS module
+import styles from "./PlaylistPage.module.css"; // Import the CSS module
 
-const PlayListPage = () => {
+const PlaylistPage = () => {
     return (
         <div className={styles.container}>
             {/* Playlist Header */}
@@ -88,4 +88,4 @@ const tracks = [
     },
 ];
 
-export default PlayListPage;
+export default PlaylistPage;

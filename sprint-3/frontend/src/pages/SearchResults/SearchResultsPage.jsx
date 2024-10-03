@@ -1,9 +1,9 @@
 import React from 'react'
-import CardList from "../components/CardList.jsx";
+import CardList from "../../components/CardList/CardList.jsx";
 import {useSearchParams} from "react-router-dom";
-import HorizontalLine from "../components/HorizontalLine.jsx";
-import ConnectPrompt from "../components/ConnectPrompt.jsx";
-import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
+import HorizontalLine from "../../components/HorizontalLine/HorizontalLine.jsx";
+import ConnectPrompt from "../../components/ConnectPrompt/ConnectPrompt.jsx";
+import {useSpotifyGet} from "../../hooks/useSpotifyGet.jsx";
 
 function SearchResultsPage() {
     const [searchParams, setSearchParams] = useSearchParams();

@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './BrowseByGenre.module.css';
+import styles from './GenresList.css';
 
-function BrowseByGenres({genres}) {
+function GenresList({genres}) {
     const handleGenreClick = (genreName) => {
         alert(`You clicked on the ${genreName} genre`);
         // Later, this will display the albums and songs from the genre.
@@ -24,4 +24,4 @@ function BrowseByGenres({genres}) {
     );
 }
 
-export default BrowseByGenres;
+export default GenresList;
