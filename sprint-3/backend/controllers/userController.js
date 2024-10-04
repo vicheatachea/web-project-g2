@@ -10,29 +10,11 @@ const getUserData = async (req) => {
 	try {
 		const userId = req.user ? req.user.userId : null;
 		const { email } = req.body;
-		//console.log(email, userId);
 
-		if (!userId) {
-			const userData = await User.findOne({
-				email: email,
-			}).exec();
-			if (userData) {
-				//console.log(userData);
-				return userData;
-			} else {
-				return null;
-			}
-		} else {
-			const userData = await User.findOne({
-				_id: userId,
-			}).exec();
-			if (userData) {
-				//console.log(userData);
-				return userData;
-			} else {
-				return null;
-			}
-		}
+		const query = userId ? { _id: userId } : { email: email };
+		const userData = await User.findOne(query).exec();
+
+		return userData || null;
 	} catch (error) {
 		console.error("Error fetching user data:", error);
 		return null;
@@ -56,14 +38,29 @@ const registerUser = async (req, res, next) => {
 		loginUser(req, res, next, newUser, password);
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
-			res.status(400).json({
+			return res.status(400).json({
 				message: "Invalid input",
 				error: error.message,
+				errors: error.errors, // Provide detailed validation errors
 			});
-		} else {
-			res.status(500).json({
-				message: "Failed to create user",
+		} else if (error.code === 11000) {
+			// Handle duplicate key error (e.g., email already exists)
+            console.log(error)
+			return res.status(409).json({
+				message: "Duplicate key error",
 				error: error.message,
+			});
+		} else if (error instanceof mongoose.Error.CastError) {
+			// Handle cast errors
+			return res.status(400).json({
+				message: "Invalid data type",
+				error: error.message,
+			});
+            
+		} else if (error instanceof Error) {
+			console.error("Unexpected error:", error); // Log unexpected errors for debugging
+			return res.status(500).json({
+				message: error.message
 			});
 		}
 	}
@@ -72,13 +69,12 @@ const registerUser = async (req, res, next) => {
 const loginUser = async (
 	req,
 	res,
-	next /* idk why this is here but doesn't work without */,
+	next,
 	user = null,
 	unHashedPassword = null
 ) => {
 	try {
-		const { email, password } = user ? user : req.body;
-		console.log(email, password);
+		const { email, password } = user || req.body;
 
 		if (!email || (!password && !unHashedPassword)) {
 			return res
@@ -86,20 +82,19 @@ const loginUser = async (
 				.json({ message: "Email and password are required!" });
 		}
 
-		const userData = user ? user : await getUserData(req);
-		console.log(userData);
+		const userData = user || (await getUserData(req));
 
 		if (!userData) {
 			return res.status(404).json({ message: "User not found" });
 		}
 
 		const passwordMatch = await bcrypt.compare(
-			unHashedPassword ? unHashedPassword : password,
+			unHashedPassword || password,
 			userData.password
 		);
-		const usernameMatch = email === userData.email;
+		const emailMatch = email === userData.email;
 
-		if (!passwordMatch || !usernameMatch) {
+		if (!passwordMatch || !emailMatch) {
 			return res
 				.status(401)
 				.json({ message: "Invalid password or email!" });
@@ -109,9 +104,12 @@ const loginUser = async (
 			expiresIn: "1h",
 		});
 		console.log("Login Successful", token);
-		return res.status(200).json({ message: "Login successful", token });
+		res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
-		return res.status(500).json({ Error: error.message });
+		res.status(500).json({
+			message: "Internal server error",
+			error: error.message,
+		});
 	}
 };
 
@@ -122,7 +120,7 @@ const updateUser = async (req, res) => {
 		return res.status(400).json({ message: "No data to update" });
 	}
 
-	const userData = await getUserData(req, res);
+	const userData = await getUserData(req);
 
 	if (!userData) {
 		return res.status(404).json({ message: "User not found" });
@@ -135,9 +133,12 @@ const updateUser = async (req, res) => {
 	}
 
 	try {
-		let updatedData = { username, email, password, role };
+		let updatedData = { username, email };
 		if (password) {
 			updatedData.password = await bcrypt.hash(password, 10);
+		}
+		if (role && req.user && req.user.role === "admin") {
+			updatedData.role = role;
 		}
 
 		const updatedUser = await User.findOneAndUpdate(
@@ -166,10 +167,9 @@ const updateUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-	const userData = await getUserData(req, res);
-	//console.log(userData);
+	const userData = await getUserData(req);
 
-	if (userData === null) {
+	if (!userData) {
 		return res.status(404).json({ message: "User not found" });
 	}
 
