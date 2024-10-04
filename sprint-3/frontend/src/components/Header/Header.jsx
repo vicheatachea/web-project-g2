@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Header.module.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faUser, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 
 function Header({theme, toggleTheme}) {
@@ -21,9 +21,9 @@ function Header({theme, toggleTheme}) {
     };
 
     return (
-        <header className={`${styles.sickbeatHeader} ${theme}`}>
-            <a href='/' className={styles.logo}>SickBeat</a>
-            <div className={styles.searchContainer}>
+        <header className={`${styles.header} ${theme}`}>
+            <Link to='/' className={styles.logo}>SickBeat</Link>
+            <div className={styles.searchbar}>
                 <input
                     type='text'
                     placeholder='Search...'
@@ -34,10 +34,10 @@ function Header({theme, toggleTheme}) {
             </div>
             <nav className={styles.navbar}>
                 <ul className={styles.iconList}>
-                    <li><a href=""><FontAwesomeIcon icon={faBell} size="lg"/></a></li>
-                    <li><a href="/login"><FontAwesomeIcon icon={faUser} size='lg'/></a></li>
+                    <li><Link to=""><FontAwesomeIcon icon={faBell} size="lg"/></Link></li>
+                    <li><Link to="/login"><FontAwesomeIcon icon={faUser} size='lg'/></Link></li>
                     <li>
-                        <button className="mode-button" onClick={toggleTheme}>
+                        <button className={styles.themeButton} onClick={toggleTheme}>
                             {theme === 'light' ? (
                                 <FontAwesomeIcon icon={faMoon} size="lg"/>
                             ) : (
