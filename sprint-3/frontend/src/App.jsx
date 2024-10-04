@@ -36,6 +36,7 @@ function App() {
 		return false;
 	});
 
+    //For debugging purposes
 	//console.log(isAuthenticated);
 
 	useEffect(() => {
