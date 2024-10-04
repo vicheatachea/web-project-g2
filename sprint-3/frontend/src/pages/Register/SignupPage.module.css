@@ -3,24 +3,24 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--base-primary-color);
+    color: var(--contrast-primary-color);
 }
 
 .registerBox {
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--contrast-primary-color);
     padding: 40px;
     border-radius: 10px;
     max-width: 400px;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--base-primary-color);
 }
 
 .registerTitle {
     text-align: center;
     margin-bottom: 30px;
     font-size: 24px;
-    color: var(--secondary-color);
+    color: var(--contrast-primary-color);
 }
 
 .inputGroup {
@@ -32,9 +32,9 @@
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    background-color: var(--secondary-color);
+    background-color: var(--contrast-primary-color);
     margin-bottom: 10px;
-    color: var(--primary-color);
+    color: var(--base-primary-color);
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
@@ -43,8 +43,8 @@
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+    background-color: var(--contrast-primary-color);
+    color: var(--base-primary-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;

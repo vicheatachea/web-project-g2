@@ -28,7 +28,7 @@
     font-size: 30px;
     padding: 25px;
     cursor: pointer;
-    color: var(--secondary-color);
+    color: var(--contrast-primary-color);
 }
 
 .arrow:hover {
@@ -42,9 +42,9 @@
 }
 
 .hiddenArrow {
-    color: var(--primary-color);
+    color: var(--base-primary-color);
 }
 
 .hiddenArrow:hover {
-    color: var(--primary-color);
+    color: var(--base-primary-color);
 }

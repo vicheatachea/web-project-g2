@@ -1,7 +1,7 @@
 .hero {
     text-align: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--base-primary-color);
+    color: var(--contrast-primary-color);
     background-size: cover;
     background-position: center;
 }
@@ -95,7 +95,7 @@ body.dark .sickbeatText {
 }
 
 body.light .browseButton button:hover {
-    background-color: var(--primary-color);
+    background-color: var(--base-primary-color);
     color: white;
 }
 

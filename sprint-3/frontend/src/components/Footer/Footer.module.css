@@ -1,7 +1,7 @@
 /*Footer.module.css*/
 /* Light theme */
 .sickbeatFooter.light {
-    background-color: var(--light-footer-background);
+    background-color: var(--light-base-secondary-color);
     color: var(--footer-text);
 }
 
@@ -24,7 +24,7 @@
 /* General footer styles */
 .sickbeatFooter {
     padding: 20px;
-    background-color: var(--tertiary-color);
+    background-color: var(--base-secondary-color);
     color: var(--footer-text);
     text-align: center;
     display: flex;
@@ -48,7 +48,7 @@
 
 .footerContent li a {
     text-decoration: none;
-    color: var(--secondary-color);
+    color: var(--contrast-primary-color);
 }
 
 .footerNav {

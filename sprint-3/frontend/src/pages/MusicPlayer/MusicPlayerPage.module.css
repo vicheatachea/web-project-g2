@@ -1,6 +1,6 @@
 :root {
     --background-color: #f5f5fa;
-    --text-color: #333;
+    --contrast-primary-color: #333;
     --button-color: #6a67d6; /* Main button color */
     --button-hover-color: grey; /* Hover state color */
     --button-shadow: rgba(0, 0, 0, 0.1);
@@ -12,7 +12,7 @@
 .musicPlayer {
     text-align: center;
     background-color: var(--background-color);
-    color: var(--text-color);
+    color: var(--contrast-primary-color);
     background-size: cover;
     background-position: center;
     padding: 30px;
@@ -37,7 +37,7 @@
 }
 
 .nowPlaying {
-    color: var(--text-color);
+    color: var(--contrast-primary-color);
     font-weight: bold;
     font-size: 1.5rem;
     z-index: 2;
@@ -64,7 +64,7 @@
 
 .songTitle {
     font-size: 1.3rem;
-    color: var(--text-color);
+    color: var(--contrast-primary-color);
     margin-bottom: 15px;
     z-index: 2;
     position: relative;
