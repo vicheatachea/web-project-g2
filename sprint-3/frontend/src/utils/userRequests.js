@@ -19,7 +19,7 @@ export const updateUser = async (userData) => {
     return response;
 }
 
-export const deleteUser = async (userId) => {
+export const deleteUser = async () => {
     const response = await axios.delete("/api/user/delete");
     return response;
 }
