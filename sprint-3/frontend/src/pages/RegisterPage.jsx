@@ -6,15 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-const RegisterPage = ({setIsAuthenticated}) => {
+const RegisterPage = ({ setIsAuthenticated }) => {
 	const emailField = useField("email");
 	const usernameField = useField("text");
 	const passwordField = useField("password");
 	const confirmPasswordField = useField("password");
+
 	const { register } = useRegister();
 	const Navigate = useNavigate();
 
-	const handleRegister = async () => {
+	const handleRegister = async (event) => {
+        event.preventDefault()
 		try {
 			if (
 				emailField.value !== "" ||
@@ -26,18 +28,26 @@ const RegisterPage = ({setIsAuthenticated}) => {
 					toast.error("Passwords do not match");
 				}
 
-				register(
+				const response = await register(
 					usernameField.value,
 					emailField.value,
 					passwordField.value
 				);
-                setIsAuthenticated(true);
-				Navigate("/", { state: { message: "Registration successful" }});
+                //console.log(response)
+				if (response.status === 200) {
+					setIsAuthenticated(true);
+					Navigate("/", {
+						state: { message: "Registration successful" },
+					});
+				} else {
+                    console.log(response)
+					toast.error(response.message || "Registration failed");
+				}
 			} else {
 				toast.error("Please fill in all fields");
 			}
-		} catch (err) {
-			console.error("Error:", err);
+		} catch (e) {
+			console.error("Error:", e);
 		}
 
 		//console.log("Email:", email);
@@ -66,7 +76,7 @@ const RegisterPage = ({setIsAuthenticated}) => {
 						<input
 							type={usernameField.type}
 							placeholder='USERNAME'
-							value={usernameField.value}
+							value={usernameField.value.replace(/\s/g, "")}
 							onChange={usernameField.onChange}
 							className={styles.inputField}
 							autoComplete='current-username'
@@ -77,7 +87,7 @@ const RegisterPage = ({setIsAuthenticated}) => {
 						<input
 							type={passwordField.type}
 							placeholder='PASSWORD'
-							value={passwordField.value}
+							value={passwordField.value.replace(/\s/g, "")}
 							onChange={passwordField.onChange}
 							className={styles.inputField}
 							autoComplete='current-password'
@@ -88,7 +98,10 @@ const RegisterPage = ({setIsAuthenticated}) => {
 						<input
 							type={confirmPasswordField.type}
 							placeholder='CONFIRM PASSWORD'
-							value={confirmPasswordField.value}
+							value={confirmPasswordField.value.replace(
+								/\s/g,
+								""
+							)}
 							onChange={confirmPasswordField.onChange}
 							className={styles.inputField}
 							autoComplete='current-password'

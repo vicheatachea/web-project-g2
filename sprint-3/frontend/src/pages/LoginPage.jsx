@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./LoginPage.module.css"; // Import the CSS file
 import { useLogin } from "../hooks/useLogin";
 import { useField } from "../hooks/useField";
@@ -7,28 +7,34 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LoginPage = ({ setIsAuthenticated }) => {
-	const emailField = useField("text");
+	const emailField = useField("email");
 	const passwordField = useField("password");
+    
 	const { login } = useLogin();
-	const Navigate = useNavigate();
+	const navigate = useNavigate();
 
-	const handleLogin = async () => {
+	const handleLogin = async (event) => {
+		event.preventDefault(); // Prevent default form submission behavior
+
 		try {
 			if (emailField.value !== "" && passwordField.value !== "") {
-				/*console.log(
-					"Email:",
+				const response = await login(
 					emailField.value,
-					"Password:",
 					passwordField.value
-				);*/
-				login(emailField.value, passwordField.value);
-				setIsAuthenticated(true);
-				Navigate("/", { state: { message: "Login successful" } });
+				);
+
+				if (response.status === 200) {
+					setIsAuthenticated(true);
+					navigate("/", { state: { message: "Login successful" } });
+				} else {
+					//console.error("Login failed:", response);
+					toast.error(response.message || "Login failed");
+				}
 			} else {
 				toast.error("Please fill in all fields");
 			}
-		} catch (err) {
-			console.error("Error:", err);
+		} catch (e) {
+			console.error("Error:", e);
 		}
 	};
 
@@ -40,7 +46,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
 					<input
 						type={emailField.type}
 						placeholder='EMAIL'
-						value={emailField.value}
+						value={emailField.value.replace(/\s/g, "")}
 						onChange={emailField.onChange}
 						className={styles.inputField}
 						autoComplete='current-email'
@@ -49,7 +55,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
 					<input
 						type={passwordField.type}
 						placeholder='PASSWORD'
-						value={passwordField.value}
+						value={passwordField.value.replace(/\s/g, "")}
 						onChange={passwordField.onChange}
 						className={styles.inputField}
 						autoComplete='current-password'
