@@ -32,7 +32,7 @@
 }
 
 .arrow:hover {
-    color: pink;
+    color: var(--contrast-secondary-color);
     background: none;
 }
 
@@ -43,6 +43,7 @@
 
 .hiddenArrow {
     color: var(--base-primary-color);
+    cursor: default;
 }
 
 .hiddenArrow:hover {

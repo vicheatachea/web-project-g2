@@ -1,19 +1,61 @@
 import React from "react";
 import styles from "./Card.module.css";
+import { useNavigate } from "react-router-dom";
 
-function Card({item}) {
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+
+function Card({ item }) {
+    const navigate = useNavigate();
     const validArtists = Array.isArray(item.artists)
         ? item.artists.filter(artist => artist && artist.name)
         : [];
 
+    const handleArtistClick = (artistId) => {
+        navigate(`/artist?v=${artistId}`);
+    };
+
+    const handleCardClick = () => {
+        if (item.type === "track") {
+            navigate(`/play?v=${item.id}`);
+        } else if (item.type === "album" || item.type === "playlist") {
+            navigate(`/playlist?v=${item.id}`);
+        } else if (item.type === "artist") {
+            navigate(`/artist?v=${item.id}`);
+        }
+    };
+
     return (
-        <article className={styles.card}>
-            <img className={styles.image} src={item.image_url} alt={item.name}/>
+        <article className={styles.card} onClick={handleCardClick}>
+            <img className={styles.image} src={item.image_url} alt={item.name} />
             <p className={styles.title}>{item.name}</p>
             {item.type === "track" || item.type === "album" ? (
-                <p>{validArtists.map(artist => artist.name).join(', ')}</p>
+                <p className={styles.content}>
+                    {validArtists.map((artist, index) => (
+                        <React.Fragment key={artist.id}>
+                            <span
+                                className={styles.artistLink}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleArtistClick(artist.id);
+                                }}
+                            >
+                                {artist.name}
+                            </span>
+                            {index < validArtists.length - 1 ? ', ' : ''}
+                        </React.Fragment>
+                    ))}
+                </p>
             ) : item.type === "playlist" ? (
-                <p>{item.owner?.name}</p>
+                <p className={styles.content}>{item.owner?.name}</p>
+            ) : item.type === "artist" ? (
+                <p className={styles.content}>{formatNumber(item.followers)} followers</p>
             ) : null}
         </article>
     );

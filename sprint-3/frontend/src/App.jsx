@@ -39,7 +39,7 @@ function App() {
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/signup' element={<SignupPage/>}/>
                 <Route path='/search' element={<SearchResultsPage/>}/>
-                <Route path='/player' element={<MusicPlayerPage/>}/>
+                <Route path='/play' element={<MusicPlayerPage/>}/>
                 <Route path='/playlist' element={<PlaylistPage/>}/>
                 <Route path='/artist' element={<ArtistPage/>}/>
                 <Route path='/account' element={<AccountPage/>}/>
