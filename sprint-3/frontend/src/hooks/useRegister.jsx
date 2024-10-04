@@ -11,14 +11,19 @@ export const useRegister = () => {
 				password,
 			});
 
+			//For debugging purposes
+			//console.log(response);
+
 			if (response.status === 200) {
-				console.log("Response:", response.data);
-				Cookies.set("jwt", response.data.token, { expires: 1 });
-			} else {
-				console.error("Registration failed:", response.statusText);
+				Cookies.set("jwt", response.data.token, { expires: 24 });
+				return {
+					status: response.status,
+					data: response.data,
+					message: response.data.message,
+				};
 			}
 		} catch (err) {
-			console.error("Error:", err["response"]["data"]);
+			return err.response.data;
 		}
 	};
 
