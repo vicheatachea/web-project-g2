@@ -1,51 +1,61 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import CardList from "../components/CardList.jsx";
 import {useSearchParams} from "react-router-dom";
 import HorizontalLine from "../components/HorizontalLine.jsx";
-import {searchSpotify} from "../utils/spotifyRequests.js";
+import ConnectPrompt from "../components/ConnectPrompt.jsx";
+import {useSpotifyGet} from "../hooks/useSpotifyGet.jsx";
 
 function SearchResultsPage() {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [trackResults, setTrackResults] = useState([]);
-    const [artistResults, setArtistResults] = useState([]);
-    const [albumResults, setAlbumResults] = useState([]);
-    const [playlistResults, setPlaylistResults] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get("q");
 
-    useEffect(() => {
-        const fetchSearchResults = async () => {
-            for (const type of ["track", "artist", "album", "playlist"]) {
-                const searchResultsData = await searchSpotify(searchParams.get("q"), type);
-                switch (type) {
-                    case "track":
-                        setTrackResults(searchResultsData);
-                        break;
-                    case "artist":
-                        setArtistResults(searchResultsData);
-                        break;
-                    case "album":
-                        setAlbumResults(searchResultsData);
-                        break;
-                    case "playlist":
-                        setPlaylistResults(searchResultsData);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-
-        fetchSearchResults();
-    }, []);
+    const {data: searchTrack,
+        error: searchTrackError
+    } = useSpotifyGet(`/api/spotify/search?q=${query}&type=track`);
+    const {data: searchArtist,
+        error: searchArtistError
+    } = useSpotifyGet(`/api/spotify/search?q=${query}&type=artist`);
+    const {data: searchAlbum,
+        error: searchAlbumError
+    } = useSpotifyGet(`/api/spotify/search?q=${query}&type=album`);
+    const {
+        data: searchPlaylist,
+        error: searchPlaylistError
+    } = useSpotifyGet(`/api/spotify/search?q=${query}&type=playlist`);
 
     return (
         <>
-            <CardList title={"Tracks"} items={trackResults}/>
+            {searchTrackError === 401 ? (
+                <ConnectPrompt/>
+            ) : searchTrackError ? (
+                <p>Add another error</p>
+            ) : (
+                <CardList title="Tracks" items={searchTrack}/>
+            )}
             <HorizontalLine/>
-            <CardList title={"Artists"} items={artistResults}/>
+            {searchArtistError === 401 ? (
+                <ConnectPrompt/>
+            ) : searchArtistError ? (
+                <p>Add another error</p>
+            ) : (
+                <CardList title="Artists" items={searchArtist}/>
+            )}
             <HorizontalLine/>
-            <CardList title={"Albums"} items={albumResults}/>
+            {searchAlbumError === 401 ? (
+                <ConnectPrompt/>
+            ) : searchAlbumError ? (
+                <p>Add another error</p>
+            ) : (
+                <CardList title="Albums" items={searchAlbum}/>
+            )}
             <HorizontalLine/>
-            <CardList title={"Playlists"} items={playlistResults}/>
+            {searchPlaylistError === 401 ? (
+                <ConnectPrompt/>
+            ) : searchPlaylistError ? (
+                <p>Add another error</p>
+            ) : (
+                <CardList title="Playlists" items={searchPlaylist}/>
+            )}
         </>
     )
 }

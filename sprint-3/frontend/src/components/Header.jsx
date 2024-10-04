@@ -10,36 +10,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
-	const [searchQuery, setSearchQuery] = useState("");
-	const [dropdownVisible, setDropdownVisible] = useState(false);
+function Header({theme, toggleTheme, isAuthenticated, setIsAuthenticated}) {
+    const [searchQuery, setSearchQuery] = useState("");
 	const navigate = useNavigate();
 
-	const toggleDropdown = () => {
-		setDropdownVisible(!dropdownVisible);
+    const handleInputChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
+	
+    const handleKeyDown = async (e) => {
+        if (e.key === 'Enter' && searchQuery) {
+            e.preventDefault();
+            navigate(`/search?q=${searchQuery}`);
+        }
 	};
-
-	const handleInputChange = (e) => {
-		setSearchQuery(e.target.value);
-	};
-
-	const handleKeyDown = async (e) => {
-		if (e.key === "Enter" && searchQuery) {
-			e.preventDefault();
-			console.log("Search query:", searchQuery);
-		}
-
-		/*
-        try {
-			const response = await searchSpotify(searchQuery);
-			console.log("Response:", response);
-			Navigate(`/search/"${searchQuery}`);
-		} catch (err) {
-			console.error("Error:", err["response"]["data"]);
-		}
-        */
-	};
-
+              
 	return (
 		<header className={`${styles.sickbeatHeader} ${theme}`}>
 			<Link to='/' className={styles.logo}>

@@ -17,7 +17,7 @@ function CardList({title, items}) {
     };
 
     const canGoPrevious = currentIndex > 0;
-    const canGoNext = currentIndex + visibleItems < items.length;
+    const canGoNext = currentIndex + visibleItems < (items?.length || 0);
 
     return (
         <section className={styles.cards}>
@@ -27,7 +27,7 @@ function CardList({title, items}) {
                         onClick={handlePrevious}>❮
                 </button>
                 <div className={styles.cardList}>
-                    {items.slice(currentIndex, currentIndex + visibleItems).map(item => (
+                    {items?.slice(currentIndex, currentIndex + visibleItems).map(item => (
                         <Card key={item.id} item={item} artists={item.artists}/>
                     ))}
                 </div>
