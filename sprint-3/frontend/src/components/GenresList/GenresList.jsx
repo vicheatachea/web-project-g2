@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import ErrorPrompt from '../ErrorPrompt/ErrorPrompt.jsx';
 import styles from './GenresList.module.css';
 
-function GenresList({ genres, error }) {
+const GenresList = forwardRef(({ genres, error }, ref) => {
     const visibleItems = 5; // Number of items to show per row
 
     const handleGenreClick = (genreName) => {
@@ -19,7 +19,7 @@ function GenresList({ genres, error }) {
     }
 
     return (
-        <section className={styles.genres}>
+        <section ref={ref} className={styles.genres}>
             <h2 className={styles.title}>Browse by Genres</h2>
             <div className={styles.cards} style={{ gridTemplateColumns: `repeat(${visibleItems}, 1fr)` }}>
                 {genres.map((genre) => (
@@ -34,6 +34,6 @@ function GenresList({ genres, error }) {
             </div>
         </section>
     );
-}
+});
 
 export default GenresList;

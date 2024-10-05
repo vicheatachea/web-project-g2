@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Hero from '../../components/Hero/Hero.jsx';
 import GenresList from '../../components/GenresList/GenresList.jsx';
 import CardList from '../../components/CardList/CardList.jsx';
 import HorizontalLine from "../../components/HorizontalLine/HorizontalLine.jsx";
-import {useSpotifyGet} from "../../hooks/useSpotifyGet.jsx";
+import { useSpotifyGet } from "../../hooks/useSpotifyGet.jsx";
 
 function HomePage() {
-    const {data: newReleases, error: newReleasesError} = useSpotifyGet("/api/spotify/new-releases");
-    const {data: topHits, error: topHitsError} = useSpotifyGet("/api/spotify/top-hits");
-    const {data: genres, error: genresError} = useSpotifyGet("/api/spotify/genres");
+    const { data: newReleases, error: newReleasesError } = useSpotifyGet("/api/spotify/new-releases");
+    const { data: topHits, error: topHitsError } = useSpotifyGet("/api/spotify/top-hits");
+    const { data: genres, error: genresError } = useSpotifyGet("/api/spotify/genres");
+    const genresListRef = useRef(null);
 
     return (
         <>
-            <Hero/>
-            <CardList title="New Releases" items={newReleases} error={newReleasesError}/>
-            <HorizontalLine/>
-            <CardList title="Top Hits" items={topHits} error={topHitsError}/>
-            <HorizontalLine/>
-            <GenresList genres={genres} error={genresError}/>
+            <Hero genresListRef={genresListRef} />
+            <CardList title="New Releases" items={newReleases} error={newReleasesError} />
+            <HorizontalLine />
+            <CardList title="Top Hits" items={topHits} error={topHitsError} />
+            <HorizontalLine />
+            <GenresList ref={genresListRef} genres={genres} error={genresError} />
         </>
-    )
+    );
 }
 
 export default HomePage;
