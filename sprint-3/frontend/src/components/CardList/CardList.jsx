@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Card from '../Card/Card.jsx';
-import ErrorPrompt from '../ConnectPrompt/ErrorPrompt.jsx';
+import ErrorPrompt from '../ErrorPrompt/ErrorPrompt.jsx';
 import styles from './CardList.module.css';
 
 function CardList({title, items, error}) {

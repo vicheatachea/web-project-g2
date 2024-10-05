@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorPrompt from '../ConnectPrompt/ErrorPrompt.jsx';
+import ErrorPrompt from '../ErrorPrompt/ErrorPrompt.jsx';
 import styles from './GenresList.module.css';
 
 function GenresList({ genres, error }) {
