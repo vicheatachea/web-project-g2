@@ -15,20 +15,20 @@ import ArtistPage from './pages/ArtistPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
-    const [theme, setTheme] = useState(() => {
-        return localStorage.getItem('theme') || 'light';
-    });
+	const [theme, setTheme] = useState(() => {
+		return localStorage.getItem("theme") || "light";
+	});
 
-    useEffect(() => {
-        document.body.className = theme;
-        localStorage.setItem('theme', theme);
-    }, [theme]);
+	useEffect(() => {
+		document.body.className = theme;
+		localStorage.setItem("theme", theme);
+	}, [theme]);
 
-    const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
-        document.body.className = newTheme; // Apply the theme to the body
-    };
+	const toggleTheme = () => {
+		const newTheme = theme === "light" ? "dark" : "light";
+		setTheme(newTheme);
+		document.body.className = newTheme; // Apply the theme to the body
+	};
 
     return (
         <>
