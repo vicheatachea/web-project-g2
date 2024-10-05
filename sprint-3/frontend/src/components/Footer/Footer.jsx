@@ -1,39 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faFacebook, faInstagram, faTwitter} from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
 
-function Footer({theme}) {
+function Footer({ theme }) {
     return (
-        <footer className={`${styles.sickbeatFooter} ${theme}`}>
-            <div className={styles.footerContent}>
-                <nav>
-                    <ul className={styles.footerNav}>
-                        <div className={styles.rights}>&copy; 2024 SickBeat.<br/> All rights reserved</div>
-                        <li className={styles.companySection}>
-                            <a href="#"><b>Company</b></a>
-                            <div className={styles.companyItems}>
-                                <a href="#" className={styles.navText}>About Us</a>
-                                <a href="#" className={styles.navText}>Career Opportunities</a>
-                                <a href="#" className={styles.navText}>Objectives</a>
-                            </div>
-                        </li>
-                        <li className={styles.helpSection}>
-                            <a href="#"><b>Help</b></a>
-                            <div className={styles.helpItems}>
-                                <a href="#" className={styles.navText}>Customer Support</a>
-                                <a href="#" className={styles.navText}>Terms & Conditions</a>
-                                <a href="#" className={styles.navText}>Privacy Policy</a>
-                            </div>
-                        </li>
-                        <div className={styles.socialSection}>
-                            <li><a href="#"><FontAwesomeIcon icon={faFacebook} size="lg"/></a></li>
-                            <li><a href="#"><FontAwesomeIcon icon={faInstagram} size='lg'/></a></li>
-                            <li><a href="#"><FontAwesomeIcon icon={faTwitter} size='lg'/></a></li>
+        <footer className={`${styles.footer} ${theme}`}>
+            <div className={styles.rights}>&copy; 2024 SickBeat<br /> All rights reserved</div>
+            <nav>
+                <ul className={styles.nav}>
+                    <li className={styles.section}>
+                        <Link to="#"><b>Company</b></Link>
+                        <div className={styles.items}>
+                            <Link to="#" className={styles.text}>About Us</Link>
+                            <Link to="#" className={styles.text}>Career Opportunities</Link>
+                            <Link to="#" className={styles.text}>Objectives</Link>
                         </div>
-                    </ul>
-                </nav>
-            </div>
+                    </li>
+                    <li className={styles.section}>
+                        <Link to="#"><b>Help</b></Link>
+                        <div className={styles.items}>
+                            <Link to="#" className={styles.text}>Customer Support</Link>
+                            <Link to="#" className={styles.text}>Terms & Conditions</Link>
+                            <Link to="#" className={styles.text}>Privacy Policy</Link>
+                        </div>
+                    </li>
+                    <div className={styles.social}>
+                        <li><a href="#"><FontAwesomeIcon icon={faFacebook} size="lg" /></a></li>
+                        <li><a href="#"><FontAwesomeIcon icon={faInstagram} size='lg' /></a></li>
+                        <li><a href="#"><FontAwesomeIcon icon={faTwitter} size='lg' /></a></li>
+                    </div>
+                </ul>
+            </nav>
         </footer>
     );
 }

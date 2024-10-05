@@ -1,67 +1,24 @@
-/*Footer.module.css*/
-/* Light theme */
-.sickbeatFooter.light {
-    background-color: var(--light-base-secondary-color);
-    color: var(--footer-text);
-}
-
-.sickbeatFooter.light .socialSection li a,
-.sickbeatFooter.light .footerContent li a {
-    color: var(--footer-text);
-}
-
-/* Dark theme */
-.sickbeatFooter.dark {
-    background-color: var(--footer-background);
-    color: var(--footer-text);
-}
-
-.sickbeatFooter.dark .socialSection li a,
-.sickbeatFooter.dark .footerContent li a {
-    color: var(--footer-text);
-}
-
-/* General footer styles */
-.sickbeatFooter {
-    padding: 20px;
+.footer {
     background-color: var(--base-secondary-color);
-    color: var(--footer-text);
+    padding-top: 20px;
     text-align: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-
-.footerContent ul {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-.footerContent li {
-    margin: 0 10px;
-}
-
-.footerContent li a {
-    text-decoration: none;
-    color: var(--contrast-primary-color);
-}
-
-.footerNav {
+.nav {
     list-style: none;
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     text-align: center;
-    width: 100%;
 }
 
-.footerNav > li {
+.nav > li {
     list-style: none;
     margin: 10px 20px;
     display: flex;
@@ -70,15 +27,18 @@
     text-align: center;
 }
 
-.companySection,
-.helpSection {
+.nav > li a {
+    text-decoration: none;
+    color: var(--contrast-primary-color);
+}
+
+.section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.companyItems,
-.helpItems {
+.items {
     margin-top: 5px;
     display: flex;
     flex-direction: column;
@@ -86,7 +46,7 @@
     padding: 0.5rem;
 }
 
-.navText {
+.text {
     font-size: 14px;
     margin-bottom: 5px;
 }
@@ -95,25 +55,22 @@
     white-space: nowrap;
     text-align: center;
     margin-top: 0;
-    display: flex;
-    justify-content: center;
-    padding-top: 0.5rem;
-    padding-left: 30px;
     font-size: medium;
 }
 
-.socialSection {
+.social {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 150px;
 }
 
-.socialSection li {
+.social li {
     margin: 0 5px;
 }
 
-.socialSection li a {
+.social li a {
     text-decoration: none;
     font-size: 18px;
+    color: var(--contrast-primary-color);
 }
