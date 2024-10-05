@@ -1,12 +1,11 @@
-import React from 'react'
+import React from 'react';
 import CardList from "../../components/CardList/CardList.jsx";
 import {useSearchParams} from "react-router-dom";
 import HorizontalLine from "../../components/HorizontalLine/HorizontalLine.jsx";
-import ConnectPrompt from "../../components/ConnectPrompt/ConnectPrompt.jsx";
 import {useSpotifyGet} from "../../hooks/useSpotifyGet.jsx";
 
 function SearchResultsPage() {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const query = searchParams.get("q");
 
     const {
@@ -28,39 +27,15 @@ function SearchResultsPage() {
 
     return (
         <>
-            {searchTrackError === 401 ? (
-                <ConnectPrompt/>
-            ) : searchTrackError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="Tracks" items={searchTrack}/>
-            )}
+            <CardList title="Tracks" items={searchTrack} error={searchTrackError}/>
             <HorizontalLine/>
-            {searchArtistError === 401 ? (
-                <ConnectPrompt/>
-            ) : searchArtistError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="Artists" items={searchArtist}/>
-            )}
+            <CardList title="Artists" items={searchArtist} error={searchArtistError}/>
             <HorizontalLine/>
-            {searchAlbumError === 401 ? (
-                <ConnectPrompt/>
-            ) : searchAlbumError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="Albums" items={searchAlbum}/>
-            )}
+            <CardList title="Albums" items={searchAlbum} error={searchAlbumError}/>
             <HorizontalLine/>
-            {searchPlaylistError === 401 ? (
-                <ConnectPrompt/>
-            ) : searchPlaylistError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="Playlists" items={searchPlaylist}/>
-            )}
+            <CardList title="Playlists" items={searchPlaylist} error={searchPlaylistError}/>
         </>
-    )
+    );
 }
 
-export default SearchResultsPage
+export default SearchResultsPage;

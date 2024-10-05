@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import Hero from '../../components/Hero/Hero.jsx';
-import BrowseByGenre from '../../components/GenresList/GenresList.jsx';
+import GenresList from '../../components/GenresList/GenresList.jsx';
 import CardList from '../../components/CardList/CardList.jsx';
 import HorizontalLine from "../../components/HorizontalLine/HorizontalLine.jsx";
-import ConnectPrompt from "../../components/ConnectPrompt/ConnectPrompt.jsx";
 import {useSpotifyGet} from "../../hooks/useSpotifyGet.jsx";
 
 function HomePage() {
@@ -14,31 +13,13 @@ function HomePage() {
     return (
         <>
             <Hero/>
-            {newReleasesError === 401 ? (
-                <ConnectPrompt/>
-            ) : newReleasesError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="New Releases" items={newReleases}/>
-            )}
+            <CardList title="New Releases" items={newReleases} error={newReleasesError}/>
             <HorizontalLine/>
-            {topHitsError === 401 ? (
-                <ConnectPrompt/>
-            ) : topHitsError ? (
-                <p>Add another error</p>
-            ) : (
-                <CardList title="Top Hits" items={topHits}/>
-            )}
+            <CardList title="Top Hits" items={topHits} error={topHitsError}/>
             <HorizontalLine/>
-            {genresError === 401 ? (
-                <ConnectPrompt/>
-            ) : genresError ? (
-                <p>Add another error</p>
-            ) : (
-                <BrowseByGenre genres={genres}/>
-            )}
+            <GenresList genres={genres} error={genresError}/>
         </>
     )
 }
 
-export default HomePage
+export default HomePage;

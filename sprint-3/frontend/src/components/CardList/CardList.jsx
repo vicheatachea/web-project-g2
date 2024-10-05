@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import Card from '../Card/Card.jsx';
+import ErrorPrompt from '../ConnectPrompt/ErrorPrompt.jsx';
 import styles from './CardList.module.css';
 
-function CardList({title, items}) {
+function CardList({title, items, error}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleItems = 5; // Number of items to show at a time
 
@@ -18,6 +19,10 @@ function CardList({title, items}) {
 
     const canGoPrevious = currentIndex > 0;
     const canGoNext = currentIndex + visibleItems < (items?.length || 0);
+
+    if (error) {
+        return <ErrorPrompt error={error}/>;
+    }
 
     return (
         <section className={styles.cards}>
