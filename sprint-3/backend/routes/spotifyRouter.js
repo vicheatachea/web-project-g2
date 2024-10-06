@@ -16,7 +16,8 @@ const {
     recommendedGenres,
     newReleases,
     topHits,
-    getArtist
+    getArtist,
+    getTrack
 } = require('../controllers/spotifyController');
 
 router.use(cors())
@@ -48,6 +49,9 @@ router.get('/top-hits', topHits)
 
 // Get detailed artist data
 router.get('/artist/:id', getArtist);
+
+// Get detailed track data
+router.get('/track/:id', getTrack);
 
 // Error handler based on Spotify's documentation
 router.use(errorHandler);

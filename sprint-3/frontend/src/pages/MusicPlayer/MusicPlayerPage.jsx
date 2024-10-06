@@ -1,16 +1,34 @@
-import React, {useRef, useState} from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from "./MusicPlayerPage.module.css";
+import { useSpotifyGet } from '../../hooks/useSpotifyGet';
 
 function MusicPlayerPage() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [volume, setVolume] = useState(1); // New state for volume
+    const [track, setTrack] = useState(null);
     const audioRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const song = {
-        name: "old town road",
-        audioUrl: "https://p.scdn.co/mp3-preview/c9de05440773961287640cae5ee1fc128d74c11f?cid=a5dc3df835304fad873598a8edb29140",
-        imageUrl: "https://i.scdn.co/image/ab67616d00001e02c0e7bf5cdd630f314f20586a"
-    };
+    const query = new URLSearchParams(location.search);
+    const trackId = query.get('v');
+
+    const { data, error } = useSpotifyGet(`/api/spotify/track/${trackId}`);
+
+    useEffect(() => {
+        if (error) {
+            alert("Error loading track data");
+            navigate(-1);
+        } else if (data) {
+            setTrack(data);
+            if (data.preview_url === "none") {
+                alert("This track can't be previewed");
+                navigate(-1);
+            }
+        }
+    }, [data, error, navigate]);
 
     const togglePlay = () => {
         setIsPlaying(!isPlaying);
@@ -34,56 +52,81 @@ function MusicPlayerPage() {
         setProgress(newProgress);
     };
 
+    const handleVolumeChange = (e) => {
+        const newVolume = e.target.value;
+        audioRef.current.volume = newVolume;
+        setVolume(newVolume);
+    };
+
     const handleAudioEnd = () => {
         setIsPlaying(false);
         setProgress(0);
     };
 
+    const skipToStart = () => {
+        audioRef.current.currentTime = 0;
+        setProgress(0);
+    };
+
+    const skipToEnd = () => {
+        audioRef.current.currentTime = audioRef.current.duration;
+        setProgress(100);
+    };
+
     return (
-        <section className={styles.MusicPlayer}>
+        <section className={styles.musicPlayer}>
             <div className={styles.nowPlaying}>Now Playing</div>
             <div className={styles.imageContainer}>
-                <img src={song.imageUrl} alt="Artist" className={styles.artistImage}/>
+                {track?.album?.image_url && (
+                    <img src={track.album.image_url} alt={track.name} className={styles.artistImage} />
+                )}
             </div>
-            <div className={styles.songTitle}>
-                {song.name}
-                <span role="img" aria-label="motivation"></span>
-            </div>
+            <div className={styles.songTitle}>{track?.name || "Loading..."}</div>
 
-            <audio
-                ref={audioRef}
-                src={song.audioUrl}
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={handleAudioEnd}
-            />
+            {track?.preview_url && track.preview_url !== "none" && (
+                <audio
+                    ref={audioRef}
+                    src={track.preview_url}
+                    onTimeUpdate={handleTimeUpdate}
+                    onEnded={handleAudioEnd}
+                />
+            )}
 
             <div className={styles.progressBarContainer}>
                 <input
                     type="range"
-                    value={progress}
-                    step="0.1"
-                    max="100"
-                    onChange={handleSeek}
                     className={styles.progressBar}
+                    value={progress}
+                    onChange={handleSeek}
+                />
+            </div>
+
+            <div className={styles.volumeControl}>
+                <label htmlFor="volume">Volume</label>
+                <input
+                    type="range"
+                    id="volume"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={handleVolumeChange}
                 />
             </div>
 
             <div className={styles.controls}>
-                <button onClick={() => audioRef.current.currentTime = 0} className={styles.controlButton}>
-                    ⏪
+                <button className={styles.controlButton} onClick={skipToStart}>
+                    ⏮️
                 </button>
-
-                <button onClick={togglePlay} className={styles.controlButton}>
-                    {isPlaying ? '⏸️' : '▶️'}
+                <button className={styles.controlButton} onClick={togglePlay}>
+                    {isPlaying ? "⏸️" : "▶️"}
                 </button>
-
-                <button onClick={() => audioRef.current.currentTime = audioRef.current.duration}
-                        className={styles.controlButton}>
-                    ⏩
+                <button className={styles.controlButton} onClick={skipToEnd}>
+                    ⏭️
                 </button>
             </div>
         </section>
     );
 }
 
-export default MusicPlayerPage
+export default MusicPlayerPage;

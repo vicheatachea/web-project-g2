@@ -292,6 +292,43 @@ async function getArtist(req, res, next) {
     }
 }
 
+async function getTrack(req, res, next) {
+    const trackId = req.params.id;
+
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
+
+        const track = response.data;
+
+        // Extract the largest image from the album
+        const largestImage = track.album.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredTrack = {
+            id: track.id,
+            name: track.name,
+            duration: track.duration_ms,
+            preview_url: track.preview_url || "none",
+            album: {
+                id: track.album.id,
+                name: track.album.name,
+                image_url: largestImage.url
+            },
+            artists: track.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }))
+        };
+
+        res.status(200).json(filteredTrack);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     tokenStorage,
     loginUser,
@@ -301,5 +338,6 @@ module.exports = {
     recommendedGenres,
     newReleases,
     topHits,
-    getArtist
+    getArtist,
+    getTrack
 };
