@@ -1,0 +1,95 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: var(--contrast-secondary-color) 1px solid;
+}
+
+.logo {
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    color: var(--contrast-primary-color);
+}
+
+.logo:hover, .logo:focus, .logo:active {
+    color: var(--contrast-primary-color);
+    text-decoration: none;
+}
+
+.searchbar {
+    flex: 1;
+    display: flex;
+    justify-content: left;
+    margin: 0 20px;
+}
+
+.searchbar input {
+    background-color: var(--base-secondary-color);
+    color: var(--contrast-primary-color);
+    width: 100%;
+    min-width: 300px;
+    max-width: 900px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--contrast-secondary-color);
+}
+
+.searchbar input:focus {
+    outline: 2px solid var(--contrast-primary-color);
+    outline-offset: 2px;
+}
+
+.iconList {
+    list-style: none;
+    display: flex;
+    padding-right: 5rem;
+    gap: 20px;
+    align-items: center;
+}
+
+.iconList li a {
+    text-decoration: none;
+    color: var(--contrast-primary-color);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+.themeButton {
+    color: var(--contrast-primary-color);
+    background-color: var(--base-primary-color);
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+}
+
+.themeButton:hover,
+.themeButton:focus,
+.themeButton:active {
+    background-color: var(--base-primary-color);
+    outline: none;
+    cursor: pointer;
+}
+
+/* Unused for now */
+.dropdownMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px; /* Adjust this value to position it under the "three bar icon" */
+    right: 35px; /* Adjust the alignment */
+    background-color: var(--base-primary-color);
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border-radius: 10px;
+}
