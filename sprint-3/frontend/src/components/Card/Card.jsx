@@ -27,7 +27,7 @@ function Card({ item }) {
         } else if (item.type === "album" || item.type === "playlist") {
             navigate(`/playlist?v=${item.id}`);
         } else if (item.type === "artist") {
-            navigate(`/artist?v=${item.id}`);
+            navigate(`/artist/${item.id}`);
         }
     };
 
