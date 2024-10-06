@@ -41,7 +41,7 @@ function App() {
                 <Route path='/search' element={<SearchResultsPage/>}/>
                 <Route path='/play' element={<MusicPlayerPage/>}/>
                 <Route path='/playlist' element={<PlaylistPage/>}/>
-                <Route path='/artist' element={<ArtistPage/>}/>
+                <Route path='/artist/:id' element={<ArtistPage/>}/>
                 <Route path='/account' element={<AccountPage/>}/>
                 <Route path='/library' element={<LibraryPage/>}/>
                 <Route path='/*' element={<NotFoundPage/>}/>

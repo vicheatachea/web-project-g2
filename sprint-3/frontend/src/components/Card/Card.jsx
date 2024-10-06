@@ -18,7 +18,7 @@ function Card({ item }) {
         : [];
 
     const handleArtistClick = (artistId) => {
-        navigate(`/artist?v=${artistId}`);
+        navigate(`/artist/${artistId}`);
     };
 
     const handleCardClick = () => {

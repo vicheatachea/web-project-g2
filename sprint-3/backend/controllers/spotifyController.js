@@ -159,7 +159,6 @@ function filterData(data, type, content) {
             image_url: selectedImage ? selectedImage.url : null,
             artists: formattedArtists.length > 0 ? formattedArtists : undefined,
             owner: owner ? owner : undefined,
-            genres: item.genres,
             followers: item.followers?.total
         };
     });
@@ -246,6 +245,53 @@ async function topHits(req, res, next) {
     }
 }
 
+async function getArtist(req, res, next) {
+    const artistId = req.params.id;
+
+    try {
+        const [artistResponse, albumsResponse, topTracksResponse, relatedArtistsResponse] = await Promise.all([
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/related-artists`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            })
+        ]);
+
+        const artist = artistResponse.data;
+        const albums = filterData(albumsResponse.data.items, "album");
+        const topTracks = filterData(topTracksResponse.data.tracks, "track");
+        const relatedArtists = filterData(relatedArtistsResponse.data.artists, "artist");
+
+        const largestImage = artist.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredArtist = {
+            id: artist.id,
+            name: artist.name,
+            genres: artist.genres,
+            followers: artist.followers.total,
+            image_url: largestImage.url,
+            popularity: artist.popularity,
+            type: artist.type,
+            albums,
+            topTracks,
+            relatedArtists
+        };
+
+        res.status(200).json(filteredArtist);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     tokenStorage,
     loginUser,
@@ -254,5 +300,6 @@ module.exports = {
     searchSpotify,
     recommendedGenres,
     newReleases,
-    topHits
+    topHits,
+    getArtist
 };

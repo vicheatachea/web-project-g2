@@ -15,7 +15,8 @@ const {
     searchSpotify,
     recommendedGenres,
     newReleases,
-    topHits
+    topHits,
+    getArtist
 } = require('../controllers/spotifyController');
 
 router.use(cors())
@@ -42,8 +43,11 @@ router.get('/genres', recommendedGenres)
 // Get new album releases
 router.get('/new-releases', newReleases)
 
-// Get top hits (NOT WORKING, SEE CONTROLLER)
+// Get top hits
 router.get('/top-hits', topHits)
+
+// Get detailed artist data
+router.get('/artist/:id', getArtist);
 
 // Error handler based on Spotify's documentation
 router.use(errorHandler);
