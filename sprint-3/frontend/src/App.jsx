@@ -105,7 +105,7 @@ function App() {
 						path='/account'
 						element={
 							isAuthenticated ? (
-								<AccountPage />
+								<AccountPage setIsAuthenticated={setIsAuthenticated} />
 							) : (
 								<Navigate to='/login' />
 							)
