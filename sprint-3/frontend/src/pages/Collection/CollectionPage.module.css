@@ -1,0 +1,64 @@
+.container {
+    padding: 20px;
+    background-color: var(--base-primary-color);
+    color: var(--contrast-primary-color);
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.imageWrapper {
+    margin-right: 20px;
+}
+
+.playlistImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.headerText {
+    max-width: 500px;
+}
+
+.smallText {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: var(--contrast-primary-color);
+}
+
+.title {
+    font-size: 48px;
+    margin: 0;
+    color: var(--contrast-primary-color);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.playButton {
+    background-color: #686a6a;
+    color: var(--base-primary-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.items {
+    margin-top: 20px;
+    flex-grow: 1;
+}

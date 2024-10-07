@@ -13,7 +13,7 @@ import AccountPage from './pages/Account/AccountPage.jsx';
 import LibraryPage from './pages/Library/LibraryPage.jsx';
 import ArtistPage from './pages/Artist/ArtistPage.jsx';
 import NotFoundPage from './pages/NotFound/NotFoundPage.jsx';
-import PlaylistPage from "./pages/Playlist/PlaylistPage.jsx";
+import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 
 function App() {
     const [theme, setTheme] = useState(() => {
@@ -40,7 +40,7 @@ function App() {
                 <Route path='/signup' element={<SignupPage/>}/>
                 <Route path='/search' element={<SearchResultsPage/>}/>
                 <Route path='/play' element={<MusicPlayerPage/>}/>
-                <Route path='/playlist' element={<PlaylistPage/>}/>
+                <Route path='/collection/:type/:id' element={<CollectionPage/>}/>
                 <Route path='/artist/:id' element={<ArtistPage/>}/>
                 <Route path='/account' element={<AccountPage/>}/>
                 <Route path='/library' element={<LibraryPage/>}/>

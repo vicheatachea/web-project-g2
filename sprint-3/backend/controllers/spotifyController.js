@@ -335,6 +335,53 @@ async function getTrack(req, res, next) {
     }
 }
 
+async function getCollection(req, res, next) {
+    const { type, id } = req.params;
+
+    if (type !== 'album' && type !== 'playlist') {
+        return res.status(400).json({ error: 'Invalid type. Only album and playlist are allowed.' });
+    }
+
+    try {
+        const response = await axios.get(
+            `https://api.spotify.com/v1/${type}s/${id}`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            });
+
+        const collection = response.data;
+
+        const filteredCollection = {
+            id: collection.id,
+            name: collection.name,
+            total_tracks: collection.tracks.total,
+            image_url: collection.images[0]?.url || null,
+            release_date: collection.release_date || null,
+            tracks: collection.tracks.items.map(item => ({
+                id: item.track ? item.track.id : item.id,
+                name: item.track ? item.track.name : item.name,
+                duration_ms: item.track ? item.track.duration_ms : item.duration_ms,
+                preview_url: item.track ? item.track.preview_url || "none" : item.preview_url || "none",
+                artists: (item.track ? item.track.artists : item.artists).map(artist => ({
+                    id: artist.id,
+                    name: artist.name
+                }))
+            }))
+        };
+
+        // Add artists field only if the type is album
+        if (type === 'album') {
+            filteredCollection.artists = collection.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }));
+        }
+
+        res.status(200).json(filteredCollection);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     tokenStorage,
     loginUser,
@@ -345,5 +392,6 @@ module.exports = {
     newReleases,
     topHits,
     getArtist,
-    getTrack
+    getTrack,
+    getCollection
 };
