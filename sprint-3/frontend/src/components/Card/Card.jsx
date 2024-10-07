@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Card.module.css";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function formatNumber(num) {
     if (num >= 1000000) {
@@ -24,7 +25,7 @@ function Card({ item }) {
     const handleCardClick = () => {
         if (item.type === "track") {
             if (item.preview_url === "none") {
-                alert("This track does not have a preview URL.");
+                toast.error("This track does not have a preview URL.");
                 return;
             }
             navigate(`/play?v=${item.id}`);
