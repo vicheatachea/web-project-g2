@@ -1,5 +1,5 @@
 .container {
-    padding: 20px;
+    margin: 50px 40px 70px 40px;
     background-color: var(--base-primary-color);
     color: var(--contrast-primary-color);
     font-family: Arial, sans-serif;
@@ -10,7 +10,36 @@
 
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    margin: 20px 50px 40px 50px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.button {
+    background-color: #686a6a;
+    color: var(--base-primary-color);
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #575757;
 }
 
 .imageWrapper {
@@ -18,8 +47,8 @@
 }
 
 .playlistImage {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 5px;
 }
 
