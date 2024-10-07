@@ -16,13 +16,13 @@ router.post("/register", registerUser);
 // POST login /user/login
 router.post("/login", loginUser);
 
-// GET by ID /user/data
+// GET /user/data
 router.get("/data", authenticate, fetchUserData);
 
-// PATCH update by ID /user/update/
+// PATCH update /user/update
 router.patch("/update", authenticate, updateUser);
 
-// DELETE by Id /user/delete
+// DELETE /user/delete
 router.delete("/delete", authenticate, deleteUser);
 
 module.exports = router;
