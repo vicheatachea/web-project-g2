@@ -14,7 +14,7 @@ export const useLogin = () => {
 			//console.log(response)
 
 			if (response.status === 200) {
-				Cookies.set("jwt", response.data.token, { expires: 24 });
+				Cookies.set("jwt", response.data.token, { expires: 1 });
 				return {
 					status: response.status,
 					data: response.data,
