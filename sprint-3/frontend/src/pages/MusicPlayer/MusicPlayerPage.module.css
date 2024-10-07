@@ -1,14 +1,3 @@
-:root {
-    --background-color: #f5f5fa;
-    --contrast-primary-color: #333;
-    --button-color: #6a67d6; /* Main button color */
-    --button-hover-color: grey; /* Hover state color */
-    --button-shadow: rgba(0, 0, 0, 0.1);
-    --button-hover-shadow: rgba(0, 0, 0, 0.2);
-    --secondary-button-color: grey; /* Lighter button background */
-    --secondary-hover-color: grey; /* Lighter hover background */
-}
-
 .musicPlayer {
     text-align: center;
     background-color: var(--background-color);
