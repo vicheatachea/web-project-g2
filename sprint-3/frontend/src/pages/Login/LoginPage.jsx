@@ -1,33 +1,33 @@
 import React from "react";
 import styles from "./LoginPage.module.css"; // Import the CSS file
-import { useLogin } from "../../hooks/useLogin";
+import { useBackend } from "../../hooks/useBackend";
 import { useField } from "../../hooks/useField";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const LoginPage = ({ setIsAuthenticated }) => {
 	const emailField = useField("email");
 	const passwordField = useField("password");
-
-	const { login } = useLogin();
 	const navigate = useNavigate();
+	const { sendRequest } = useBackend();
 
 	const handleLogin = async (event) => {
 		event.preventDefault(); // Prevent default form submission behavior
 
 		try {
-			if (emailField.value !== "" && passwordField.value !== "") {
-				const response = await login(
-					emailField.value,
-					passwordField.value
-				);
-
-				if (response.status === 200) {
+			if (emailField.value && passwordField.value) {
+				const response = await sendRequest("/api/user/login", "POST", {
+					email: emailField.value,
+					password: passwordField.value,
+				});
+               
+                if (response.statusText === "OK") {
+                    Cookies.set("jwt", response.data.token, { expires: 1 });
 					setIsAuthenticated(true);
 					navigate("/", { state: { message: "Login successful" } });
 				} else {
-					//console.error("Login failed:", response);
 					toast.error(response.message || "Login failed");
 				}
 			} else {

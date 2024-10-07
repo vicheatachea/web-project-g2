@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./RegisterPage.module.css";
-import { useRegister } from "../../hooks/useRegister";
 import { useField } from "../../hooks/useField";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { useBackend } from "../../hooks/useBackend";
+import Cookies from "js-cookie";
 
 const RegisterPage = ({ setIsAuthenticated }) => {
 	const emailField = useField("email");
@@ -12,7 +13,7 @@ const RegisterPage = ({ setIsAuthenticated }) => {
 	const passwordField = useField("password");
 	const confirmPasswordField = useField("password");
 
-	const { register } = useRegister();
+	const { sendRequest } = useBackend();
 	const Navigate = useNavigate();
 
 	const handleRegister = async (event) => {
@@ -28,19 +29,24 @@ const RegisterPage = ({ setIsAuthenticated }) => {
 					toast.error("Passwords do not match");
 				}
 
-				const response = await register(
-					usernameField.value,
-					emailField.value,
-					passwordField.value
+				const response = await sendRequest(
+					"/api/user/register",
+					"POST",
+					{
+						email: emailField.value,
+						username: usernameField.value,
+						password: passwordField.value,
+					}
 				);
-				//console.log(response)
-				if (response.status === 200) {
+				
+				if (response.statusText === "OK") {
+					Cookies.set("jwt", response.data.token, { expires: 1 });
 					setIsAuthenticated(true);
 					Navigate("/", {
 						state: { message: "Registration successful" },
 					});
 				} else {
-					console.log(response);
+					
 					toast.error(response.message || "Registration failed");
 				}
 			} else {

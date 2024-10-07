@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AccountPage.module.css";
 import profilePicture from "../../images/the-rock.jpg";
-import { getUser, updateUser, deleteUser } from "../../utils/userRequests";
+import { useBackend } from "../../hooks/useBackend";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 		useState(false);
 
 	const navigate = useNavigate();
+	const { sendRequest } = useBackend();
 
 	const token = Cookies.get("jwt");
 	const user = JSON.parse(atob(token.split(".")[1]));
@@ -31,12 +32,11 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 	useEffect(() => {
 		const getUserData = async () => {
 			try {
-				const response = await getUser();
-				const data = response.data;
-				setInitialUsername(data.username);
-				setInitialEmail(data.email);
-				usernameField.setValue(data.username);
-				emailField.setValue(data.email);
+				const response = await sendRequest(`/api/user/data`, "GET");
+				setInitialUsername(response.data.username);
+				setInitialEmail(response.data.email);
+				usernameField.setValue(response.data.username);
+				emailField.setValue(response.data.email);
 				newPasswordField.setValue("");
 				confirmPasswordField.setValue("");
 			} catch (error) {
@@ -44,7 +44,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				console.error("Error fetching user data:", error);
 			}
 		};
-		getUserData(userId);
+		getUserData();
 	}, []);
 
 	const resetForm = () => {
@@ -123,16 +123,22 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 		}
 		if (Object.keys(updatedData).length > 1) {
 			try {
-				const response = await updateUser(updatedData);
-				const data = response.data;
+				
+				const response = await sendRequest(
+					"/api/user/update",
+					"PATCH",
+					updatedData
+				);
 
-				setInitialUsername(data.username);
-				setInitialEmail(data.email);
+				setInitialUsername(response.data.username);
+				setInitialEmail(response.data.email);
 				newPasswordField.reset();
 				confirmPasswordField.reset();
-				toast.success("Changes saved successfully");
+                toast.success("Changes saved successfully");
+
 			} catch (error) {
-				toast.error(error.response.data.message);
+				toast.error(error.message || "Failed to save changes");
+				resetForm();
 			}
 		} else {
 			resetForm();
@@ -157,7 +163,11 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 			)
 		) {
 			try {
-				const response = await deleteUser();
+				const response = await sendRequest(
+					`/api/user/delete/`,
+					"DELETE"
+				);
+				console.log(response);
 
 				if (response.statusText === "No Content") {
 					Cookies.remove("jwt");
