@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Header.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,23 +8,51 @@ import {
 	faSun,
 	faMoon,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 
-function Header({theme, toggleTheme, isAuthenticated, setIsAuthenticated}) {
-    const [searchQuery, setSearchQuery] = useState("");
+import Cookies from "js-cookie";
+
+function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
+	const [searchQuery, setSearchQuery] = useState("");
+    const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 	const navigate = useNavigate();
 
-    const handleInputChange = (e) => {
-        setSearchQuery(e.target.value);
-    };
-	
-    const handleKeyDown = async (e) => {
-        if (e.key === 'Enter' && searchQuery) {
-            e.preventDefault();
-            navigate(`/search?q=${searchQuery}`);
-        }
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (
+				dropdownRef.current &&
+				!dropdownRef.current.contains(event.target)
+			) {
+				setShowDropdown(false);
+			}
+		};
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [dropdownRef]);
+
+	const handleInputChange = (e) => {
+		setSearchQuery(e.target.value);
 	};
-              
+
+	const handleKeyDown = async (e) => {
+		if (e.key === "Enter" && searchQuery) {
+			e.preventDefault();
+			navigate(`/search?q=${searchQuery}`);
+		}
+	};
+
+	const toggleDropdown = () => {
+		setShowDropdown(!showDropdown);
+	};
+
+	const handleLogout = () => {
+		Cookies.remove("jwt");
+		setIsAuthenticated(false);
+		navigate("/", { state: { message: "Logout successful!" } });
+	};
+
 	return (
 		<header className={`${styles.sickbeatHeader} ${theme}`}>
 			<Link to='/' className={styles.logo}>
@@ -41,29 +69,74 @@ function Header({theme, toggleTheme, isAuthenticated, setIsAuthenticated}) {
 			</div>
 			<nav className={styles.navbar}>
 				<ul className={styles.iconList}>
-					<li>
-						<Link to='' className="a">
+					<Link to='' className='a'>
+						<li>
 							<FontAwesomeIcon icon={faBell} size='lg' />
-						</Link>
-					</li>
+						</li>
+					</Link>
 
-					<li>
-						{isAuthenticated ? (
-							<Link to='/account' className="a">
-								<FontAwesomeIcon icon={faUser} size='lg'/>
+					{isAuthenticated ? (
+						<div
+							className={styles.dropdownContainer}
+							ref={dropdownRef}
+						>
+							<Link to='#' className='a' onClick={toggleDropdown}>
+								<li>
+									<FontAwesomeIcon icon={faUser} size='lg' />
+								</li>
 							</Link>
-						) : (
-							<Link to='/login' className="a">
-								<FontAwesomeIcon icon={faUser} size='lg' />
-							</Link>
-						)}
-					</li>
-					<li onClick={toggleTheme}>
-							{theme === "light" ? (
-								<FontAwesomeIcon icon={faMoon} size='lg' />
-							) : (
-								<FontAwesomeIcon icon={faSun} size='lg' />
+							{showDropdown && (
+								<div className={styles.dropdownMenu}>
+									<Link
+										to='/account'
+										className={styles.dropdownItem}
+									>
+										<button
+											className={styles.dropdownButton}
+											onClick={toggleDropdown}
+										>
+											Account
+										</button>
+									</Link>
+
+									<Link
+										to='/playlists'
+										className={styles.dropdownItem}
+									>
+										<button
+											className={styles.dropdownButton}
+											onClick={toggleDropdown}
+										>
+											Playlists
+										</button>
+									</Link>
+
+									<button
+										onClick={() => {
+											handleLogout();
+											toggleDropdown();
+										}}
+										className={styles.dropdownButton}
+									>
+										Logout
+									</button>
+								</div>
 							)}
+						</div>
+					) : (
+						<Link to='/login' className='a'>
+							<li>
+								<FontAwesomeIcon icon={faUser} size='lg' />
+							</li>
+						</Link>
+					)}
+
+					<li onClick={toggleTheme}>
+						{theme === "light" ? (
+							<FontAwesomeIcon icon={faMoon} size='lg' />
+						) : (
+							<FontAwesomeIcon icon={faSun} size='lg' />
+						)}
 					</li>
 				</ul>
 			</nav>
