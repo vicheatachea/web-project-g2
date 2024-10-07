@@ -152,16 +152,21 @@ function filterData(data, type, content) {
             name: item.owner["display_name"]
         } : null;
 
-        return {
+        const filteredItem = {
             id: item.id,
             name: item.name,
             type: item.type || type,
             image_url: selectedImage ? selectedImage.url : null,
             artists: formattedArtists.length > 0 ? formattedArtists : undefined,
             owner: owner ? owner : undefined,
-            genres: item.genres,
             followers: item.followers?.total
         };
+
+        if (item.type === "track") {
+            filteredItem.preview_url = item.preview_url || "none";
+        }
+
+        return filteredItem;
     });
 }
 
@@ -246,6 +251,90 @@ async function topHits(req, res, next) {
     }
 }
 
+async function getArtist(req, res, next) {
+    const artistId = req.params.id;
+
+    try {
+        const [artistResponse, albumsResponse, topTracksResponse, relatedArtistsResponse] = await Promise.all([
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/related-artists`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            })
+        ]);
+
+        const artist = artistResponse.data;
+        const albums = filterData(albumsResponse.data.items, "album");
+        const topTracks = filterData(topTracksResponse.data.tracks, "track");
+        const relatedArtists = filterData(relatedArtistsResponse.data.artists, "artist");
+
+        const largestImage = artist.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredArtist = {
+            id: artist.id,
+            name: artist.name,
+            genres: artist.genres,
+            followers: artist.followers.total,
+            image_url: largestImage.url,
+            popularity: artist.popularity,
+            type: artist.type,
+            albums,
+            topTracks,
+            relatedArtists
+        };
+
+        res.status(200).json(filteredArtist);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function getTrack(req, res, next) {
+    const trackId = req.params.id;
+
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
+
+        const track = response.data;
+
+        // Extract the largest image from the album
+        const largestImage = track.album.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredTrack = {
+            id: track.id,
+            name: track.name,
+            duration: track.duration_ms,
+            preview_url: track.preview_url || "none",
+            album: {
+                id: track.album.id,
+                name: track.album.name,
+                image_url: largestImage.url
+            },
+            artists: track.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }))
+        };
+
+        res.status(200).json(filteredTrack);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     tokenStorage,
     loginUser,
@@ -254,5 +343,7 @@ module.exports = {
     searchSpotify,
     recommendedGenres,
     newReleases,
-    topHits
+    topHits,
+    getArtist,
+    getTrack
 };

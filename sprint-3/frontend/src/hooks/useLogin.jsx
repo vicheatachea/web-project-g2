@@ -1,4 +1,3 @@
-import React from "react";
 import { loginUser } from "../utils/userRequests";
 import Cookies from "js-cookie";
 

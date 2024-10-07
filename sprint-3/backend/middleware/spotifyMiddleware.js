@@ -21,7 +21,6 @@ function checkTokenValidity(req, res, next) {
 }
 
 function errorHandler(error, req, res) {
-    // Probably replace with res.status().json()
     switch (error.status) {
         case 401:
             return res.status(401).send("Bad or expired token");

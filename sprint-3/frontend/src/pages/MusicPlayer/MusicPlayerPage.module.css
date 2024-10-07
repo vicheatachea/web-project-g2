@@ -1,0 +1,158 @@
+:root {
+    --background-color: #f5f5fa;
+    --contrast-primary-color: #333;
+    --button-color: #6a67d6; /* Main button color */
+    --button-hover-color: grey; /* Hover state color */
+    --button-shadow: rgba(0, 0, 0, 0.1);
+    --button-hover-shadow: rgba(0, 0, 0, 0.2);
+    --secondary-button-color: grey; /* Lighter button background */
+    --secondary-hover-color: grey; /* Lighter hover background */
+}
+
+.musicPlayer {
+    text-align: center;
+    background-color: var(--background-color);
+    color: var(--contrast-primary-color);
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 450px;
+    margin: 50px auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    margin-top: 40px;
+}
+
+.musicPlayer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5); /* Light overlay */
+    z-index: 1;
+}
+
+.nowPlaying {
+    color: var(--contrast-primary-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    z-index: 2;
+    position: relative;
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.artistImage {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 20px;
+    object-fit: cover;
+    z-index: 2;
+    position: relative;
+}
+
+.songTitle {
+    font-size: 1.3rem;
+    color: var(--contrast-primary-color);
+    margin-bottom: 15px;
+    z-index: 2;
+    position: relative;
+}
+
+.progressBarContainer {
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.progressBar {
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    height: 6px;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+    background: linear-gradient(90deg, #333333, #000000);
+}
+
+.progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: grey;
+    cursor: pointer;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    z-index: 20;
+    position: relative;
+}
+
+.controlButton {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    color: var(--button-color);
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px var(--button-shadow);
+}
+
+.controlButton:hover {
+    background-color: var(--secondary-hover-color);
+    transform: scale(1.1); /* Slightly increase size on hover */
+    box-shadow: 0px 6px 12px var(--button-hover-shadow);
+}
+
+.volumeControl {
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+}
+
+.volumeControl input {
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    height: 6px;
+    border-radius: 10px;
+    outline: none;
+    appearance: none;
+    background: linear-gradient(90deg, #333333, #000000);
+}
+
+.volumeControl input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: grey;
+    cursor: pointer;
+}
+  

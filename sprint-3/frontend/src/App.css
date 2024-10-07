@@ -1,25 +1,29 @@
-/*App.css*/
 :root {
-    --light-primary-color: #f0f0f0;
-    --light-secondary-color: #333;
-    --dark-primary-color: #121212;
-    --dark-secondary-color: #e0e0e0;
-    --light-footer-background: #d9dcde; /* Light theme footer background: soft blue */
-    --light-footer-text: #2e4b5f;       /* Light theme footer text: dark teal */
-    --dark-footer-background: #1e1d1d;  /* Dark theme footer background: navy blue */
-    --dark-footer-text: #a0b3c5;      
+    /* Light Mode */
+    --light-base-primary-color: #f0f0f0;
+    --light-base-secondary-color: #dbdbdb;
+    --light-contrast-primary-color: #333333;
+    --light-contrast-secondary-color: #747474;
+
+    /* Dark Mode*/
+    --dark-base-primary-color: #121212;
+    --dark-base-secondary-color: #3c3c3c;
+    --dark-contrast-primary-color: #e0e0e0;
+    --dark-contrast-secondary-color: #b0b0b0;
 }
 
 body.light {
-    --primary-color: var(--light-primary-color);
-    --secondary-color: var(--light-secondary-color);
-    --tertiary-color: var(--light-footer-background)
+    --base-primary-color: var(--light-base-primary-color);
+    --base-secondary-color: var(--light-base-secondary-color);
+    --contrast-primary-color: var(--light-contrast-primary-color);
+    --contrast-secondary-color: var(--light-contrast-secondary-color);
 }
 
 body.dark {
-    --primary-color: var(--dark-primary-color);
-    --secondary-color: var(--dark-secondary-color);
-    --tertiary-color: var(--dark-footer-background)
+    --base-primary-color: var(--dark-base-primary-color);
+    --base-secondary-color: var(--dark-base-secondary-color);
+    --contrast-primary-color: var(--dark-contrast-primary-color);
+    --contrast-secondary-color: var(--dark-contrast-secondary-color);
 }
 
 /* Base Styles */
@@ -27,7 +31,11 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: 'Arial Narrow Bold', sans-serif;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+    background-color: var(--base-primary-color);
+    color: var(--contrast-primary-color);
     min-width: 820px;
+}
+
+a {
+    text-decoration: none;
 }
