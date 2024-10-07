@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import { useNavigate, Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faBell,
+	faBookmark,
 	faUser,
 	faSun,
 	faMoon,
@@ -65,78 +65,81 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 					value={searchQuery}
 					onChange={handleInputChange}
 					onKeyDown={handleKeyDown}
+					className={styles.searchInput}
 				/>
 			</div>
 			<nav className={styles.navbar}>
 				<ul className={styles.iconList}>
-					<Link to='' className='a'>
-						<li>
-							<FontAwesomeIcon icon={faBell} size='lg' />
-						</li>
-					</Link>
-
 					{isAuthenticated ? (
 						<div
 							className={styles.dropdownContainer}
 							ref={dropdownRef}
 						>
-							<Link to='#' className='a' onClick={toggleDropdown}>
-								<li>
+							<li>
+								<Link
+									to='#'
+									className={styles.iconLink}
+									onClick={toggleDropdown}
+								>
 									<FontAwesomeIcon icon={faUser} size='lg' />
-								</li>
-							</Link>
+								</Link>
+							</li>
 							{showDropdown && (
 								<div className={styles.dropdownMenu}>
 									<Link
 										to='/account'
 										className={styles.dropdownItem}
+										onClick={toggleDropdown}
 									>
-										<button
-											className={styles.dropdownButton}
-											onClick={toggleDropdown}
-										>
-											Account
-										</button>
+										Account
 									</Link>
 
 									<Link
-										to='/playlists'
+										to='/playlist'
 										className={styles.dropdownItem}
+										onClick={toggleDropdown}
 									>
-										<button
-											className={styles.dropdownButton}
-											onClick={toggleDropdown}
-										>
-											Playlists
-										</button>
+										Playlists
 									</Link>
 
-									<button
+									<Link
+										to='/'
+										className={styles.dropdownItem}
 										onClick={() => {
 											handleLogout();
 											toggleDropdown();
 										}}
-										className={styles.dropdownButton}
 									>
-										Logout
-									</button>
+										Log Out
+									</Link>
 								</div>
 							)}
 						</div>
 					) : (
-						<Link to='/login' className='a'>
-							<li>
+						<li>
+							<Link to='/login' className={styles.iconLink}>
 								<FontAwesomeIcon icon={faUser} size='lg' />
-							</li>
-						</Link>
+							</Link>
+						</li>
 					)}
-
-					<li onClick={toggleTheme}>
-						{theme === "light" ? (
-							<FontAwesomeIcon icon={faMoon} size='lg' />
-						) : (
-							<FontAwesomeIcon icon={faSun} size='lg' />
-						)}
+					{isAuthenticated && (
+						<li>
+							<Link to='/library' className={styles.iconLink}>
+								<FontAwesomeIcon icon={faBookmark} size='lg' />
+							</Link>
+						</li>
+					)}
+					<li>
+						<button
+							className={styles.themeButton}
+							onClick={toggleTheme}
+						>
+							{theme === "light" ? (
+								<FontAwesomeIcon icon={faMoon} size='lg' />
+							) : (
+								<FontAwesomeIcon icon={faSun} size='lg' />
+							)}
+						</button>
 					</li>
 				</ul>
 			</nav>
