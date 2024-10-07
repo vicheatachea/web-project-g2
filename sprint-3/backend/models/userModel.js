@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
-const Playlist = require("./playlistModel");
+const Collection = require("./collectionModel");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
 			default: "user",
 		},
 		playlists: {
-            type: [Playlist.schema],
+            type: [Collection.schema],
             default: [],
         }
 	},
