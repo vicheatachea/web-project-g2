@@ -1,4 +1,5 @@
 const User = require("../models/userModel");
+const ValidationError = require("../models/errors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -45,7 +46,7 @@ const registerUser = async (req, res, next) => {
 			});
 		} else if (error.code === 11000) {
 			// Handle duplicate key error (e.g., email already exists)
-            console.log(error)
+			console.log(error);
 			return res.status(409).json({
 				message: "Duplicate key error",
 				error: error.message,
@@ -56,11 +57,14 @@ const registerUser = async (req, res, next) => {
 				message: "Invalid data type",
 				error: error.message,
 			});
-            
-		} else if (error instanceof Error) {
-			console.error("Unexpected error:", error); // Log unexpected errors for debugging
+		} else if (error instanceof ValidationError) {
+			res.status(422).json({
+				message: error.message,
+			});
+		} else {
+			console.error("Error:", error); // Log unexpected errors for debugging
 			return res.status(500).json({
-				message: error.message
+				message: error.message,
 			});
 		}
 	}
@@ -101,15 +105,21 @@ const loginUser = async (
 		}
 
 		const token = jwt.sign({ userId: userData._id }, jwt_secret_key, {
-			expiresIn: "1h",
+			expiresIn: "1d",
 		});
 		console.log("Login Successful", token);
 		res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
-		res.status(500).json({
-			message: "Internal server error",
-			error: error.message,
-		});
+		if (error instanceof ValidationError) {
+			res.status(422).json({
+				message: error.message,
+			});
+		} else {
+			res.status(500).json({
+				message: "Internal server error",
+				error: error.message,
+			});
+		}
 	}
 };
 
@@ -141,11 +151,8 @@ const updateUser = async (req, res) => {
 			updatedData.role = role;
 		}
 
-		const updatedUser = await User.findOneAndUpdate(
-			{ _id: userId },
-			updatedData,
-			{ new: true }
-		);
+		const updatedUser = await User.update(userId, updatedData);
+
 		if (updatedUser) {
 			res.status(200).json(updatedUser);
 		} else {
@@ -156,6 +163,10 @@ const updateUser = async (req, res) => {
 			res.status(400).json({
 				message: "Invalid input",
 				error: error.message,
+			});
+		} else if (error instanceof ValidationError) {
+			res.status(422).json({
+				message: error.message,
 			});
 		} else {
 			res.status(500).json({

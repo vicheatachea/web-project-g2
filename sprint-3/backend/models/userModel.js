@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const Playlist = require("./playlistModel");
+const ValidationError = require("./errors");
 
 const userSchema = new mongoose.Schema(
 	{
@@ -25,31 +26,46 @@ const userSchema = new mongoose.Schema(
 			default: "user",
 		},
 		playlists: {
-            type: [Playlist.schema],
-            default: [],
-        }
+			type: [Playlist.schema],
+			default: [],
+		},
 	},
 	{
 		timestamps: true,
 	}
 );
 
+const validateUser = async function (username, email, password) {
+	if (username && username.length == 0) {
+		throw new ValidationError("Username cannot be empty");
+	}
+
+	if (email && email.length == 0) {
+		throw new ValidationError("Email cannot be empty");
+	}
+
+	if (email && !validator.isEmail(email)) {
+		throw new ValidationError("Email is invalid");
+	}
+
+	if (password && !validator.isLength(password, { min: 8 })) {
+		throw new ValidationError(
+			"Password must be at least 8 characters long!"
+		);
+	}
+};
+
 userSchema.statics.signup = async function (username, email, password) {
 	if (!username || !email || !password) {
-		throw new Error("All fields are required!");
+		throw new ValidationError("All fields are required!");
 	}
 
-	if (!validator.isEmail(email)) {
-		throw new Error("Email is invalid");
-	}
+	await validateUser(username, email, password);
 
-	if (!validator.isLength(password, { min: 8 })) {
-		throw new Error("Password must be at least 8 characters long!");
-	}
-
-	const existingUser = await User.findOne({ email });
+	const existingUser = await this.findOne({ email });
 
 	if (existingUser) {
+		throw new ValidationError("Email is already in use");
 	}
 
 	const hashedPassword = await bcrypt.hash(password, 10);
@@ -61,6 +77,26 @@ userSchema.statics.signup = async function (username, email, password) {
 	});
 
 	return user;
+};
+
+userSchema.statics.update = async function (userId, updatedData) {
+	if (!userId || !updatedData) {
+		throw new ValidationError("Missing required fields");
+	}
+
+	await validateUser(
+		updatedData.username,
+		updatedData.email,
+		updatedData.password
+	);
+
+	const updatedUser = await this.findOneAndUpdate(
+		{ _id: userId },
+		updatedData,
+		{ new: true }
+	);
+
+	return updatedUser;
 };
 
 const User = mongoose.model("User", userSchema);
