@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Card from '../Card/Card.jsx';
 import ErrorPrompt from '../ErrorPrompt/ErrorPrompt.jsx';
 import styles from './CardList.module.css';
@@ -6,6 +6,10 @@ import styles from './CardList.module.css';
 function CardList({title, items, error}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const visibleItems = 5; // Number of items to show at a time
+
+    useEffect(() => {
+        setCurrentIndex(0);
+    }, [items]);
 
     const handlePrevious = () => {
         setCurrentIndex((prevIndex) => Math.max(prevIndex - visibleItems, 0));

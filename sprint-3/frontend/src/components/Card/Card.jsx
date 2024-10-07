@@ -23,6 +23,10 @@ function Card({ item }) {
 
     const handleCardClick = () => {
         if (item.type === "track") {
+            if (item.preview_url === "none") {
+                alert("This track does not have a preview URL.");
+                return;
+            }
             navigate(`/play?v=${item.id}`);
         } else if (item.type === "album" || item.type === "playlist") {
             navigate(`/playlist?v=${item.id}`);

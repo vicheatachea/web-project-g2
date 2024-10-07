@@ -152,7 +152,7 @@ function filterData(data, type, content) {
             name: item.owner["display_name"]
         } : null;
 
-        return {
+        const filteredItem = {
             id: item.id,
             name: item.name,
             type: item.type || type,
@@ -161,6 +161,12 @@ function filterData(data, type, content) {
             owner: owner ? owner : undefined,
             followers: item.followers?.total
         };
+
+        if (item.type === "track") {
+            filteredItem.preview_url = item.preview_url || "none";
+        }
+
+        return filteredItem;
     });
 }
 
