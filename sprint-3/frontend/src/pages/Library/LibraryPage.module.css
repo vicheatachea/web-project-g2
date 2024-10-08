@@ -1,77 +1,87 @@
 .library {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px;
-    background-color: #f4f4f4;
-    min-height: 100vh;
+    padding: 20px 60px; /* Increased padding on the right and left */
+    font-family: Arial, sans-serif;
 }
 
+.library-page {
+    max-width: 600px; /* Adjusted width */
+    margin: 0 auto;
+}
 
 .libraryTitle {
-    margin-bottom: 30px;
-    font-size: 32px;
-    color: #333;
-}
-
-
-/* Main sections for profile, playlists, and songs */
-.playlistSection, .songsSection {
-    width: 100%;
-    max-width: 800px;
-    background-color: #fff;
-    border: 1px solid #333;
-    border-radius: 10px;
+    font-size: 2em;
     margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-
-.playlistTitle, .songsTitle {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
+.collectionSection {
+    margin-top: 20px;
 }
 
+.collectionTitle {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: var(--contrast-primary-color);
+}
 
-/* Styling the list of playlists and songs */
-.playlistDisplay, .songsDisplay {
-    list-style: none;
+.collectionDisplay {
+    list-style-type: none;
     padding: 0;
 }
 
-
-.playlistId, .songsId {
+.collectionId {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: var(--base-secondary-color);
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
-/* Redirect Login */
-.redirectLogin {
-    text-align: center;
-    font-size: 18px;
+.collectionInfo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
-
-.redirectLogin p {
-    font-size: 16px;
-    color: #333;
+.collectionImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
-
-.redirectLogin a {
-    color: #333;
-    text-decoration: none;
-    font-weight: bold;
+.collectionName {
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
+.collectionDetails {
+    font-size: 0.9em;
+    color: var(--contrast-secondary-color);
+}
 
-.redirectLogin a:hover {
+.collectionId strong {
+    font-size: 1.2em;
+}
+
+.collectionId button {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    cursor: pointer;
+    font-size: 1em;
+    padding: 5px 10px;
+    margin-left: 20px;
+}
+
+.collectionId button:hover {
     text-decoration: underline;
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -81,4 +91,3 @@
         margin: 0 10px;
     }
 }
- 

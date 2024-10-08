@@ -41,7 +41,8 @@ const CollectionPage = () => {
             id: collection.id,
             name: collection.name,
             type: type,
-            songAmount: collection.total_tracks
+            songAmount: collection.total_tracks,
+            image: collection.image_url
         };
         await sendRequest("/api/collections", "POST", data);
     };
