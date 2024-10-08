@@ -1,10 +1,11 @@
-import {loginUser} from "../utils/userRequests";
+import {registerUser} from "../utils/userRequests";
 import Cookies from "js-cookie";
 
-export const useLogin = () => {
-    const login = async (email, password) => {
+export const useSignup = () => {
+    const signup = async (username, email, password) => {
         try {
-            const response = await loginUser({
+            const response = await registerUser({
+                username,
                 email,
                 password,
             });
@@ -13,12 +14,12 @@ export const useLogin = () => {
                 console.log("Response:", response.data);
                 Cookies.set("jwt", response.data.token, {expires: 1});
             } else {
-                console.error("Login failed:", response.statusText);
+                console.error("Registration failed:", response.statusText);
             }
         } catch (err) {
             console.error("Error:", err["response"]["data"]);
         }
     };
 
-    return {login};
+    return {signup};
 };

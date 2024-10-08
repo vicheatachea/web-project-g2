@@ -152,16 +152,21 @@ function filterData(data, type, content) {
             name: item.owner["display_name"]
         } : null;
 
-        return {
+        const filteredItem = {
             id: item.id,
             name: item.name,
             type: item.type || type,
             image_url: selectedImage ? selectedImage.url : null,
             artists: formattedArtists.length > 0 ? formattedArtists : undefined,
             owner: owner ? owner : undefined,
-            genres: item.genres,
             followers: item.followers?.total
         };
+
+        if (item.type === "track") {
+            filteredItem.preview_url = item.preview_url || "none";
+        }
+
+        return filteredItem;
     });
 }
 
@@ -246,6 +251,137 @@ async function topHits(req, res, next) {
     }
 }
 
+async function getArtist(req, res, next) {
+    const artistId = req.params.id;
+
+    try {
+        const [artistResponse, albumsResponse, topTracksResponse, relatedArtistsResponse] = await Promise.all([
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/albums`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=US`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            }),
+            axios.get(`https://api.spotify.com/v1/artists/${artistId}/related-artists`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            })
+        ]);
+
+        const artist = artistResponse.data;
+        const albums = filterData(albumsResponse.data.items, "album");
+        const topTracks = filterData(topTracksResponse.data.tracks, "track");
+        const relatedArtists = filterData(relatedArtistsResponse.data.artists, "artist");
+
+        const largestImage = artist.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredArtist = {
+            id: artist.id,
+            name: artist.name,
+            genres: artist.genres,
+            followers: artist.followers.total,
+            image_url: largestImage.url,
+            popularity: artist.popularity,
+            type: artist.type,
+            albums,
+            topTracks,
+            relatedArtists
+        };
+
+        res.status(200).json(filteredArtist);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function getTrack(req, res, next) {
+    const trackId = req.params.id;
+
+    try {
+        const response = await axios.get(`https://api.spotify.com/v1/tracks/${trackId}`, {
+            headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+        });
+
+        const track = response.data;
+
+        // Extract the largest image from the album
+        const largestImage = track.album.images.reduce((prev, current) => {
+            return (prev.height > current.height) ? prev : current;
+        }, {});
+
+        const filteredTrack = {
+            id: track.id,
+            name: track.name,
+            duration: track.duration_ms,
+            preview_url: track.preview_url || "none",
+            album: {
+                id: track.album.id,
+                name: track.album.name,
+                image_url: largestImage.url
+            },
+            artists: track.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }))
+        };
+
+        res.status(200).json(filteredTrack);
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function getCollection(req, res, next) {
+    const { type, id } = req.params;
+
+    if (type !== 'album' && type !== 'playlist') {
+        return res.status(400).json({ error: 'Invalid type. Only album and playlist are allowed.' });
+    }
+
+    try {
+        const response = await axios.get(
+            `https://api.spotify.com/v1/${type}s/${id}`, {
+                headers: { Authorization: "Bearer " + tokenStorage.accessToken }
+            });
+
+        const collection = response.data;
+
+        const filteredCollection = {
+            id: collection.id,
+            name: collection.name,
+            total_tracks: collection.tracks.total,
+            image_url: collection.images[0]?.url || null,
+            release_date: collection.release_date || null,
+            tracks: collection.tracks.items.map(item => ({
+                id: item.track ? item.track.id : item.id,
+                name: item.track ? item.track.name : item.name,
+                duration_ms: item.track ? item.track.duration_ms : item.duration_ms,
+                preview_url: item.track ? item.track.preview_url || "none" : item.preview_url || "none",
+                artists: (item.track ? item.track.artists : item.artists).map(artist => ({
+                    id: artist.id,
+                    name: artist.name
+                }))
+            }))
+        };
+
+        // Add artists field only if the type is album
+        if (type === 'album') {
+            filteredCollection.artists = collection.artists.map(artist => ({
+                id: artist.id,
+                name: artist.name
+            }));
+        }
+
+        res.status(200).json(filteredCollection);
+    } catch (error) {
+        next(error);
+    }
+}
+
 module.exports = {
     tokenStorage,
     loginUser,
@@ -254,5 +390,8 @@ module.exports = {
     searchSpotify,
     recommendedGenres,
     newReleases,
-    topHits
+    topHits,
+    getArtist,
+    getTrack,
+    getCollection
 };

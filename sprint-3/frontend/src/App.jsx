@@ -2,52 +2,52 @@ import {useState, useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css';
 import React from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage.jsx';
-import SearchResultsPage from './pages/SearchResultsPage.jsx';
-import MusicPlayerPage from './pages/MusicPlayerPage.jsx';
-import AccountPage from './pages/AccountPage.jsx';
-import LibraryPage from './pages/LibraryPage.jsx';
-import ArtistPage from './pages/ArtistPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
+import Header from './components/Header/Header.jsx';
+import Footer from './components/Footer/Footer.jsx';
+import LoginPage from './pages/Login/LoginPage.jsx';
+import SignupPage from './pages/Register/SignupPage.jsx';
+import HomePage from './pages/Home/HomePage.jsx';
+import SearchResultsPage from './pages/SearchResults/SearchResultsPage.jsx';
+import MusicPlayerPage from './pages/MusicPlayer/MusicPlayerPage.jsx';
+import AccountPage from './pages/Account/AccountPage.jsx';
+import LibraryPage from './pages/Library/LibraryPage.jsx';
+import ArtistPage from './pages/Artist/ArtistPage.jsx';
+import NotFoundPage from './pages/NotFound/NotFoundPage.jsx';
+import CollectionPage from "./pages/Collection/CollectionPage.jsx";
 
 function App() {
-	const [theme, setTheme] = useState(() => {
-		return localStorage.getItem("theme") || "light";
-	});
+    const [theme, setTheme] = useState(() => {
+        return localStorage.getItem("theme") || "light";
+    });
 
-	useEffect(() => {
-		document.body.className = theme;
-		localStorage.setItem("theme", theme);
-	}, [theme]);
+    useEffect(() => {
+        document.body.className = theme;
+        localStorage.setItem("theme", theme);
+    }, [theme]);
 
-	const toggleTheme = () => {
-		const newTheme = theme === "light" ? "dark" : "light";
-		setTheme(newTheme);
-		document.body.className = newTheme; // Apply the theme to the body
-	};
+    const toggleTheme = () => {
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        document.body.className = newTheme; // Apply the theme to the body
+    };
 
     return (
-        <>
-            <BrowserRouter>
+        <BrowserRouter>
             <Header theme={theme} toggleTheme={toggleTheme}/>
-                <Routes>
-                    <Route path='/' element={<HomePage/>}/>
-                    <Route path='/login' element={<LoginPage/>}/>
-                    <Route path='/signup' element={<RegisterPage/>}/>
-                    <Route path='/search' element={<SearchResultsPage />} />
-                    <Route path='/artist' element={<ArtistPage />} />
-                    <Route path='/player' element={<MusicPlayerPage />} />
-                    <Route path='/account' element={<AccountPage />} />
-                    <Route path='/library' element={<LibraryPage />} />
-                    <Route path='/notfound' element={<NotFoundPage />} />
-                </Routes>
+            <Routes>
+                <Route path='/' element={<HomePage/>}/>
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/signup' element={<SignupPage/>}/>
+                <Route path='/search' element={<SearchResultsPage/>}/>
+                <Route path='/play' element={<MusicPlayerPage/>}/>
+                <Route path='/collection/:type/:id' element={<CollectionPage/>}/>
+                <Route path='/artist/:id' element={<ArtistPage/>}/>
+                <Route path='/account' element={<AccountPage/>}/>
+                <Route path='/library' element={<LibraryPage/>}/>
+                <Route path='/*' element={<NotFoundPage/>}/>
+            </Routes>
             <Footer theme={theme}/>
-            </BrowserRouter>
-        </>
+        </BrowserRouter>
     );
 }
 

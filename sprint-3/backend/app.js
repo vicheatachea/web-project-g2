@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/userRouter");
 const spotifyRouter = require("./routes/spotifyRouter");
+const collectionRouter = require("./routes/collectionRouter");
 
 
 connectDB();
@@ -23,6 +24,9 @@ app.use("/api/user", userRouter);
 
 // Connects to Spotify API
 app.use("/api/spotify", spotifyRouter);
+
+// Connects to Collection API
+app.use("/api/collections", collectionRouter);
 
 const port = process.env.PORT || 4000;
 
