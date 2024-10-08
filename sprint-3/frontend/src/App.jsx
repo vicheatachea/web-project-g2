@@ -98,7 +98,7 @@ function App() {
 					/>
 					<Route path='/search' element={<SearchResultsPage />} />
 					<Route path='/play' element={<MusicPlayerPage />} />
-					<Route path='/collection/:type/:id' element={<CollectionPage />} />
+					<Route path='/collection/:type/:id' element={<CollectionPage isAuthenticated={isAuthenticated} />} />
 					<Route path='/artist/:id' element={<ArtistPage />} />
 					<Route
 						path='/account'

@@ -1,19 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./CollectionPage.module.css";
 import CollectionItem from "../../components/CollectionItem/CollectionItem";
 import { useSpotifyGet } from "../../hooks/useSpotifyGet";
 import { useBackend } from "../../hooks/useBackend";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBookmark, faPlay, faRandom} from "@fortawesome/free-solid-svg-icons";
 
-const CollectionPage = () => {
+const CollectionPage = ({ isAuthenticated }) => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { data: collection, error } = useSpotifyGet(`/api/spotify/collection/${type}/${id}`);
     const { sendRequest } = useBackend();
+    const [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            const checkIfSaved = async () => {
+                try {
+                    const response = await sendRequest(`/api/collections/${id}`, "GET");
+                    if (response._id) {
+                        setIsSaved(true);
+                    }
+                } catch (error) {
+                    setIsSaved(false);
+                }
+            };
+            checkIfSaved();
+        }
+    }, [id, isAuthenticated]);
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -45,6 +64,12 @@ const CollectionPage = () => {
             image: collection.image_url
         };
         await sendRequest("/api/collections", "POST", data);
+        setIsSaved(true);
+    };
+
+    const handleRemoveFromLibraryClick = async () => {
+        await sendRequest(`/api/collections/${id}`, "DELETE");
+        setIsSaved(false);
     };
 
     return (
@@ -68,9 +93,26 @@ const CollectionPage = () => {
                     </div>
                 </div>
                 <div className={styles.right}>
-                    <button className={styles.button} onClick={handlePlayClick}>Play</button>
-                    <button className={styles.button} onClick={handleShufflePlayClick}>Shuffle Play</button>
-                    <button className={styles.button} onClick={handleSaveToLibraryClick}>Save to Library</button>
+                    <button className={styles.button} onClick={handlePlayClick}>
+                        <FontAwesomeIcon icon={faPlay} className={styles.iconSpacing} /> Play
+                    </button>
+                    <button className={styles.button} onClick={handleShufflePlayClick}>
+                        <FontAwesomeIcon icon={faRandom} className={styles.iconSpacing} /> Shuffle Play
+                    </button>
+                    {isAuthenticated && (
+                        <button
+                            className={styles.button}
+                            onClick={isSaved ? handleRemoveFromLibraryClick : handleSaveToLibraryClick}
+                        >
+                            {isSaved ? (
+                                <>
+                                    <FontAwesomeIcon icon={faBookmark} className={styles.iconSpacing}/> Saved to Library
+                                </>
+                            ) : (
+                                "Save to Library"
+                            )}
+                        </button>
+                    )}
                 </div>
             </div>
             <div className={styles.items}>

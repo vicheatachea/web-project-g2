@@ -12,6 +12,22 @@ const getAllCollections = async (req, res) => {
     }
 };
 
+// GET a specific collection by ID
+const getCollectionById = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user.userId;
+
+    try {
+        const collection = await Collection.findOne({ id, userIds: userId });
+        if (!collection) {
+            return res.status(404).json({ message: "Collection not found" });
+        }
+        res.status(200).json(collection);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // POST a new collection
 const createCollection = async (req, res) => {
     const { name, id, type, songAmount, image } = req.body;
@@ -71,6 +87,7 @@ const deleteCollection = async (req, res) => {
 
 module.exports = {
     getAllCollections,
+    getCollectionById,
     createCollection,
     deleteCollection,
 };
