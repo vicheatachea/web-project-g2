@@ -3,12 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import styles from "./CollectionPage.module.css";
 import CollectionItem from "../../components/CollectionItem/CollectionItem";
 import { useSpotifyGet } from "../../hooks/useSpotifyGet";
-// import { useBackend } from "../../hooks/useBackend";
+import { useBackend } from "../../hooks/useBackend";
 
 const CollectionPage = () => {
     const { type, id } = useParams();
     const navigate = useNavigate();
     const { data: collection, error } = useSpotifyGet(`/api/spotify/collection/${type}/${id}`);
+    const { sendRequest } = useBackend();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -35,14 +36,14 @@ const CollectionPage = () => {
         }
     };
 
-    const handleSaveToLibraryClick = () => {
+    const handleSaveToLibraryClick = async () => {
         const data = {
             id: collection.id,
             name: collection.name,
             type: type,
-            total_tracks: collection.total_tracks
+            songAmount: collection.total_tracks
         };
-        // useBackend("POST", "/api/library/save", data);
+        await sendRequest("/api/collections", "POST", data);
     };
 
     return (

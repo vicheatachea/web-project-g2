@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 20px 50px 40px 50px;
+    gap: 20px;
 }
 
 .left {
@@ -43,7 +44,7 @@
 }
 
 .imageWrapper {
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .playlistImage {
@@ -57,7 +58,7 @@
 }
 
 .smallText {
-    font-size: 12px;
+    font-size: 14px;
     text-transform: uppercase;
     margin-bottom: 5px;
     color: var(--contrast-primary-color);
