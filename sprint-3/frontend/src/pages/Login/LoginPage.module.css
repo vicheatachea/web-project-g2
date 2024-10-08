@@ -27,9 +27,9 @@
     padding: 15px;
     font-size: 16px;
     border-radius: 8px;
-    background-color: var(--contrast-primary-color);
+    background-color: var(--base-secondary-color);
     margin-bottom: 20px;
-    color: var(--base-primary-color);
+    color: var(--contrast-primary-color);
     box-sizing: border-box;
     border: 1px solid #ccc;
 }
@@ -38,8 +38,8 @@
     width: 100%;
     padding: 15px;
     font-size: 16px;
-    background-color: var(--contrast-primary-color);
-    color: var(--base-primary-color);
+    background-color: var(--base-secondary-color);
+    color: var(--contrast-primary-color);
     border-radius: 8px;
     border: none;
     cursor: pointer;
