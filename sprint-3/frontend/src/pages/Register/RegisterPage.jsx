@@ -38,7 +38,7 @@ const RegisterPage = ({ setIsAuthenticated }) => {
 						password: passwordField.value,
 					}
 				);
-				
+
 				if (response.statusText === "OK") {
 					Cookies.set("jwt", response.data.token, { expires: 1 });
 					setIsAuthenticated(true);
@@ -46,7 +46,6 @@ const RegisterPage = ({ setIsAuthenticated }) => {
 						state: { message: "Registration successful" },
 					});
 				} else {
-					
 					toast.error(response.message || "Registration failed");
 				}
 			} else {
@@ -55,11 +54,6 @@ const RegisterPage = ({ setIsAuthenticated }) => {
 		} catch (e) {
 			console.error("Error:", e);
 		}
-
-		//console.log("Email:", email);
-		//console.log("Username:", username);
-		//console.log("Password:", password);
-		//console.log("Confirm Password:", confirmPassword);
 	};
 
 	return (
