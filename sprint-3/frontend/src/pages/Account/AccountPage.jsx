@@ -202,7 +202,6 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 					`/api/user/delete/`,
 					"DELETE"
 				);
-				console.log(response);
 
 				if (response.statusText === "No Content") {
 					Cookies.remove("jwt");
