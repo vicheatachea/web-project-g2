@@ -32,8 +32,9 @@ const fetchUserData = async (req, res) => {
 };
 
 const registerUser = async (req, res, next) => {
-	const { data } = req.body;
-
+	const { username, email, password } = req.body;
+    const data = { username, email, password };
+    
 	try {
 		const newUser = await User.signup(data);
 		loginUser(req, res, next, newUser, password);
@@ -108,7 +109,7 @@ const loginUser = async (
 		const token = jwt.sign({ userId: userData._id }, jwt_secret_key, {
 			expiresIn: "1d",
 		});
-	
+
 		res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
 		if (error instanceof ValidationError) {

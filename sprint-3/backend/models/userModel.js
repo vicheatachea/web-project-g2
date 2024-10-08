@@ -26,9 +26,9 @@ const userSchema = new mongoose.Schema(
 			default: "user",
 		},
 		playlists: {
-            type: [Collection.schema],
-            default: [],
-        }
+			type: [Collection.schema],
+			default: [],
+		},
 	},
 	{
 		timestamps: true,
@@ -72,13 +72,11 @@ const validateUser = async function (data) {
 };
 
 userSchema.statics.signup = async function (data) {
+	const { username, email, password } = { ...data };
+
 	if (!username || !email || !password) {
 		throw new ValidationError("All fields are required!");
 	}
-
-	data = {
-		...data,
-	};
 
 	await validateUser(data);
 
