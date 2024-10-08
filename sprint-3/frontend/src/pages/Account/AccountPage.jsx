@@ -37,25 +37,44 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				setInitialEmail(response.data.email);
 				usernameField.setValue(response.data.username);
 				emailField.setValue(response.data.email);
-				newPasswordField.setValue("");
-				confirmPasswordField.setValue("");
+				resetFields();
+				resetModified();
 			} catch (error) {
 				toast.error("Error fetching user data");
 				console.error("Error fetching user data:", error);
 			}
 		};
 		getUserData();
-	}, []);
+	}, [userId]);
 
-	const resetForm = () => {
-		usernameField.setValue(initialUsername);
-		emailField.setValue(initialEmail);
-		newPasswordField.reset();
-		confirmPasswordField.reset();
-		setModifiedUsername(false);
-		setModifiedEmail(false);
-		setModifiedNewPassword(false);
-		setModifiedConfirmPassword(false);
+	const resetModified = () => {
+		if (modifiedUsername) {
+			setModifiedUsername(false);
+		}
+		if (modifiedEmail) {
+			setModifiedEmail(false);
+		}
+		if (modifiedNewPassword) {
+			setModifiedNewPassword(false);
+		}
+		if (modifiedConfirmPassword) {
+			setModifiedConfirmPassword(false);
+		}
+	};
+
+	const resetFields = () => {
+		if (modifiedUsername) {
+			usernameField.setValue(initialUsername);
+		}
+		if (modifiedEmail) {
+			emailField.setValue(initialEmail);
+		}
+		if (modifiedNewPassword) {
+			newPasswordField.reset();
+		}
+		if (modifiedConfirmPassword) {
+			confirmPasswordField.reset();
+		}
 	};
 
 	const handleSaveChanges = async () => {
@@ -67,46 +86,57 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 		if (modifiedNewPassword && modifiedConfirmPassword) {
 			if (newPasswordField.value !== confirmPasswordField.value) {
 				toast.error("Passwords do not match");
-				newPasswordField.reset();
-				confirmPasswordField.reset();
-				setModifiedNewPassword(false);
-				setModifiedConfirmPassword(false);
+				resetFields();
+				resetModified();
 				return;
 			}
 
-			if (newPasswordField.value.length < 8) {
-				toast.error("Password must be at least 8 characters long!");
-				newPasswordField.reset();
-				confirmPasswordField.reset();
-				setModifiedNewPassword(false);
-				setModifiedConfirmPassword(false);
+			if (newPasswordField.value.includes(" ")) {
+				toast.error("Password cannot contain spaces");
+				resetFields();
+				resetModified();
 				return;
 			}
 
-			updatedData.password = newPasswordField.value;
+			updatedData.password = newPasswordField.value.trim();
 		}
 		if (modifiedEmail) {
 			if (emailField.value === "") {
 				toast.error("Email cannot be empty");
-				emailField.setValue(initialEmail);
-				setModifiedEmail(false);
-				return;
-			}
-			if (emailField.value === initialEmail) {
-				toast.error("Email must be different from current email!");
-				emailField.setValue(initialEmail);
-				setModifiedEmail(false);
+				resetFields();
+				resetModified();
 				return;
 			}
 
-			updatedData.email = emailField.value;
+			if (emailField.value.includes(" ")) {
+				toast.error("Email cannot contain spaces");
+				resetFields();
+				resetModified();
+				return;
+			}
+
+			if (emailField.value === initialEmail) {
+				toast.error("Email must be different from current email!");
+				resetFields();
+				resetModified();
+				return;
+			}
+
+			updatedData.email = emailField.value.trim();
 		}
 
 		if (modifiedUsername) {
 			if (usernameField.value === "") {
 				toast.error("Username cannot be empty");
-				usernameField.setValue(initialUsername);
-				setModifiedUsername(false);
+				resetFields();
+				resetModified();
+				return;
+			}
+
+			if (usernameField.value.includes(" ")) {
+				toast.error("Username cannot contain spaces");
+				resetFields();
+				resetModified();
 				return;
 			}
 
@@ -114,35 +144,39 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				toast.error(
 					"Username must be different from current username!"
 				);
-				usernameField.setValue(initialUsername);
-				setModifiedUsername(false);
+				resetFields();
+				resetModified();
 				return;
 			}
 
-			updatedData.username = usernameField.value;
+			updatedData.username = usernameField.value.trim();
 		}
 		if (Object.keys(updatedData).length > 1) {
 			try {
-				
 				const response = await sendRequest(
 					"/api/user/update",
 					"PATCH",
 					updatedData
 				);
-
-				setInitialUsername(response.data.username);
-				setInitialEmail(response.data.email);
-				newPasswordField.reset();
-				confirmPasswordField.reset();
-                toast.success("Changes saved successfully");
-
+				if (response.statusText === "OK") {
+					setInitialUsername(response.data.username);
+					setInitialEmail(response.data.email);
+					resetModified();
+					toast.success("Changes saved successfully");
+				} else {
+					toast.error(response.message || "Failed to save changes");
+					resetFields();
+					resetModified();
+				}
 			} catch (error) {
 				toast.error(error.message || "Failed to save changes");
-				resetForm();
+				resetFields();
+				resetModified();
 			}
 		} else {
-			resetForm();
 			toast.info("No changes detected");
+			resetFields();
+			resetModified();
 		}
 	};
 
@@ -152,7 +186,8 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				"Are you sure you want to cancel? Any unsaved changes will be lost."
 			)
 		) {
-			resetForm();
+			resetFields();
+			resetModified();
 		}
 	};
 
@@ -201,7 +236,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 					<input
 						type={usernameField.type}
 						className={styles.text}
-						value={usernameField.value.trim()}
+						value={usernameField.value}
 						onChange={usernameField.onChange}
 						onBlur={() => {
 							if (
@@ -218,7 +253,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 					<input
 						type={emailField.type}
 						className={styles.email}
-						value={emailField.value.trim()}
+						value={emailField.value}
 						onChange={emailField.onChange}
 						onBlur={() => {
 							if (
@@ -237,7 +272,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 						<input
 							type={newPasswordField.type}
 							className={styles.password}
-							value={newPasswordField.value.trim()}
+							value={newPasswordField.value}
 							onChange={newPasswordField.onChange}
 							onBlur={() => {
 								if (newPasswordField.value !== "") {
@@ -251,7 +286,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 						<input
 							type={confirmPasswordField.type}
 							className={styles.password}
-							value={confirmPasswordField.value.trim()}
+							value={confirmPasswordField.value}
 							onChange={confirmPasswordField.onChange}
 							onBlur={() => {
 								if (confirmPasswordField.value !== "") {
