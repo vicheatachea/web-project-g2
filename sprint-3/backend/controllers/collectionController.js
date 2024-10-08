@@ -57,7 +57,7 @@ const deleteCollection = async (req, res) => {
 
         if (collection.userIds.length === 0) {
             // If no users are associated with the collection, delete it
-            await collection.remove();
+            await collection.deleteOne({id});
         } else {
             // Otherwise, save the updated collection
             await collection.save();

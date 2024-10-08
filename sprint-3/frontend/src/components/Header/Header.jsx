@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faUser, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 
 function Header({theme, toggleTheme}) {
     const [searchQuery, setSearchQuery] = useState("");
