@@ -27,15 +27,15 @@ const fetchUserData = async (req, res) => {
 	if (userData) {
 		res.status(200).json(userData);
 	} else {
-		res.status(404).json({ message: "User not found" });
+		res.status(404).json({ message: "User not found!" });
 	}
 };
 
 const registerUser = async (req, res, next) => {
-	const { username, email, password } = req.body;
+	const { data } = req.body;
 
 	try {
-		const newUser = await User.signup(username, email, password);
+		const newUser = await User.signup(data);
 		loginUser(req, res, next, newUser, password);
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
@@ -46,18 +46,19 @@ const registerUser = async (req, res, next) => {
 			});
 		} else if (error.code === 11000) {
 			// Handle duplicate key error (e.g., email already exists)
-			console.log(error);
+			console.error("Duplicate key error:", error.message);
 			return res.status(409).json({
-				message: "Duplicate key error",
+				message: "Duplicate key error!",
 				error: error.message,
 			});
 		} else if (error instanceof mongoose.Error.CastError) {
 			// Handle cast errors
 			return res.status(400).json({
-				message: "Invalid data type",
+				message: "Invalid data type!",
 				error: error.message,
 			});
 		} else if (error instanceof ValidationError) {
+			console.error("Validation Error:", error.message);
 			res.status(422).json({
 				message: error.message,
 			});
@@ -89,7 +90,7 @@ const loginUser = async (
 		const userData = user || (await getUserData(req));
 
 		if (!userData) {
-			return res.status(404).json({ message: "User not found" });
+			return res.status(404).json({ message: "User not found!" });
 		}
 
 		const passwordMatch = await bcrypt.compare(
@@ -107,10 +108,11 @@ const loginUser = async (
 		const token = jwt.sign({ userId: userData._id }, jwt_secret_key, {
 			expiresIn: "1d",
 		});
-		console.log("Login Successful", token);
+	
 		res.status(200).json({ message: "Login successful", token });
 	} catch (error) {
 		if (error instanceof ValidationError) {
+			console.error("Validation Error:", error.message);
 			res.status(422).json({
 				message: error.message,
 			});
@@ -127,26 +129,36 @@ const updateUser = async (req, res) => {
 	const { username, email, password, role } = req.body;
 
 	if (!username && !email && !password && !role) {
-		return res.status(400).json({ message: "No data to update" });
+		return res.status(400).json({ message: "No data to update." });
 	}
 
 	const userData = await getUserData(req);
 
 	if (!userData) {
-		return res.status(404).json({ message: "User not found" });
+		return res.status(404).json({ message: "User not found!" });
 	}
 
 	const userId = userData._id;
 
 	if (!mongoose.Types.ObjectId.isValid(userId)) {
-		return res.status(400).json({ message: "Invalid ID" });
+		return res.status(400).json({ message: "Invalid ID!" });
 	}
 
 	try {
-		let updatedData = { username, email };
-		if (password) {
-			updatedData.password = await bcrypt.hash(password, 10);
+		const updatedData = {};
+
+		if (username) {
+			updatedData.username = username;
 		}
+
+		if (email) {
+			updatedData.email = email;
+		}
+
+		if (password) {
+			updatedData.password = password;
+		}
+
 		if (role && req.user && req.user.role === "admin") {
 			updatedData.role = role;
 		}
@@ -156,7 +168,7 @@ const updateUser = async (req, res) => {
 		if (updatedUser) {
 			res.status(200).json(updatedUser);
 		} else {
-			res.status(404).json({ message: "User not found" });
+			res.status(404).json({ message: "User not found!" });
 		}
 	} catch (error) {
 		if (error instanceof mongoose.Error.ValidationError) {
@@ -165,12 +177,13 @@ const updateUser = async (req, res) => {
 				error: error.message,
 			});
 		} else if (error instanceof ValidationError) {
+			console.error("Validation Error:", error.message);
 			res.status(422).json({
 				message: error.message,
 			});
 		} else {
 			res.status(500).json({
-				message: "Failed to update user",
+				message: "Failed to update user!",
 				error: error.message,
 			});
 		}

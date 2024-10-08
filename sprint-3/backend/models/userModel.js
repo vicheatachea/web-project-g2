@@ -35,17 +35,33 @@ const userSchema = new mongoose.Schema(
 	}
 );
 
-const validateUser = async function (username, email, password) {
+const isValidEmail = (email) => {
+	if (!validator.isEmail(email)) {
+		throw new ValidationError("Email is invalid!");
+	}
+
+	const emailRegex =
+		/^[^\s@]+@[^\s@]+\.(com|org|net|edu|gov|mil|int|us|uk|ca|de|fr|au|jp|cn|in|br|fi)$/;
+	return emailRegex.test(email);
+};
+
+const hashPassword = async function (password) {
+	return await bcrypt.hash(password, 10);
+};
+
+const validateUser = async function (data) {
+	const { username, email, password } = { ...data };
+
 	if (username && username.length == 0) {
-		throw new ValidationError("Username cannot be empty");
+		throw new ValidationError("Username cannot be empty!");
 	}
 
 	if (email && email.length == 0) {
-		throw new ValidationError("Email cannot be empty");
+		throw new ValidationError("Email cannot be empty!");
 	}
 
-	if (email && !validator.isEmail(email)) {
-		throw new ValidationError("Email is invalid");
+	if (email && !isValidEmail(email)) {
+		throw new ValidationError("Email is invalid!");
 	}
 
 	if (password && !validator.isLength(password, { min: 8 })) {
@@ -55,20 +71,24 @@ const validateUser = async function (username, email, password) {
 	}
 };
 
-userSchema.statics.signup = async function (username, email, password) {
+userSchema.statics.signup = async function (data) {
 	if (!username || !email || !password) {
 		throw new ValidationError("All fields are required!");
 	}
 
-	await validateUser(username, email, password);
+	data = {
+		...data,
+	};
+
+	await validateUser(data);
 
 	const existingUser = await this.findOne({ email });
 
 	if (existingUser) {
-		throw new ValidationError("Email is already in use");
+		throw new ValidationError("Email is already in use!");
 	}
 
-	const hashedPassword = await bcrypt.hash(password, 10);
+	const hashedPassword = await hashPassword(password);
 
 	const user = await this.create({
 		username,
@@ -84,11 +104,14 @@ userSchema.statics.update = async function (userId, updatedData) {
 		throw new ValidationError("Missing required fields");
 	}
 
-	await validateUser(
-		updatedData.username,
-		updatedData.email,
-		updatedData.password
-	);
+	updatedData = {
+		...updatedData,
+	};
+
+	await validateUser(updatedData);
+	if (updatedData.password) {
+		updatedData.password = await hashPassword(updatedData.password);
+	}
 
 	const updatedUser = await this.findOneAndUpdate(
 		{ _id: userId },
