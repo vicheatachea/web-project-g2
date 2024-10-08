@@ -1,13 +1,18 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStepBackward, faPlay, faPause, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import styles from "./MusicPlayerPage.module.css";
 import { useSpotifyGet } from '../../hooks/useSpotifyGet';
+import { toast } from 'react-toastify';
 
 function MusicPlayerPage() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [volume, setVolume] = useState(1); // New state for volume
+    const [volume, setVolume] = useState(1); // Volume state, initialized to 1
     const [track, setTrack] = useState(null);
+    const [currentTime, setCurrentTime] = useState(0); // Current time state
+    const [duration, setDuration] = useState(0); // Track duration state
     const audioRef = useRef(null);
     const location = useLocation();
     const navigate = useNavigate();
@@ -17,14 +22,29 @@ function MusicPlayerPage() {
 
     const { data, error } = useSpotifyGet(`/api/spotify/track/${trackId}`);
 
+    // Load volume from local storage on mount
+    useEffect(() => {
+        const savedVolume = localStorage.getItem('music-player-volume');
+        if (savedVolume !== null) {
+            setVolume(parseFloat(savedVolume)); // Parse the saved volume and set it
+        }
+    }, []);
+
+    // Set the audio element's volume when the component mounts and when volume state changes
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume; // Set the audio element's volume to match the state
+        }
+    }, [volume]); // Update audio volume whenever volume state changes
+
     useEffect(() => {
         if (error) {
-            alert("Error loading track data");
+            toast.error("Error loading track data");
             navigate(-1);
         } else if (data) {
             setTrack(data);
             if (data.preview_url === "none") {
-                alert("This track can't be previewed");
+                toast.error("This track can't be previewed");
                 navigate(-1);
             }
         }
@@ -42,6 +62,7 @@ function MusicPlayerPage() {
     const handleTimeUpdate = () => {
         const currentTime = audioRef.current.currentTime;
         const duration = audioRef.current.duration;
+        setCurrentTime(currentTime); // Update current time state
         setProgress((currentTime / duration) * 100);
     };
 
@@ -54,23 +75,43 @@ function MusicPlayerPage() {
 
     const handleVolumeChange = (e) => {
         const newVolume = e.target.value;
-        audioRef.current.volume = newVolume;
-        setVolume(newVolume);
+        setVolume(newVolume); // Update volume state
+        localStorage.setItem('music-player-volume', newVolume); // Save volume to local storage
+    };
+
+    const handleAudioLoaded = () => {
+        setDuration(audioRef.current.duration); // Set the duration once the audio is loaded
+        audioRef.current.volume = volume; // Ensure the volume is set when the audio is loaded
     };
 
     const handleAudioEnd = () => {
         setIsPlaying(false);
         setProgress(0);
+        setCurrentTime(0); // Reset current time when track ends
     };
 
     const skipToStart = () => {
         audioRef.current.currentTime = 0;
         setProgress(0);
+        setCurrentTime(0);
     };
 
     const skipToEnd = () => {
         audioRef.current.currentTime = audioRef.current.duration;
         setProgress(100);
+        setCurrentTime(audioRef.current.duration);
+    };
+
+    // Function to format time in MM:SS format
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    };
+
+    const handleArtistClick = (artistId, e) => {
+        e.stopPropagation();
+        navigate(`/artist/${artistId}`);
     };
 
     return (
@@ -82,12 +123,26 @@ function MusicPlayerPage() {
                 )}
             </div>
             <div className={styles.songTitle}>{track?.name || "Loading..."}</div>
+            <div className={styles.artistName}>
+                {track?.artists?.map((artist, index) => (
+                    <React.Fragment key={artist.id}>
+                        <span
+                            className={styles.artistLink}
+                            onClick={(e) => handleArtistClick(artist.id, e)}
+                        >
+                            {artist.name}
+                        </span>
+                        {index < track.artists.length - 1 ? ', ' : ''}
+                    </React.Fragment>
+                ))}
+            </div>
 
             {track?.preview_url && track.preview_url !== "none" && (
                 <audio
                     ref={audioRef}
                     src={track.preview_url}
                     onTimeUpdate={handleTimeUpdate}
+                    onLoadedMetadata={handleAudioLoaded} // Load track metadata to get duration
                     onEnded={handleAudioEnd}
                 />
             )}
@@ -99,6 +154,13 @@ function MusicPlayerPage() {
                     value={progress}
                     onChange={handleSeek}
                 />
+                <div className={styles.timeInfo}>
+                    <span>{formatTime(currentTime)}</span>|<span>{formatTime(duration)}</span>
+                </div>
+            </div>
+
+            <div className={styles.fullDuration}>
+                Full duration: {formatTime(track?.duration / 1000)}
             </div>
 
             <div className={styles.volumeControl}>
@@ -116,13 +178,13 @@ function MusicPlayerPage() {
 
             <div className={styles.controls}>
                 <button className={styles.controlButton} onClick={skipToStart}>
-                    ⏮️
+                    <FontAwesomeIcon icon={faStepBackward} />
                 </button>
                 <button className={styles.controlButton} onClick={togglePlay}>
-                    {isPlaying ? "⏸️" : "▶️"}
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                 </button>
                 <button className={styles.controlButton} onClick={skipToEnd}>
-                    ⏭️
+                    <FontAwesomeIcon icon={faStepForward} />
                 </button>
             </div>
         </section>

@@ -7,6 +7,7 @@ const {
 	updateUser,
 	loginUser,
 	deleteUser,
+    fetchUserData,
 } = require("../controllers/userController");
 
 // Post register /user/register
@@ -15,10 +16,13 @@ router.post("/register", registerUser);
 // POST login /user/login
 router.post("/login", loginUser);
 
-// PATCH update by ID /user/update/
+// GET /user/data
+router.get("/data", authenticate, fetchUserData);
+
+// PATCH update /user/update
 router.patch("/update", authenticate, updateUser);
 
-// DELETE by Id /user/delete
+// DELETE /user/delete
 router.delete("/delete", authenticate, deleteUser);
 
 module.exports = router;

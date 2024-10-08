@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faInstagram, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 
 function Footer({ theme }) {
     return (
@@ -27,9 +27,9 @@ function Footer({ theme }) {
                         </div>
                     </li>
                     <div className={styles.social}>
-                        <li><a href="#"><FontAwesomeIcon icon={faFacebook} size="lg" /></a></li>
-                        <li><a href="#"><FontAwesomeIcon icon={faInstagram} size='lg' /></a></li>
-                        <li><a href="#"><FontAwesomeIcon icon={faTwitter} size='lg' /></a></li>
+                        <li><a href="https://www.facebook.com"><FontAwesomeIcon icon={faFacebook} size="lg" /></a></li>
+                        <li><a href="https://www.Instagram.com"><FontAwesomeIcon icon={faInstagram} size='lg' /></a></li>
+                        <li><a href="https://x.com"><FontAwesomeIcon icon={faXTwitter} size='lg' /></a></li>
                     </div>
                 </ul>
             </nav>
