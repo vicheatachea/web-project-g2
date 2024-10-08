@@ -1,129 +1,325 @@
-import React, {useState} from 'react'
-import accountPicture from "../../images/the-rock.jpg";
+import React, { useEffect, useState } from "react";
 import styles from "./AccountPage.module.css";
+import profilePicture from "../../images/the-rock.jpg";
+import { useBackend } from "../../hooks/useBackend";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useField } from "../../hooks/useField";
 
-function AccountPage({theme}) {
-    const [fullName, setFullName] = useState('John Doe');
-    const [email, setEmail] = useState('johndoe@example.com');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+const AccountPage = ({ theme, setIsAuthenticated }) => {
+	const usernameField = useField("text");
+	const emailField = useField("email");
+	const newPasswordField = useField("password");
+	const confirmPasswordField = useField("password");
 
-    /*  the code for handling change and upload
-    const [image, setImage] = useState(null);
-     const [preview, setPreview] = useState(null);
+	const [initialUsername, setInitialUsername] = useState("");
+	const [initialEmail, setInitialEmail] = useState("");
+	const [modifiedUsername, setModifiedUsername] = useState(false);
+	const [modifiedEmail, setModifiedEmail] = useState(false);
+	const [modifiedNewPassword, setModifiedNewPassword] = useState(false);
+	const [modifiedConfirmPassword, setModifiedConfirmPassword] =
+		useState(false);
 
-      // Handle image selection
-      const handleImageChange = (e) => {
-          const file = e.target.files[0];
-          setImage(file);
-          setPreview(URL.createObjectURL(file)); // Show image preview
-      };
+	const navigate = useNavigate();
+	const { sendRequest } = useBackend();
 
-      // Handle image upload
-      const handleImageUpload = async () => {
-          const formData = new FormData();
-          formData.append('profileImage', image);
+	const token = Cookies.get("jwt");
+	const user = JSON.parse(atob(token.split(".")[1]));
+	const userId = user.userId;
 
-          try {
-              const response = await axios.post('/api/upload-profile-image', formData, {
-                  headers: {
-                      'Content-Type': 'multipart/form-data',
-                  },
-              });
-              // Handle success response, for example, update the profile picture
-              console.log('Image uploaded:', response.data.imageUrl);
-          } catch (error) {
-              console.error('Error uploading image:', error);
-          }
-      }; */
+	useEffect(() => {
+		const getUserData = async () => {
+			try {
+				const response = await sendRequest(`/api/user/data`, "GET");
+				setInitialUsername(response.data.username);
+				setInitialEmail(response.data.email);
+				usernameField.setValue(response.data.username);
+				emailField.setValue(response.data.email);
+				resetFields();
+				resetModified();
+			} catch (error) {
+				toast.error("Error fetching user data");
+				console.error("Error fetching user data:", error);
+			}
+		};
+		getUserData();
+	}, [userId]);
 
+	const resetModified = () => {
+		if (modifiedUsername) {
+			setModifiedUsername(false);
+		}
+		if (modifiedEmail) {
+			setModifiedEmail(false);
+		}
+		if (modifiedNewPassword) {
+			setModifiedNewPassword(false);
+		}
+		if (modifiedConfirmPassword) {
+			setModifiedConfirmPassword(false);
+		}
+	};
 
-    const handleSaveChanges = () => {
-        // Handle saving changes (mock for now)
-        console.log('Changes saved');
-    };
+	const resetFields = () => {
+		if (modifiedUsername) {
+			usernameField.setValue(initialUsername);
+		}
+		if (modifiedEmail) {
+			emailField.setValue(initialEmail);
+		}
+		if (modifiedNewPassword) {
+			newPasswordField.reset();
+		}
+		if (modifiedConfirmPassword) {
+			confirmPasswordField.reset();
+		}
+	};
 
+	const handleSaveChanges = async () => {
+		const updatedData = { userId: userId };
+		if (!window.confirm("Are you sure you want to save changes?")) {
+			return;
+		}
 
-    const handleCancel = () => {
-        // Handle cancel (mock for now)
-        console.log('Changes canceled');
-    };
+		if (modifiedNewPassword && modifiedConfirmPassword) {
+			if (newPasswordField.value !== confirmPasswordField.value) {
+				toast.error("Passwords do not match");
+				resetFields();
+				resetModified();
+				return;
+			}
 
+			if (newPasswordField.value.includes(" ")) {
+				toast.error("Password cannot contain spaces");
+				resetFields();
+				resetModified();
+				return;
+			}
 
-    const handleDeleteAccount = () => {
-        // Handle delete account (mock for now)
-        console.log('Account deleted');
-    };
+			updatedData.password = newPasswordField.value.trim();
+		}
+		if (modifiedEmail) {
+			if (emailField.value === "") {
+				toast.error("Email cannot be empty");
+				resetFields();
+				resetModified();
+				return;
+			}
 
-    const accountProfile = accountPicture
+			if (emailField.value.includes(" ")) {
+				toast.error("Email cannot contain spaces");
+				resetFields();
+				resetModified();
+				return;
+			}
 
+			if (emailField.value === initialEmail) {
+				toast.error("Email must be different from current email!");
+				resetFields();
+				resetModified();
+				return;
+			}
 
-    return (
-        <section className={`${styles.accountPage} account-page ${theme}`}>
-            <h1>My Account</h1>
+			updatedData.email = emailField.value.trim();
+		}
 
+		if (modifiedUsername) {
+			if (usernameField.value === "") {
+				toast.error("Username cannot be empty");
+				resetFields();
+				resetModified();
+				return;
+			}
 
-            {/* Account Picture Section */}
-            <div className={styles.pictureSection}>
-                <h2>Account Picture</h2>
-                <img className={styles.accountPicture} src={accountProfile} alt="Account"/>
+			if (usernameField.value.includes(" ")) {
+				toast.error("Username cannot contain spaces");
+				resetFields();
+				resetModified();
+				return;
+			}
 
-            </div>
-            {/*  the real return call for changing account profile
-          <div className={styles.pictureSection}>
-            <h2>Account Picture</h2>
-            <img className={styles.accountPicture} src={preview || '/images/default.jpg'} alt="Account" />
-            <input type="file" accept="image/*" onChange={handleImageChange} />
-            <button className={styles.pictureButton} onClick={handleImageUpload}>Change Picture</button>
-            </div> */}
+			if (usernameField.value === initialUsername) {
+				toast.error(
+					"Username must be different from current username!"
+				);
+				resetFields();
+				resetModified();
+				return;
+			}
 
+			updatedData.username = usernameField.value.trim();
+		}
+		if (Object.keys(updatedData).length > 1) {
+			try {
+				const response = await sendRequest(
+					"/api/user/update",
+					"PATCH",
+					updatedData
+				);
+				if (response.statusText === "OK") {
+					setInitialUsername(response.data.username);
+					setInitialEmail(response.data.email);
+					resetModified();
+					toast.success("Changes saved successfully");
+				} else {
+					toast.error(response.message || "Failed to save changes");
+					resetFields();
+					resetModified();
+				}
+			} catch (error) {
+				toast.error(error.message || "Failed to save changes");
+				resetFields();
+				resetModified();
+			}
+		} else {
+			toast.info("No changes detected");
+			resetFields();
+			resetModified();
+		}
+	};
 
-            {/* Basic Information Section */}
-            <div className={styles.infoSection}>
-                <h2>Basic Information</h2>
-                <label>Name:</label>
-                <input className={styles.text} value={fullName} onChange={(e) => setFullName(e.target.value)}/>
+	const handleCancel = () => {
+		if (
+			window.confirm(
+				"Are you sure you want to cancel? Any unsaved changes will be lost."
+			)
+		) {
+			resetFields();
+			resetModified();
+		}
+	};
 
-                <label>Email:</label>
-                <input className={styles.email} value={email} onChange={(e) => setEmail(e.target.value)}/>
+	const handleDeleteAccount = async () => {
+		if (
+			window.confirm(
+				"Are you sure you want to delete your account? This action cannot be undone."
+			)
+		) {
+			try {
+				const response = await sendRequest(
+					`/api/user/delete/`,
+					"DELETE"
+				);
+				console.log(response);
 
-                <label>Phone Number:</label>
-                <input className={styles.text} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
-            </div>
+				if (response.statusText === "No Content") {
+					Cookies.remove("jwt");
+					setIsAuthenticated(false);
+					navigate("/", {
+						state: { message: "Account deleted successfully" },
+					});
+				}
+			} catch (error) {
+				console.error("Error deleting account:", error);
+				toast.error("Failed to delete account");
+			}
+		}
+	};
 
+	return (
+		<div className={`${styles.accountPage} account-page ${theme}`}>
+			<h1>My Account</h1>
+			<div className={styles.pictureSection}>
+				<h2>Profile Picture</h2>
+				<img
+					src={profilePicture}
+					alt='Profile'
+					className={styles.profilePicture}
+				/>
+			</div>
+			<div className={styles.infoSection}>
+				<form onSubmit={handleSaveChanges}>
+					<h2>Basic Information</h2>
+					<label>Username:</label>
+					<input
+						type={usernameField.type}
+						className={styles.text}
+						value={usernameField.value}
+						onChange={usernameField.onChange}
+						onBlur={() => {
+							if (
+								usernameField.value !== "" &&
+								usernameField.value !== initialUsername
+							) {
+								setModifiedUsername(true);
+							} else {
+								setModifiedUsername(false);
+							}
+						}}
+					/>
+					<label>Email:</label>
+					<input
+						type={emailField.type}
+						className={styles.email}
+						value={emailField.value}
+						onChange={emailField.onChange}
+						onBlur={() => {
+							if (
+								emailField.value !== "" &&
+								emailField.value !== initialEmail
+							) {
+								setModifiedEmail(true);
+							} else {
+								setModifiedEmail(false);
+							}
+						}}
+					/>
+					<div className={styles.passwordSection}>
+						<h2>Password Management</h2>
+						<label>New Password:</label>
+						<input
+							type={newPasswordField.type}
+							className={styles.password}
+							value={newPasswordField.value}
+							onChange={newPasswordField.onChange}
+							onBlur={() => {
+								if (newPasswordField.value !== "") {
+									setModifiedNewPassword(true);
+								} else {
+									setModifiedNewPassword(false);
+								}
+							}}
+						/>
+						<label>Confirm Password:</label>
+						<input
+							type={confirmPasswordField.type}
+							className={styles.password}
+							value={confirmPasswordField.value}
+							onChange={confirmPasswordField.onChange}
+							onBlur={() => {
+								if (confirmPasswordField.value !== "") {
+									setModifiedConfirmPassword(true);
+								} else {
+									setModifiedConfirmPassword(false);
+								}
+							}}
+						/>
+					</div>
+				</form>
+			</div>
+			<div className={styles.saveCancelSection}>
+				<button
+					className={styles.saveButton}
+					onClick={handleSaveChanges}
+				>
+					Save Changes
+				</button>
+				<button className={styles.cancelButton} onClick={handleCancel}>
+					Cancel
+				</button>
+			</div>
+			<div className={styles.deleteSection}>
+				<button
+					className={styles.deleteAccount}
+					onClick={handleDeleteAccount}
+				>
+					Delete Account
+				</button>
+			</div>
+		</div>
+	);
+};
 
-            {/* Password Management Section */}
-            <div className={styles.passwordSection}>
-                <h2>Password Management</h2>
-                <label>Current Password:</label>
-                <input className={styles.password} value={currentPassword}
-                       onChange={(e) => setCurrentPassword(e.target.value)}/>
-
-                <label>New Password:</label>
-                <input className={styles.password} value={newPassword}
-                       onChange={(e) => setNewPassword(e.target.value)}/>
-
-                <label>Confirm Password:</label>
-                <input className={styles.password} value={confirmPassword}
-                       onChange={(e) => setConfirmPassword(e.target.value)}/>
-            </div>
-
-
-            {/* Save/Cancel Buttons */}
-            <div className={styles.saveCancelSection}>
-                <button className={styles.saveButton} onClick={handleSaveChanges}>Save Changes</button>
-                <button className={styles.cancelButton} onClick={handleCancel}>Cancel</button>
-            </div>
-
-
-            {/* Delete Account Section */}
-            <div className={styles.deleteSection}>
-                <button className={styles.deleteAccount} onClick={handleDeleteAccount}>Delete Account</button>
-            </div>
-        </section>
-    );
-}
-
-export default AccountPage
+export default AccountPage;

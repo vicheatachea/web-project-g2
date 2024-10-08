@@ -1,123 +1,135 @@
 .accountPage {
-    max-width: 1000px; /* Increase the width */
-    margin: 0 auto;
     padding: 20px;
-    background-color: var(--bg-color);
-    color: var(--contrast-primary-color);
-    font-family: 'Arial', sans-serif;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the contents */
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--base-primary-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
-.pictureSection, .infoSection, .passwordSection, .saveCancelSection, .deleteSection {
-    margin-bottom: 30px;
-    width: 100%; /* Make sure sections take up full width */
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align the content within sections */
-}
-
-
-.pictureSection, .infoSection, .passwordSection, .saveCancelSection, .deleteSection:h2 {
-    margin-bottom: 15px;
-    color: var(--base-primary-color);
-    font-size: 1.5rem;
+.pictureSection {
     text-align: center;
+    margin-bottom: 20px;
 }
 
-
-.accountPicture {
+.pictureSection img {
+    border-radius: 50%;
     width: 150px;
     height: 150px;
-    border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 15px;
-    padding-right: 0; /* Removed right padding to keep it centered */
 }
 
+.infoSection {
+    margin-bottom: 20px;
+}
 
-/* Input Fields Styling */
-.text, .email, .password {
-    width: 80%; /* Reduce width to fit better inside the centered layout */
+.infoSection h2 {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    color: var(--contrast-primary-color);
+}
+
+.infoSection label {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--contrast-primary-color);
+}
+
+.infoSection input {
+    width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: var(--input-bg);
-    color: var(--input-text);
-    text-align: center; /* Center the input content */
+    margin-bottom: 10px;
+    border: 1px solid var(--contrast-secondary-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: var(--base-secondary-color);
+    color: var(--contrast-primary-color);
 }
 
+.passwordSection {
+    margin-bottom: 20px;
+}
 
-/* Buttons Styling */
-.pictureButton, .saveButton, .cancelButton {
+.passwordSection h2 {
+    margin-bottom: 10px;
+    color: var(--contrast-primary-color);
+}
+
+.saveCancelSection {
+    display: flex;
+    justify-content: space-between;
+}
+
+.saveButton,
+.cancelButton,
+.deleteAccount {
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 4px;
     cursor: pointer;
-    background-color: var(--base-primary-color);
-    color: #333;
+    font-size: 16px;
     transition: background-color 0.3s ease;
-    margin-right: 10px;
-    width: 40%; /* Make the button more centered and responsive */
 }
 
-
-button:hover {
-    background-color: var(--primary-hover);
+.saveButton {
+    background-color: #4caf50;
+    color: white;
 }
 
+.saveButton:hover {
+    background-color: #00ff0d;
+    transition: scale 2s ease;
+}
+
+.cancelButton {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancelButton:hover {
+    background-color: hsl(1, 100%, 23%);
+    transition: scale 2s ease;
+}
+
+.deleteSection {
+    text-align: center;
+    margin-top: 20px;
+}
 
 .deleteAccount {
-    background-color: var(--danger-color);
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }
-
 
 .deleteAccount:hover {
-    background-color: var(--danger-hover);
+    background-color: #6b0200;
+    transition: scale 2s ease;
+    
 }
 
-
-/* Responsive Design */
-@media (max-width: 600px) {
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .accountPage {
         padding: 10px;
     }
 
-
-    .accountPicture {
-        width: 120px;
-        height: 120px;
+    .saveCancelSection {
+        flex-direction: column;
+        gap: 10px;
     }
 
-
-    .pictureButton, .saveButton, .cancelButton {
+    .saveButton,
+    .cancelButton,
+    .deleteAccount {
         width: 100%;
-        margin-bottom: 10px;
+        padding: 15px;
     }
-
-
-    .text, .email, .password {
-        width: 100%; /* Full width on smaller screens */
-    }
-}
-
-/* Light theme (default) */
-:root {
-    --bg-color: #f4f4f4;
-    --contrast-primary-color: #333;
-    --base-primary-color: #8e8e8e;
-    --contrast-primary-color: #6b6767;
-    --primary-hover: #555;
-    --danger-color: #dc3545;
-    --danger-hover: #c82333;
-    --border-color: #ccc;
-    --input-bg: #fff;
-    --input-text: #333;
 }
