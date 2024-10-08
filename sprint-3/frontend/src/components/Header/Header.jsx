@@ -8,8 +8,8 @@ import {
 	faSun,
 	faMoon,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
 function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -50,7 +50,8 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 	const handleLogout = () => {
 		Cookies.remove("jwt");
 		setIsAuthenticated(false);
-		navigate("/", { state: { message: "Logout successful!" } });
+		navigate("/");
+		toast.success("Logout successful!");
 	};
 
 	return (
