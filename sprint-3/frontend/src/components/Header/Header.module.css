@@ -93,3 +93,31 @@
     z-index: 10;
     border-radius: 10px;
 }
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.logoText {
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--secondary-color);
+    margin-left: -75px;
+    margin-right: 3rem;
+}
+
+.logo img {
+    max-height: 100px;
+    width: auto;
+}

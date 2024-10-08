@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faUser, faSun, faMoon} from '@fortawesome/free-solid-svg-icons';
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
+import logo from '../images/logo.png';
 
 function Header({theme, toggleTheme}) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -22,7 +23,10 @@ function Header({theme, toggleTheme}) {
 
     return (
         <header className={`${styles.header} ${theme}`}>
-            <Link to='/' className={styles.logo}>SickBeat</Link>
+            <Link to='/' className={styles.logoContainer}>
+                <img src={logo} alt='Logo' className={styles.logo}/>
+                <span className={styles.logoText}>SickBeat</span>
+            </Link>
             <div className={styles.searchbar}>
                 <input
                     type='text'
