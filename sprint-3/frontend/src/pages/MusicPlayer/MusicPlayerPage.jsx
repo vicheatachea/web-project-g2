@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStepBackward, faPlay, faPause, faStepForward } from '@fortawesome/free-solid-svg-icons';
 import styles from "./MusicPlayerPage.module.css";
 import { useSpotifyGet } from '../../hooks/useSpotifyGet';
+import { toast } from 'react-toastify';
 
 function MusicPlayerPage() {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -38,12 +39,12 @@ function MusicPlayerPage() {
 
     useEffect(() => {
         if (error) {
-            alert("Error loading track data");
+            toast.error("Error loading track data");
             navigate(-1);
         } else if (data) {
             setTrack(data);
             if (data.preview_url === "none") {
-                alert("This track can't be previewed");
+                toast.error("This track can't be previewed");
                 navigate(-1);
             }
         }
