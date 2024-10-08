@@ -10,7 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import logo from '../../images/logo.png';
+import logo from "../../images/logo.png";
 
 function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 	const [searchQuery, setSearchQuery] = useState("");
@@ -58,11 +58,9 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 	return (
 		<header className={`${styles.header} ${theme}`}>
 			<Link to='/' className={styles.logoContainer}>
-                <img src={logo} alt='Logo' className={styles.logo}/>
-                <span className={styles.logoText}>
-				SickBeat
-			</span>
-            </Link>
+				<img src={logo} alt='Logo' className={styles.logo} />
+				<span className={styles.logoText}>SickBeat</span>
+			</Link>
 			<div className={styles.searchbar}>
 				<input
 					type='text'
@@ -97,14 +95,6 @@ function Header({ theme, toggleTheme, isAuthenticated, setIsAuthenticated }) {
 										onClick={toggleDropdown}
 									>
 										Account
-									</Link>
-
-									<Link
-										to='/playlist'
-										className={styles.dropdownItem}
-										onClick={toggleDropdown}
-									>
-										Playlists
 									</Link>
 
 									<Link
