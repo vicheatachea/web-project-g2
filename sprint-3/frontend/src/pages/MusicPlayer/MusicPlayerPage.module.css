@@ -210,3 +210,10 @@
 .controlButton:active {
     transform: scale(1);
 }
+.timeInfo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #8a8484;
+    margin-top: 5px;
+}
