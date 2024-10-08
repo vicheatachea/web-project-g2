@@ -19,9 +19,9 @@ import NotFoundPage from "./pages/NotFound/NotFoundPage.jsx";
 import PlaylistPage from "./pages/Playlist/PlaylistPage.jsx";
 
 function App() {
-    const [theme, setTheme] = useState(() => {
-        return localStorage.getItem("theme") || "light";
-    });
+	const [theme, setTheme] = useState(() => {
+		return localStorage.getItem("theme") || "light";
+	});
 
 	const [isAuthenticated, setIsAuthenticated] = useState(() => {
 		const token = Cookies.get("jwt");
@@ -37,22 +37,19 @@ function App() {
 		return false;
 	});
 
-    //For debugging purposes
-	//console.log(isAuthenticated);
+	useEffect(() => {
+		document.body.className = theme;
+		localStorage.setItem("theme", theme);
+	}, [theme]);
 
-    useEffect(() => {
-        document.body.className = theme;
-        localStorage.setItem("theme", theme);
-    }, [theme]);
-
-    const toggleTheme = () => {
-        const newTheme = theme === "light" ? "dark" : "light";
-        setTheme(newTheme);
-        document.body.className = newTheme; // Apply the theme to the body
+	const toggleTheme = () => {
+		const newTheme = theme === "light" ? "dark" : "light";
+		setTheme(newTheme);
+		document.body.className = newTheme; // Apply the theme to the body
 
 		const event = new Event("classChange");
 		document.body.dispatchEvent(event);
-    };
+	};
 
 	return (
 		<>
