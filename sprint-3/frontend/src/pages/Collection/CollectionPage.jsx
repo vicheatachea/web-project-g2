@@ -33,7 +33,7 @@ const CollectionPage = ({ isAuthenticated }) => {
 						`/api/collections/${id}`,
 						"GET"
 					);
-					if (response._id) {
+					if (response.data) {
 						setIsSaved(true);
 					}
 				} catch (error) {
