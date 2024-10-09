@@ -161,6 +161,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				if (response.statusText === "OK") {
 					setInitialUsername(response.data.username);
 					setInitialEmail(response.data.email);
+					resetFields();
 					resetModified();
 					toast.success("Changes saved successfully");
 				} else {
@@ -185,7 +186,8 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 			window.confirm(
 				"Are you sure you want to cancel? Any unsaved changes will be lost."
 			)
-		) {
+        ) {
+            toast.info("Changes cancelled");
 			resetFields();
 			resetModified();
 		}
