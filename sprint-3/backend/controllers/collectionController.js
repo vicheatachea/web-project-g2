@@ -18,7 +18,7 @@ const getCollectionById = async (req, res) => {
     const userId = req.user.userId;
 
     try {
-        const collection = await Collection.findOne({ id, userIds: userId });
+        const collection = await Collection.findOne({ id, userIds: userId }, '-userIds');
         if (!collection) {
             return res.status(404).json({ message: "Collection not found" });
         }

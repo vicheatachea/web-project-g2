@@ -161,7 +161,7 @@ const AccountPage = ({ theme, setIsAuthenticated }) => {
 				if (response.statusText === "OK") {
 					setInitialUsername(response.data.username);
 					setInitialEmail(response.data.email);
-					resetFields();
+					// resetFields();
 					resetModified();
 					toast.success("Changes saved successfully");
 				} else {
