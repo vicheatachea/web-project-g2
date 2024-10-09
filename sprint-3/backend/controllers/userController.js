@@ -33,7 +33,7 @@ const fetchUserData = async (req, res) => {
 
 const registerUser = async (req, res, next) => {
 	const { username, email, password } = req.body;
-    const data = { username, email, password };
+    const data = { username, email, password, collections: [] };
     
 	try {
 		const newUser = await User.signup(data);

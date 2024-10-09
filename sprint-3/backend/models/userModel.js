@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema(
 			enum: ["admin", "user"],
 			default: "user",
 		},
-		playlists: {
+		collections: {
 			type: [Collection.schema],
 			default: [],
 		},
@@ -72,7 +72,7 @@ const validateUser = async function (data) {
 };
 
 userSchema.statics.signup = async function (data) {
-	const { username, email, password } = { ...data };
+	const { username, email, password, collection } = { ...data };
 
 	if (!username || !email || !password) {
 		throw new ValidationError("All fields are required!");
@@ -92,6 +92,7 @@ userSchema.statics.signup = async function (data) {
 		username,
 		email,
 		password: hashedPassword,
+		collection,
 	});
 
 	return user;
