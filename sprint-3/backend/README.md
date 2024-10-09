@@ -7,9 +7,10 @@ In the same path as this file ([project-backend](.)), create a `.env` file and a
 ```env
 PORT=your-port-number
 MONGO_URI=your-mongodb-uri
+JWT_SECRET=your-jwt-secret
 ```
 
-Replace `your-port-number` with the port number you want the server to run on and `your-mongodb-uri` with the URI of your MongoDB database.
+Replace `your-port-number` with the port number you want the server to run on, `your-mongodb-uri` with the URI of your MongoDB database and `your-jwt-secret` with a secret key for JWT.
 
 ## Spotify Setup
 
