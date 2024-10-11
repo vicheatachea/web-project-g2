@@ -7,13 +7,13 @@ const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/userRouter");
 const spotifyRouter = require("./routes/spotifyRouter");
 const collectionRouter = require("./routes/collectionRouter");
-
+const swaggerDocs = require('./swagger');
 
 connectDB();
-require ("dotenv").config();
+require("dotenv").config();
 
 app.use(cors())
-    .use(morgan("dev"));
+	.use(morgan("dev"));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -27,6 +27,9 @@ app.use("/api/spotify", spotifyRouter);
 
 // Connects to Collection API
 app.use("/api/collections", collectionRouter);
+
+// Swagger documentation at /api-docs
+swaggerDocs(app);
 
 const port = process.env.PORT || 4000;
 
