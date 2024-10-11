@@ -1,6 +1,7 @@
 const connectDB = require("../config/db");
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -11,6 +12,7 @@ require("dotenv").config();
 
 app.use(cors()).use(morgan("dev"));
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
