@@ -10,7 +10,9 @@ const clientSecret = process.env.CLIENT_SECRET;
 const redirectUri = "http://localhost:4000/api/spotify/callback";
 const stateKey = "spotify_auth_state";
 
-// Token storage since there is only one user
+// The token is stored as an object in memory since there is only one Spotify user
+// There can only be one Spotify user, since the CLIENT_ID and CLIENT_SECRET are fixed
+// If the limitations of the Spotify credentials are overcome, this should be replaced by a better solution
 let tokenStorage = {
     accessToken: null,
     refreshToken: null,
