@@ -6,6 +6,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const userRouter = require("../routes/userRouter");
+const collectionRouter = require("../routes/collectionRouter");
 
 connectDB();
 require("dotenv").config();
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", userRouter);
+
+app.use("/api/collections", collectionRouter)
 
 console.log("connecting to", process.env.MONGO_URI);
 mongoose
